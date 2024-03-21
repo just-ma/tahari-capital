@@ -23,7 +23,7 @@ const Body = styled.div`
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename="/tahari-captial">
+      <BrowserRouter basename="/tahari-capital">
         <AppPage>
           <NavBar />
           <Body>

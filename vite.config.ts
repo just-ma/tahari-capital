@@ -5,6 +5,6 @@ import svgr from "vite-plugin-svgr";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), svgr()],
-  base: "/tahari-captial/",
+  base: "/tahari-capital/",
   assetsInclude: ["**/*.m4v"],
 });
