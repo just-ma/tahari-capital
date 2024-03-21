@@ -99,7 +99,7 @@ Error generating stack: `+l.message+`
   width: fit-content;
   font-size: 14px;
   user-select: none;
-`,M0=[{label:"Portfolio"},{label:"History"},{label:"Contact"},{label:"Login"}];function D0(){return ee.jsxs(L0,{children:[ee.jsx(F0,{children:ee.jsx(Uc,{children:"Tahari Capital"})}),M0.map(({label:e})=>ee.jsx($0,{children:ee.jsx(Uc,{children:e})},e))]})}const j0="/tahari-captial/assets/tahari-eVHfTNir.m4v",A0=Ot.video`
+`,M0=[{label:"Portfolio"},{label:"History"},{label:"Contact"},{label:"Login"}];function D0(){return ee.jsxs(L0,{children:[ee.jsx(F0,{children:ee.jsx(Uc,{children:"Tahari Capital"})}),M0.map(({label:e})=>ee.jsx($0,{children:ee.jsx(Uc,{children:e})},e))]})}const j0="/tahari-capital/assets/tahari-eVHfTNir.m4v",A0=Ot.video`
   height: 100vh;
   width: 100vw;
   object-fit: cover;
@@ -117,4 +117,4 @@ Error generating stack: `+l.message+`
   flex-grow: 1;
   overflow-x: hidden;
   overflow-y: auto;
-`;function W0(){return ee.jsx(Rv,{client:Q0,children:ee.jsx(ov,{basename:"/tahari-captial",children:ee.jsxs(V0,{children:[ee.jsx(D0,{}),ee.jsx(H0,{children:ee.jsx(rv,{children:ee.jsx(vp,{path:"/",element:ee.jsx(B0,{})})})})]})})})}Xo.createRoot(document.getElementById("root")).render(ee.jsx(Pn.StrictMode,{children:ee.jsx(W0,{})}));
+`;function W0(){return ee.jsx(Rv,{client:Q0,children:ee.jsx(ov,{basename:"/tahari-capital",children:ee.jsxs(V0,{children:[ee.jsx(D0,{}),ee.jsx(H0,{children:ee.jsx(rv,{children:ee.jsx(vp,{path:"/",element:ee.jsx(B0,{})})})})]})})})}Xo.createRoot(document.getElementById("root")).render(ee.jsx(Pn.StrictMode,{children:ee.jsx(W0,{})}));
