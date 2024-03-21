@@ -1,0 +1,57 @@
+:root {
+  font-family: "AeonikPro", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.87);
+  background-color: black;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
+
+@font-face {
+  font-family: "AeonikPro";
+  src: url(./assets/fonts/AeonikProTRIAL-Regular.otf) format("otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "AeonikPro";
+  src: url(./assets/fonts/AeonikProTRIAL-Bold.otf) format("otf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "AeonikPro";
+  src: url(./assets/fonts/AeonikProTRIAL-Light.otf) format("otf");
+  font-weight: lighter;
+}
+
+@font-face {
+  font-family: "AeonikPro";
+  src: url(./assets/fonts/AeonikProTRIAL-RegularItalic.otf) format("otf");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "AeonikPro";
+  src: url(./assets/fonts/AeonikProTRIAL-BoldItalic.otf) format("otf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "AeonikPro";
+  src: url(./assets/fonts/AeonikProTRIAL-LightItalic.otf) format("otf");
+  font-weight: lighter;
+  font-style: italic;
+}
+
