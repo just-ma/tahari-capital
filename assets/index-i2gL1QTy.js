@@ -285,7 +285,9 @@ Error generating stack: `+o.message+`
   object-fit: cover;
   display: block;
   opacity: ${({opacity:e})=>e};
-`;function qg(){const e=Or(),{scrollTop:t}=Mi();return R.useEffect(()=>{e.hash==="#portfolio"?window.scrollTo({top:window.innerHeight*(1+(_i-1)/2),behavior:"smooth"}):e.hash==="#contact"&&window.scrollTo({top:window.innerHeight*(1+_i),behavior:"smooth"})},[e]),P.jsxs(P.Fragment,{children:[P.jsx(Yg,{src:_g,autoPlay:!0,loop:!0,opacity:Math.max((window.innerHeight-t)/window.innerHeight,0)}),P.jsx(Sh,{}),P.jsx(Gg,{})]})}const Xg=new vy,Zg="/tahari-capital/assets/fashion-background-DRL9d5_7.jpg",Jg="/tahari-capital/assets/fashion-gallery-1-BNp4F_XS.jpg",bg="/tahari-capital/assets/fashion-gallery-2-DU6CqhgX.jpg",e1="/tahari-capital/assets/fashion-gallery-3-DhXI1K5M.jpg",t1="/tahari-capital/assets/fashion-gallery-4-DwIrn0Di.jpg",n1="/tahari-capital/assets/fashion-gallery-5-By257_ZV.jpg",r1=I.div`
+  pointer-events: none;
+  user-select: none;
+`;function qg(){const e=Or(),{scrollTop:t}=Mi();return R.useEffect(()=>{e.hash==="#portfolio"?window.scrollTo({top:window.innerHeight*(1+(_i-1)/2),behavior:"smooth"}):e.hash==="#contact"&&window.scrollTo({top:window.innerHeight*(1+_i),behavior:"smooth"})},[e]),P.jsxs(P.Fragment,{children:[P.jsx(Yg,{src:_g,autoPlay:!0,loop:!0,muted:!0,controls:!1,opacity:Math.max((window.innerHeight-t)/window.innerHeight,0)}),P.jsx(Sh,{}),P.jsx(Gg,{})]})}const Xg=new vy,Zg="/tahari-capital/assets/fashion-background-DRL9d5_7.jpg",Jg="/tahari-capital/assets/fashion-gallery-1-BNp4F_XS.jpg",bg="/tahari-capital/assets/fashion-gallery-2-DU6CqhgX.jpg",e1="/tahari-capital/assets/fashion-gallery-3-DhXI1K5M.jpg",t1="/tahari-capital/assets/fashion-gallery-4-DwIrn0Di.jpg",n1="/tahari-capital/assets/fashion-gallery-5-By257_ZV.jpg",r1=I.div`
   position: absolute;
   left: 50%;
   top: 0;
