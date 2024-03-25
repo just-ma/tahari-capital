@@ -14,6 +14,8 @@ const VideoSection = styled.video<{ opacity: number }>`
   object-fit: cover;
   display: block;
   opacity: ${({ opacity }) => opacity};
+  pointer-events: none;
+  user-select: none;
 `;
 
 export default function HomePage() {
@@ -41,6 +43,8 @@ export default function HomePage() {
         src={LandingVideo}
         autoPlay
         loop
+        muted
+        controls={false}
         opacity={Math.max(
           (window.innerHeight - scrollTop) / window.innerHeight,
           0
