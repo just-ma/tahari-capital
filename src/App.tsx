@@ -1,38 +1,40 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
-import NavBar from "./NavBar";
-import HomePage from "./HomePage";
+import NavBar from "./components/NavBar";
+import HomePage from "./pages/home/HomePage";
 import { queryClient } from "./constants";
-import styled from "styled-components";
-
-const AppPage = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  overflow: hidden;
-`;
-
-const Body = styled.div`
-  flex-grow: 1;
-  overflow-x: hidden;
-  overflow-y: auto;
-`;
+import PortfolioPage from "./pages/portfolio/PortfolioSection";
+import { AppProvider } from "./hooks/useAppContext";
+import FashionPage from "./pages/fashion/FashionPage";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter basename="/tahari-capital">
-        <AppPage>
+        <AppProvider>
           <NavBar />
-          <Body>
-            <Routes>
-              {/* Home */}
-              <Route path="/" element={<HomePage />} />
-            </Routes>
-          </Body>
-        </AppPage>
+          <Routes>
+            {/* Home */}
+            <Route path="/" element={<HomePage />} />
+
+            {/* Portfolio */}
+            <Route path="/portfolio" element={<PortfolioPage />} />
+
+            {/* Portfolio - Fashion */}
+            <Route path="/fashion" element={<FashionPage />} />
+
+            {/* History */}
+            <Route path="/history" element={<></>} />
+
+            {/* Contact */}
+            <Route path="/contact" element={<></>} />
+
+            {/* Login */}
+            <Route path="/login" element={<></>} />
+          </Routes>
+          <Footer />
+        </AppProvider>
       </BrowserRouter>
     </QueryClientProvider>
   );
