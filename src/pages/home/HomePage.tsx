@@ -45,6 +45,7 @@ export default function HomePage() {
         loop
         muted
         controls={false}
+        playsInline
         opacity={Math.max(
           (window.innerHeight - scrollTop) / window.innerHeight,
           0
