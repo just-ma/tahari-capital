@@ -7,6 +7,7 @@ import PortfolioPage from "./pages/portfolio/PortfolioSection";
 import { AppProvider } from "./hooks/useAppContext";
 import FashionPage from "./pages/fashion/FashionPage";
 import Footer from "./components/Footer";
+import LogisticsPage from "./pages/logistics/LogisticsPage";
 
 export default function App() {
   return (
@@ -23,6 +24,9 @@ export default function App() {
 
             {/* Portfolio - Fashion */}
             <Route path="/elie-tahari" element={<FashionPage />} />
+
+            {/* Portfolio - Logistics */}
+            <Route path="/logistics" element={<LogisticsPage />} />
 
             {/* History */}
             <Route path="/history" element={<></>} />
