@@ -1,41 +1,19 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import BackgroundImageSrc from "../../assets/images/portfolio-background.jpg";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
-
-export const PORTFOLIO_SECTION_HEIGHT = 1.3;
 
 const Section = styled.div<{ opacity: number }>`
   position: relative;
   width: 100vw;
-  height: ${100 * PORTFOLIO_SECTION_HEIGHT}vh;
-  background-color: black;
+  height: 100vh;
+  background: linear-gradient(0deg, #3c3127 0%, #000 50%, #14110f 100%);
   padding: 10px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: ${({ opacity }) => opacity};
-`;
-
-const BackgroundImage = styled.img`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  object-fit: cover;
-  animation: fadeIn 2s forwards;
-  opacity: 0;
-  user-select: none;
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
 `;
 
 const MainContainer = styled.div`
@@ -65,6 +43,7 @@ const Title = styled.div`
   text-transform: uppercase;
   color: white;
   user-select: none;
+  font-weight: lighter;
 `;
 
 const Divider = styled.div`
@@ -75,7 +54,7 @@ const MenuContainer = styled.div`
   align-self: flex-end;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   margin-top: 15px;
 `;
 
@@ -83,37 +62,48 @@ const MenuItem = styled(Link)<{ show: boolean; delay: number }>`
   font-size: 3vw;
   line-height: 3vw;
   text-decoration: none;
-  color: white;
+  color: #988d86;
   text-transform: uppercase;
   user-select: none;
   margin-bottom: ${({ show }) => (show ? 0 : "4vw")};
   transition: 0.6s margin-bottom ${({ delay }) => delay}s
-    cubic-bezier(0.4, 0, 0, 1);
+      cubic-bezier(0.4, 0, 0, 1),
+    0.5s padding cubic-bezier(0.4, 0, 0, 1), 0.5s color;
   display: block;
-  padding: 4px 8px;
+  padding: 0 12px 0 0;
 `;
 
-const HoverBackground = styled.div`
+const HoverCircle = styled.div`
   position: absolute;
-  z-index: -1;
-  width: 0;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: black;
-  transition: 0.5s width cubic-bezier(0.4, 0, 0, 1);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  top: 50%;
+  left: 12px;
+  transform: translate(0, -50%);
+  background-color: white;
+  opacity: 0;
+  transition: 0.5s left cubic-bezier(0.4, 0, 0, 1), 0.3s opacity;
+  pointer-events: none;
 `;
 
-const ItemOverflowContainer = styled.div`
+const ItemRelativeContainer = styled.div`
   position: relative;
   overflow: hidden;
-  height: calc(3vw + 8px);
+  height: calc(3vw);
   display: flex;
   align-items: flex-end;
   width: fit-content;
+  padding-left: 12px;
 
-  &:hover ${HoverBackground} {
-    width: 100%;
+  &:hover ${HoverCircle} {
+    opacity: 1;
+    left: 0;
+  }
+
+  &:hover ${MenuItem} {
+    padding: 0 0 0 12px;
+    color: white;
   }
 `;
 
@@ -125,7 +115,7 @@ const PlaceholderItem = styled(MenuItem)`
 const MENU_ITEMS = [
   {
     label: "Fashion",
-    to: "/fashion",
+    to: "/elie-tahari",
   },
   {
     label: "Real Estate",
@@ -151,15 +141,11 @@ export default function PortfolioSection() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    setShow(
-      scrollTop > window.innerHeight * 0.8 &&
-        scrollTop < window.innerHeight * (0.3 + PORTFOLIO_SECTION_HEIGHT)
-    );
+    setShow(scrollTop > window.innerHeight * 0.6);
   }, [scrollTop]);
 
   return (
     <Section opacity={Math.min(scrollTop / window.innerHeight, 1)}>
-      <BackgroundImage src={BackgroundImageSrc} draggable={false} />
       <MainContainer>
         <TitleOverflowContainer>
           <TitleRow show={show}>
@@ -172,12 +158,12 @@ export default function PortfolioSection() {
         <Divider />
         <MenuContainer>
           {MENU_ITEMS.map(({ label, to }, index) => (
-            <ItemOverflowContainer key={to}>
-              <HoverBackground />
+            <ItemRelativeContainer key={to}>
+              <HoverCircle />
               <MenuItem to={to} show={show} delay={index * 0.06 + 0.2}>
                 {label}
               </MenuItem>
-            </ItemOverflowContainer>
+            </ItemRelativeContainer>
           ))}
         </MenuContainer>
       </MainContainer>

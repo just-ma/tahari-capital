@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import useAppContext from "../hooks/useAppContext";
 
 export const NAV_BAR_HEIGHT = 40;
@@ -40,38 +40,59 @@ const ItemContainer = styled.div`
   justify-content: flex-end;
 `;
 
-const StyledLink = styled(Link)`
-  color: white;
+const itemLabelCss = css`
   cursor: pointer;
   text-transform: uppercase;
   text-decoration: none;
   width: fit-content;
   font-size: 14px;
   user-select: none;
-  padding: 4px 8px;
+  padding: 0 7px 0 0;
+  transition: 0.5s padding cubic-bezier(0.4, 0, 0, 1);
 `;
 
-const HoverBackground = styled.div`
+const ItemLabel = styled.div`
+  ${itemLabelCss}
+`;
+
+const StyledLink = styled(Link)`
+  color: white;
+
+  ${itemLabelCss}
+`;
+
+const HoverCircle = styled.div`
   position: absolute;
-  z-index: -1;
-  width: 0;
-  height: 100%;
-  top: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  top: 50%;
   left: 0;
-  background-color: black;
-  transition: 0.5s width cubic-bezier(0.4, 0, 0, 1);
+  transform: translate(0, -50%);
+  background-color: white;
+  opacity: 0;
+  transition: 0.5s left cubic-bezier(0.4, 0, 0, 1), 0.3s opacity;
+  pointer-events: none;
 `;
 
 const Item = styled.div`
   position: relative;
-  overflow: hidden;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   height: fit-content;
   width: fit-content;
 
-  &:hover ${HoverBackground} {
-    width: 100%;
+  &:hover ${HoverCircle} {
+    opacity: 1;
+    left: -7px;
+  }
+
+  &:hover ${ItemLabel} {
+    padding: 0 0 0 7px;
+  }
+
+  &:hover ${StyledLink} {
+    padding: 0 0 0 7px;
   }
 `;
 
@@ -81,7 +102,12 @@ const MENU_ITEMS = [
     to: "/#portfolio",
   },
   { label: "History", to: "/history" },
-  { label: "Contact", to: "/#contact" },
+  {
+    label: "Contact",
+    onClick: () => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    },
+  },
   { label: "Login", to: "/login" },
 ];
 
@@ -107,17 +133,21 @@ export default function NavBar() {
     >
       <TitleContainer>
         <Item>
-          <HoverBackground />
+          <HoverCircle />
           <StyledLink to="/" onClick={scrollToTop}>
             Tahari Capital
           </StyledLink>
         </Item>
       </TitleContainer>
-      {MENU_ITEMS.map(({ label, to }) => (
+      {MENU_ITEMS.map(({ label, to, onClick }) => (
         <ItemContainer>
           <Item key={label}>
-            <HoverBackground />
-            <StyledLink to={to}>{label}</StyledLink>
+            <HoverCircle />
+            {to ? (
+              <StyledLink to={to}>{label}</StyledLink>
+            ) : (
+              <ItemLabel onClick={onClick}>{label}</ItemLabel>
+            )}
           </Item>
         </ItemContainer>
       ))}

@@ -22,7 +22,7 @@ export default function App() {
             <Route path="/portfolio" element={<PortfolioPage />} />
 
             {/* Portfolio - Fashion */}
-            <Route path="/fashion" element={<FashionPage />} />
+            <Route path="/elie-tahari" element={<FashionPage />} />
 
             {/* History */}
             <Route path="/history" element={<></>} />

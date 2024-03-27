@@ -1,12 +1,9 @@
 import styled from "styled-components";
 import LandingVideo from "../../assets/videos/tahari.m4v";
-import PortfolioSection, {
-  PORTFOLIO_SECTION_HEIGHT,
-} from "../portfolio/PortfolioSection";
+import PortfolioSection from "../portfolio/PortfolioSection";
 import useAppContext from "../../hooks/useAppContext";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import ContactSection from "../contact/ContactSection";
 
 const VideoSection = styled.video<{ opacity: number }>`
   height: 100vh;
@@ -26,12 +23,7 @@ export default function HomePage() {
   useEffect(() => {
     if (location.hash === "#portfolio") {
       window.scrollTo({
-        top: window.innerHeight * (1 + (PORTFOLIO_SECTION_HEIGHT - 1) / 2),
-        behavior: "smooth",
-      });
-    } else if (location.hash === "#contact") {
-      window.scrollTo({
-        top: window.innerHeight * (1 + PORTFOLIO_SECTION_HEIGHT),
+        top: window.innerHeight,
         behavior: "smooth",
       });
     }
@@ -52,7 +44,6 @@ export default function HomePage() {
         )}
       />
       <PortfolioSection />
-      <ContactSection />
     </>
   );
 }
