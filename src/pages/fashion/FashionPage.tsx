@@ -165,12 +165,12 @@ export default function FashionPage() {
             {ITEMS.map(({ primary, secondary }, index) => (
               <>
                 <ItemOverflowContainer key={index} primary>
-                  <MenuItem show={show} delay={index * 1.2} primary>
+                  <MenuItem show={show} delay={index * 0.5} primary>
                     {primary}
                   </MenuItem>
                 </ItemOverflowContainer>
                 <ItemOverflowContainer key={`${index}-2`}>
-                  <MenuItem show={show} delay={index * 1.2 + 0.1}>
+                  <MenuItem show={show} delay={index * 0.5 + 0.1}>
                     {secondary}
                   </MenuItem>
                 </ItemOverflowContainer>

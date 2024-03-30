@@ -8,6 +8,9 @@ import { AppProvider } from "./hooks/useAppContext";
 import FashionPage from "./pages/fashion/FashionPage";
 import Footer from "./components/Footer";
 import LogisticsPage from "./pages/logistics/LogisticsPage";
+import HoldingsPage from "./pages/real-estate/HoldingsPage";
+import IndustrialHoldingsPage from "./pages/real-estate/IndustrialHoldingsPage";
+import RetailHoldingsPage from "./pages/real-estate/RetailHoldingsPage";
 
 export default function App() {
   return (
@@ -24,6 +27,30 @@ export default function App() {
 
             {/* Portfolio - Fashion */}
             <Route path="/elie-tahari" element={<FashionPage />} />
+
+            {/* Portfolio - Real Estate - Holdings */}
+            <Route path="/holdings" element={<HoldingsPage />} />
+
+            {/* Portfolio - Real Estate - Holdings - Industrial */}
+            <Route
+              path="/holdings/industrial"
+              element={<IndustrialHoldingsPage />}
+            />
+
+            {/* Portfolio - Real Estate - Holdings - Retail */}
+            <Route path="/holdings/retail" element={<RetailHoldingsPage />} />
+
+            {/* Portfolio - Real Estate - Holdings - Commercial */}
+            <Route
+              path="/holdings/commercial"
+              element={<RetailHoldingsPage />}
+            />
+
+            {/* Portfolio - Real Estate - Holdings - Residential */}
+            <Route
+              path="/holdings/residential"
+              element={<RetailHoldingsPage />}
+            />
 
             {/* Portfolio - Logistics */}
             <Route path="/logistics" element={<LogisticsPage />} />

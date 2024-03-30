@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 import useAppContext from "../hooks/useAppContext";
+import TahariLogo from "../assets/graphics/tahari-logo.svg?react";
 
 export const NAV_BAR_HEIGHT = 40;
 
@@ -30,8 +31,14 @@ const Container = styled.div<{ background: boolean; delay: number }>`
   }
 `;
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.div<{ show: boolean }>`
   flex: 6 0 auto;
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: 0.5s opacity;
+`;
+
+const Logo = styled(TahariLogo)`
+  height: 16px;
 `;
 
 const ItemContainer = styled.div`
@@ -48,7 +55,8 @@ const itemLabelCss = css`
   font-size: 14px;
   user-select: none;
   padding: 0 7px 0 0;
-  transition: 0.5s padding cubic-bezier(0.4, 0, 0, 1);
+  transition: 0.5s color;
+  color: #d0cac6;
 `;
 
 const ItemLabel = styled.div`
@@ -56,23 +64,7 @@ const ItemLabel = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: white;
-
   ${itemLabelCss}
-`;
-
-const HoverCircle = styled.div`
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  top: 50%;
-  left: 0;
-  transform: translate(0, -50%);
-  background-color: white;
-  opacity: 0;
-  transition: 0.5s left cubic-bezier(0.4, 0, 0, 1), 0.3s opacity;
-  pointer-events: none;
 `;
 
 const Item = styled.div`
@@ -82,17 +74,8 @@ const Item = styled.div`
   height: fit-content;
   width: fit-content;
 
-  &:hover ${HoverCircle} {
-    opacity: 1;
-    left: -7px;
-  }
-
-  &:hover ${ItemLabel} {
-    padding: 0 0 0 7px;
-  }
-
-  &:hover ${StyledLink} {
-    padding: 0 0 0 7px;
+  &:hover ${ItemLabel}, &:hover ${StyledLink} {
+    color: white;
   }
 `;
 
@@ -131,18 +114,16 @@ export default function NavBar() {
       }
       delay={isHome ? 1 : 0}
     >
-      <TitleContainer>
+      <TitleContainer show={!isHome || scrollTop >= window.innerHeight * 0.6}>
         <Item>
-          <HoverCircle />
           <StyledLink to="/" onClick={scrollToTop}>
-            Tahari Capital
+            <Logo />
           </StyledLink>
         </Item>
       </TitleContainer>
       {MENU_ITEMS.map(({ label, to, onClick }) => (
-        <ItemContainer>
-          <Item key={label}>
-            <HoverCircle />
+        <ItemContainer key={label}>
+          <Item>
             {to ? (
               <StyledLink to={to}>{label}</StyledLink>
             ) : (
