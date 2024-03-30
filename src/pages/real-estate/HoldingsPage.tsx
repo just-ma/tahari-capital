@@ -6,13 +6,14 @@ import ResidentialImageSrc from "../../assets/images/holdings-residential.jpg";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { MEDIA_SIZE } from "../../constants";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  height: 100vh;
+  height: calc(100vh - ${NAV_BAR_HEIGHT}px);
   animation: fadeIn 2s forwards;
   opacity: 0;
 
@@ -21,11 +22,16 @@ const Container = styled.div`
       opacity: 1;
     }
   }
+
+  @media ${MEDIA_SIZE.desktop} {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 `;
 
 const NavBarPlaceholder = styled.div`
-  flex-shrink: 0;
   height: ${NAV_BAR_HEIGHT}px;
+  width: 100vw;
 `;
 
 const Image = styled.img`
@@ -58,24 +64,35 @@ const Gradient = styled.div`
 `;
 
 const Label = styled.div`
-  margin-left: 160px;
-  font-size: 6vw;
+  margin: 0 0 40px 40px;
+  font-size: 4vw;
+  line-height: 4vw;
   color: white;
   font-weight: lighter;
   opacity: 0.5;
   transition: opacity 0.6s;
+  text-transform: uppercase;
+
+  @media ${MEDIA_SIZE.mobile} {
+    font-size: 10vw;
+  }
 `;
 
-const Row = styled(Link)`
+const Section = styled(Link)`
   position: relative;
-  flex: 2 0 0;
+  flex: 1 0 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   cursor: pointer;
   text-decoration: none;
 
   &:hover ${Image}, &:hover ${Label} {
     opacity: 1;
+  }
+
+  @media ${MEDIA_SIZE.desktop} {
+    flex: 1 0 50vw;
+    height: 50%;
   }
 `;
 
@@ -85,28 +102,30 @@ export default function HoldingsPage() {
   }, []);
 
   return (
-    <Container>
+    <>
       <NavBarPlaceholder />
-      <Row to="/holdings/industrial">
-        <Image src={IndustrialImageSrc} />
-        <Gradient />
-        <Label>Industrial</Label>
-      </Row>
-      <Row to="/holdings/retail">
-        <Image src={RetailImageSrc} />
-        <Gradient />
-        <Label>Retail</Label>
-      </Row>
-      <Row to="/holdings/commercial">
-        <Image src={CommercialImageSrc} />
-        <Gradient />
-        <Label>Commercial</Label>
-      </Row>
-      <Row to="/holdings/residential">
-        <Image src={ResidentialImageSrc} />
-        <Gradient />
-        <Label>Residential</Label>
-      </Row>
-    </Container>
+      <Container>
+        <Section to="/holdings/industrial">
+          <Image src={IndustrialImageSrc} />
+          <Gradient />
+          <Label>Industrial</Label>
+        </Section>
+        <Section to="/holdings/retail">
+          <Image src={RetailImageSrc} />
+          <Gradient />
+          <Label>Retail</Label>
+        </Section>
+        <Section to="/holdings/commercial">
+          <Image src={CommercialImageSrc} />
+          <Gradient />
+          <Label>Commercial</Label>
+        </Section>
+        <Section to="/holdings/residential">
+          <Image src={ResidentialImageSrc} />
+          <Gradient />
+          <Label>Residential</Label>
+        </Section>
+      </Container>
+    </>
   );
 }

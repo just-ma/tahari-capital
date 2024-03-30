@@ -11,6 +11,8 @@ import LogisticsPage from "./pages/logistics/LogisticsPage";
 import HoldingsPage from "./pages/real-estate/HoldingsPage";
 import IndustrialHoldingsPage from "./pages/real-estate/IndustrialHoldingsPage";
 import RetailHoldingsPage from "./pages/real-estate/RetailHoldingsPage";
+import CommercialHoldingsPage from "./pages/real-estate/CommercialHoldingsPage";
+import ResidentialHoldingsPage from "./pages/real-estate/ResidentialHoldingsPage";
 
 export default function App() {
   return (
@@ -43,13 +45,13 @@ export default function App() {
             {/* Portfolio - Real Estate - Holdings - Commercial */}
             <Route
               path="/holdings/commercial"
-              element={<RetailHoldingsPage />}
+              element={<CommercialHoldingsPage />}
             />
 
             {/* Portfolio - Real Estate - Holdings - Residential */}
             <Route
               path="/holdings/residential"
-              element={<RetailHoldingsPage />}
+              element={<ResidentialHoldingsPage />}
             />
 
             {/* Portfolio - Logistics */}
