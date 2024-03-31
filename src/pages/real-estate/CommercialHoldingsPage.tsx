@@ -8,7 +8,7 @@ const HOLDINGS = [
     src: EightyEightUniverityNYSrc,
   },
   {
-    label: "515 West 47th Street",
+    label: "Zoa House, Tel Aviv",
     src: ZOAHouseTelAvivSrc,
   },
 ];

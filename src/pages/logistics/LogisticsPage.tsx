@@ -8,7 +8,7 @@ const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(0deg, #000 50%, #201811 100%);
+  background-color: black;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -16,7 +16,6 @@ const Section = styled.div<{ opacity: number; reverse?: boolean }>`
 `;
 
 const DescriptionSection = styled(Section)`
-  background: linear-gradient(0deg, #3c3127 0%, #000 50%);
   justify-content: center;
   height: 90vh;
 `;

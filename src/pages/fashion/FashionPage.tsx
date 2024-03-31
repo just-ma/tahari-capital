@@ -17,7 +17,7 @@ const Section = styled.div<{ opacity: number; reverse?: boolean }>`
 `;
 
 const DescriptionSection = styled(Section)`
-  background: linear-gradient(0deg, #3c3127 0%, #000 50%);
+  background-color: black;
   justify-content: center;
   height: 90vh;
 `;

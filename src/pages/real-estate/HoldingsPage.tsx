@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import IndustrialImageSrc from "../../assets/images/holdings-industrial.jpg";
 import CommercialImageSrc from "../../assets/images/holdings-commercial.jpg";
-import RetailImageSrc from "../../assets/images/holdings-retail.jpg";
+import RetailImageSrc from "../../assets/images/1-main-east-hampton.jpg";
 import ResidentialImageSrc from "../../assets/images/holdings-residential.jpg";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 import { Link } from "react-router-dom";

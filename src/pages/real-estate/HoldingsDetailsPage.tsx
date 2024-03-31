@@ -10,7 +10,7 @@ const Container = styled.div`
   margin: 0 auto;
   cursor: default;
   animation: fadeIn 2s forwards;
-  background: linear-gradient(0deg, #3c3127 0%, #000 50%, #14110f 100%);
+  background-color: black;
   opacity: 0;
 
   @keyframes fadeIn {

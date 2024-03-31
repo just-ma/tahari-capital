@@ -2,27 +2,47 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
+import ImageSrc from "../../assets/images/portfolio-background.jpg";
 
 const Section = styled.div<{ opacity: number }>`
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 120vh;
   background: linear-gradient(0deg, #3c3127 0%, #000 50%, #14110f 100%);
-  padding: 10px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   opacity: ${({ opacity }) => opacity};
 `;
 
+const BackgroundImage = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  object-fit: cover;
+  animation: fadeIn 2s forwards;
+  opacity: 0;
+  user-select: none;
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+`;
+
 const MainContainer = styled.div`
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, 0);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
   width: fit-content;
   z-index: 1;
+  margin-bottom: 20%;
 `;
 
 const TitleOverflowContainer = styled.div`
@@ -43,7 +63,6 @@ const Title = styled.div`
   text-transform: uppercase;
   color: white;
   user-select: none;
-  font-weight: lighter;
 `;
 
 const Divider = styled.div`
@@ -61,7 +80,7 @@ const itemCss = css<{ show: boolean; delay: number }>`
   font-size: 3vw;
   line-height: 3vw;
   text-decoration: none;
-  color: #988d86;
+  color: #eaeaea;
   text-transform: uppercase;
   user-select: none;
   margin-bottom: ${({ show }) => (show ? 0 : "4vw")};
@@ -69,6 +88,7 @@ const itemCss = css<{ show: boolean; delay: number }>`
       cubic-bezier(0.4, 0, 0, 1),
     0.5s padding cubic-bezier(0.4, 0, 0, 1), 0.5s color;
   display: block;
+  white-space: nowrap;
 `;
 
 const Item = styled.div<{ show: boolean; delay: number }>`
@@ -169,6 +189,7 @@ export default function PortfolioSection() {
 
   return (
     <Section opacity={Math.min(scrollTop / window.innerHeight, 1)}>
+      <BackgroundImage src={ImageSrc} />
       <MainContainer>
         <TitleOverflowContainer>
           <TitleRow show={show}>
