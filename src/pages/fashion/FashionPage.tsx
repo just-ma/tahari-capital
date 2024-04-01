@@ -5,11 +5,16 @@ import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
 import FashionGallery from "./FashionGallery";
 
-const Section = styled.div<{ opacity: number; reverse?: boolean }>`
+const Section = styled.div<{
+  opacity: number;
+  reverse?: boolean;
+  gradient?: boolean;
+}>`
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(0deg, #000 50%, #201811 100%);
+  background: ${({ gradient }) =>
+    gradient ? "linear-gradient(0deg, #000 50%, #201811 100%)" : "black"};
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -17,7 +22,6 @@ const Section = styled.div<{ opacity: number; reverse?: boolean }>`
 `;
 
 const DescriptionSection = styled(Section)`
-  background-color: black;
   justify-content: center;
   height: 90vh;
 `;
@@ -154,6 +158,7 @@ export default function FashionPage() {
           (window.innerHeight - scrollTop) / window.innerHeight,
           0
         )}
+        gradient
       >
         <FashionGallery />
         <LogoImage src={LogoImageSrc} draggable={false} />

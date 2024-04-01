@@ -118,7 +118,11 @@ const ITEMS = [
     secondary: "Brands",
   },
   {
-    primary: "International",
+    primary: "Hi-Tech",
+    secondary: "WMS+RFID+EDI",
+  },
+  {
+    primary: "Intl",
     secondary: "Shipping",
   },
 ];
@@ -176,13 +180,14 @@ export default function LogisticsPage() {
       <DescriptionSection opacity={1}>
         <DescriptionContainer>
           {"\t"}
-          An award-winning 200,000 square foot facility in Millburn NJ anchors
-          the Tahari Capital shipping and logistics network. This third party
-          logistics facility handles over 10,000,000 items annually for garment,
-          jewelry and perfume businesses. It has WMS systems, full steam tunnel
-          and pressing capabilities, 100% quality inspection, RFID technology,
-          and in-line verification systems. Complementary IT infrastructure
-          enables flawless fulfillment and keeps inventory costs to a minimum.
+          Since 2003, Tahari Logistics has conducted full service third party
+          logistics operations by shipping and fulfilling over fifty brands
+          domestically and abroad. The firm gains a competitive advantage
+          through its complete responsibility of the affiliated Tahari brand, as
+          that standard of care is equally disseminated to all clients. The
+          state of the art WMS and RFID coupled with the full steam tunnel and
+          pressing capabilities sets apart Tahari Logistics to service nearly
+          10M units annually across all consumer goods products.
         </DescriptionContainer>
       </DescriptionSection>
     </>

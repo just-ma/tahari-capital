@@ -14,7 +14,7 @@ const Container = styled.div<{ background: boolean; delay: number }>`
   padding: 0 20px;
   box-sizing: border-box;
   backdrop-filter: ${({ background }) =>
-    background ? "brightness(0.8) blur(10px)" : "brightness(1) blur(0)"};
+    background ? "brightness(0.7) blur(10px)" : "brightness(1) blur(0)"};
   overflow: hidden;
   animation: fadeIn 2s ${({ delay }) => delay}s forwards;
   opacity: 0;
@@ -56,7 +56,7 @@ const itemLabelCss = css`
   user-select: none;
   padding: 0 7px 0 0;
   transition: 0.5s color;
-  color: #d0cac6;
+  color: #eaeaea;
 `;
 
 const ItemLabel = styled.div`
