@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BackgroundImageSrc from "../../assets/images/tahari-logistics-background.jpg";
+import BackgroundImageSrc from "../../assets/images/tahari-logistics-stats-background.jpg";
 import LogoImageSrc from "../../assets/images/tahari-logsitics-logo.png";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
@@ -15,11 +15,6 @@ const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   opacity: ${({ opacity }) => opacity};
 `;
 
-const DescriptionSection = styled(Section)`
-  justify-content: center;
-  height: 90vh;
-`;
-
 const LogoImage = styled.img`
   position: absolute;
   width: 50%;
@@ -32,15 +27,22 @@ const LogoImage = styled.img`
   opacity: 0;
 `;
 
+const StatsSection = styled(Section)`
+  height: 250vh;
+  align-items: flex-start;
+`;
+
 const StatsBackgroundImage = styled.img`
-  height: 100%;
-  width: 50%;
+  flex: 1 0 50%;
+  height: 40%;
+  width: 55%;
   object-fit: cover;
   animation: fadeIn 2s forwards;
   opacity: 0;
   user-select: none;
   position: sticky;
-  top: 0;
+  top: 0px;
+  display: block;
 
   @keyframes fadeIn {
     to {
@@ -49,18 +51,21 @@ const StatsBackgroundImage = styled.img`
   }
 `;
 
-const MainContainer = styled.div`
-  margin-left: 6vw;
+const HalfSection = styled.div`
+  flex: 1 0 50%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-  width: fit-content;
+  height: 100%;
 `;
 
 const MenuContainer = styled.div`
+  width: 100%;
+  flex: 1 0 50%;
+  padding: 0 50px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 
 const MenuItem = styled.div<{
@@ -93,12 +98,18 @@ const ItemOverflowContainer = styled.div<{ primary?: boolean }>`
 `;
 
 const DescriptionContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  max-width: 600px;
+  width: 100%;
+  flex: 1 0 50%;
+  padding: 0 50px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Description = styled.div`
+  width: 100%;
+  max-width: 480px;
   font-size: 20px;
   line-height: 30px;
   white-space: pre-wrap;
@@ -106,8 +117,9 @@ const DescriptionContainer = styled.div`
   text-align: justify;
   border-top: 1px solid #353535;
   border-bottom: 1px solid #353535;
-  padding: 40px 120px;
+  padding: 40px 0;
   font-weight: lighter;
+  margin-bottom: 50px;
 `;
 
 const ITEMS = [
@@ -158,9 +170,9 @@ export default function LogisticsPage() {
       >
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
-      <Section opacity={Math.min(scrollTop / window.innerHeight, 1)}>
+      <StatsSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
         <StatsBackgroundImage src={BackgroundImageSrc} draggable={false} />
-        <MainContainer>
+        <HalfSection>
           <MenuContainer>
             {ITEMS.map(({ primary, secondary }, index) => (
               <>
@@ -177,21 +189,22 @@ export default function LogisticsPage() {
               </>
             ))}
           </MenuContainer>
-        </MainContainer>
-      </Section>
-      <DescriptionSection opacity={1}>
-        <DescriptionContainer>
-          {"\t"}
-          Since 2003, Tahari Logistics has conducted full service third party
-          logistics operations by shipping and fulfilling over fifty brands
-          domestically and abroad. The firm gains a competitive advantage
-          through its complete responsibility of the affiliated Tahari brand, as
-          that standard of care is equally disseminated to all clients. The
-          state of the art WMS and RFID coupled with the full steam tunnel and
-          pressing capabilities sets apart Tahari Logistics to service nearly
-          10M units annually across all consumer goods products.
-        </DescriptionContainer>
-      </DescriptionSection>
+          <DescriptionContainer>
+            <Description>
+              {"\t"}
+              Since 2003, Tahari Logistics has conducted full service third
+              party logistics operations by shipping and fulfilling over fifty
+              brands domestically and abroad. The firm gains a competitive
+              advantage through its complete responsibility of the affiliated
+              Tahari brand, as that standard of care is equally disseminated to
+              all clients. The state of the art WMS and RFID coupled with the
+              full steam tunnel and pressing capabilities sets apart Tahari
+              Logistics to service nearly 10M units annually across all consumer
+              goods products.
+            </Description>
+          </DescriptionContainer>
+        </HalfSection>
+      </StatsSection>
     </>
   );
 }
