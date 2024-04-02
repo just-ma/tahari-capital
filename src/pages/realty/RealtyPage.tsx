@@ -1,0 +1,196 @@
+import styled from "styled-components";
+import BackgroundImageSrc from "../../assets/images/tahari-realty-background.jpg";
+import ServicesBackgroundImageSrc from "../../assets/images/tahari-realty-services-background.jpg";
+import BrokerageIconSrc from "../../assets/images/brokerage-icon.png";
+import LendingIconSrc from "../../assets/images/lending-icon.png";
+import CaptialAdvisoryIconSrc from "../../assets/images/captial-advisory-icon.png";
+import PropertyMgmtIconSrc from "../../assets/images/property-mgmt-icon.png";
+import ConstructionMgmtIconSrc from "../../assets/images/construction-mgmt-icon.png";
+import LogoImageSrc from "../../assets/images/tahari-realty-logo.png";
+import useAppContext from "../../hooks/useAppContext";
+import { useEffect, useState } from "react";
+
+const Section = styled.div<{ opacity: number; reverse?: boolean }>`
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: ${({ opacity }) => opacity};
+`;
+
+const BackgroundImage = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  animation: fadeIn 2s forwards;
+  opacity: 0;
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+`;
+
+const LogoImage = styled.img`
+  position: absolute;
+  width: 45%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+  animation: fadeIn 1s forwards;
+  opacity: 0;
+`;
+
+const Shadow = styled.div`
+  position: absolute;
+  width: 35%;
+  height: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  box-shadow: 0 0 100px 100px black;
+  opacity: 0.6;
+  z-index: 0;
+`;
+
+const ServicesContainer = styled.div`
+  width: 90%;
+  display: flex;
+  align-items: flex-start;
+`;
+
+const ServiceItem = styled.div<{
+  show: boolean;
+  delay: number;
+}>`
+  flex: 1 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: ${({ show }) => (show ? 0 : 30)}px;
+  margin-bottom: ${({ show }) => (show ? 30 : 0)}px;
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: 1s margin-top ${({ delay }) => delay}s cubic-bezier(0.4, 0, 0, 1),
+    1s margin-bottom ${({ delay }) => delay}s cubic-bezier(0.4, 0, 0, 1),
+    1s opacity ${({ delay }) => delay}s;
+`;
+
+const ServiceIcon = styled.img`
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+`;
+
+const ServiceLabel = styled.div`
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 24px;
+  line-height: 30px;
+  white-space: pre-wrap;
+  cursor: default;
+`;
+
+const Description = styled.div`
+  max-width: 800px;
+  font-size: 20px;
+  line-height: 30px;
+  white-space: pre-wrap;
+  cursor: default;
+  text-align: justify;
+  border-top: 1px solid #353535;
+  border-bottom: 1px solid #353535;
+  padding: 40px 0;
+  font-weight: lighter;
+  margin: 0 20px;
+`;
+
+export default function RealtyPage() {
+  const [show, setShow] = useState(false);
+
+  const { scrollTop } = useAppContext();
+
+  useEffect(() => {
+    setShow(scrollTop > window.innerHeight * 0.6);
+  }, [scrollTop]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  return (
+    <>
+      <Section
+        opacity={Math.max(
+          (window.innerHeight - scrollTop) / window.innerHeight,
+          0
+        )}
+      >
+        <BackgroundImage src={BackgroundImageSrc} />
+        <Shadow />
+        <LogoImage src={LogoImageSrc} draggable={false} />
+      </Section>
+      <Section opacity={Math.min(scrollTop / window.innerHeight, 1)}>
+        <BackgroundImage src={ServicesBackgroundImageSrc} />
+        <ServicesContainer>
+          <ServiceItem show={show} delay={0}>
+            <ServiceIcon src={BrokerageIconSrc} />
+            <ServiceLabel>Brokerage</ServiceLabel>
+          </ServiceItem>
+          <ServiceItem show={show} delay={show ? 0.4 : 0}>
+            <ServiceIcon src={LendingIconSrc} />
+            <ServiceLabel>Lending</ServiceLabel>
+          </ServiceItem>
+          <ServiceItem show={show} delay={show ? 2 * 0.4 : 0}>
+            <ServiceIcon src={CaptialAdvisoryIconSrc} />
+            <ServiceLabel>{"Captial \nAdvisory"}</ServiceLabel>
+          </ServiceItem>
+          <ServiceItem show={show} delay={show ? 3 * 0.4 : 0}>
+            <ServiceIcon src={PropertyMgmtIconSrc} />
+            <ServiceLabel>{"Property \nManagement"}</ServiceLabel>
+          </ServiceItem>
+          <ServiceItem show={show} delay={show ? 4 * 0.4 : 0}>
+            <ServiceIcon src={ConstructionMgmtIconSrc} />
+            <ServiceLabel>{"Construction \nManagement"}</ServiceLabel>
+          </ServiceItem>
+        </ServicesContainer>
+      </Section>
+      <Section opacity={1}>
+        <Description>
+          {"\t"}Founded in 2021 by Jeremey Tahari, Tahari Realty is responsible
+          for all activities and services related to the operation of the Tahari
+          Capital portfolio of commercial properties and development projects,
+          Tahari Realty includes professionals with extensive experience in
+          office and retail leasing, property management, development,
+          construction management, accounting and financial reporting. Leasing,
+          Property Management and Construction Management professionals are
+          assigned to each property to develop and execute a specific business
+          plan to enhance and maximize the value of the asset. The Accounting
+          group has a team of professionals who are dedicated to the processes
+          of, budgeting, forecasting, bookkeeping and reporting in accordance
+          with established industry best practices and audit procedures. The
+          Construction Management group oversees projects ranging from tenant
+          improvement work to major building renovations and new ground-up
+          development.The integrated skill sets of these groups provide the
+          in-house expertise required to deal with the complex local building
+          codes, land use restrictions and other related regulations associated
+          with the ownership of real estate assets in New York City and other
+          areas of the country and across the globe.
+        </Description>
+      </Section>
+    </>
+  );
+}

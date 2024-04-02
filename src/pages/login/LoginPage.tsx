@@ -53,7 +53,7 @@ const Panel = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16%;
+  gap: 30px;
   padding: 20px;
   box-sizing: border-box;
   z-index: 1;
@@ -73,6 +73,8 @@ const Title = styled.div`
   line-height: 45px;
   font-weight: lighter;
   white-space: pre-wrap;
+  margin-bottom: 12%;
+  cursor: default;
 `;
 
 const InputContainer = styled.div`
@@ -115,6 +117,7 @@ const Input = styled.input<{ error: boolean }>`
 
 const SubmitContainer = styled.div`
   height: 60px;
+  margin-bottom: 14%;
 `;
 
 const SubmitButton = styled.button`
@@ -177,7 +180,7 @@ export default function LoginPage() {
         <BackgroundImage src={BackgroundImageSrc} />
         <Shadow />
         <Panel>
-          <Title>{"Investor\nLogin"}</Title>
+          <Title>{"Investor \nLogin"}</Title>
           <div>
             <InputContainer>
               <InputLabel>Username</InputLabel>

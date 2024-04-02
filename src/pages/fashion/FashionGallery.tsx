@@ -8,7 +8,7 @@ import Image5 from "../../assets/images/fashion-gallery-5.jpg";
 import { debounce } from "../../utils";
 
 const Container = styled.div`
-  width: 100%;
+  width: 50%;
   height: 100%;
   display: flex;
 `;
@@ -40,18 +40,7 @@ const ColumnImage = styled.img<{ delay: number }>`
   }
 `;
 
-const IMAGES = [
-  Image1,
-  Image2,
-  Image3,
-  Image4,
-  Image5,
-  Image1,
-  Image2,
-  Image3,
-  Image4,
-  Image5,
-];
+const IMAGES = [Image1, Image2, Image3, Image4, Image5];
 
 export default function FashionGallery() {
   const [introAnimation, setIntroAnimation] = useState(true);

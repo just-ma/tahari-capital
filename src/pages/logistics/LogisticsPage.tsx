@@ -39,6 +39,8 @@ const StatsBackgroundImage = styled.img`
   animation: fadeIn 2s forwards;
   opacity: 0;
   user-select: none;
+  position: sticky;
+  top: 0;
 
   @keyframes fadeIn {
     to {
@@ -98,7 +100,7 @@ const DescriptionContainer = styled.div`
   width: 50%;
   max-width: 600px;
   font-size: 20px;
-  line-height: 26px;
+  line-height: 30px;
   white-space: pre-wrap;
   cursor: default;
   text-align: justify;
@@ -115,7 +117,7 @@ const ITEMS = [
   },
   {
     primary: "50+",
-    secondary: "Brands",
+    secondary: "Luxury Brands",
   },
   {
     primary: "Hi-Tech",
@@ -143,7 +145,7 @@ export default function LogisticsPage() {
       return;
     }
 
-    setShow((prev) => prev || scrollTop > window.innerHeight * 0.6);
+    setShow(scrollTop > window.innerHeight * 0.6);
   }, [scrollTop, init]);
 
   return (
@@ -163,12 +165,12 @@ export default function LogisticsPage() {
             {ITEMS.map(({ primary, secondary }, index) => (
               <>
                 <ItemOverflowContainer key={index} primary>
-                  <MenuItem show={show} delay={index * 0.5} primary>
+                  <MenuItem show={show} delay={show ? index * 0.5 : 0} primary>
                     {primary}
                   </MenuItem>
                 </ItemOverflowContainer>
                 <ItemOverflowContainer key={`${index}-2`}>
-                  <MenuItem show={show} delay={index * 0.5 + 0.1}>
+                  <MenuItem show={show} delay={show ? index * 0.5 + 0.1 : 0}>
                     {secondary}
                   </MenuItem>
                 </ItemOverflowContainer>

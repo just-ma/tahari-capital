@@ -15,6 +15,7 @@ import CommercialHoldingsPage from "./pages/real-estate/CommercialHoldingsPage";
 import ResidentialHoldingsPage from "./pages/real-estate/ResidentialHoldingsPage";
 import LifestylePage from "./pages/lifestyle/LifestylePage";
 import LoginPage from "./pages/login/LoginPage";
+import RealtyPage from "./pages/realty/RealtyPage";
 
 export default function App() {
   return (
@@ -30,7 +31,7 @@ export default function App() {
             <Route path="/portfolio" element={<PortfolioPage />} />
 
             {/* Portfolio - Fashion */}
-            <Route path="/elie-tahari" element={<FashionPage />} />
+            <Route path="/fashion" element={<FashionPage />} />
 
             {/* Portfolio - Real Estate - Holdings */}
             <Route path="/holdings" element={<HoldingsPage />} />
@@ -55,6 +56,9 @@ export default function App() {
               path="/holdings/residential"
               element={<ResidentialHoldingsPage />}
             />
+
+            {/* Portfolio - Real Estate - Realty */}
+            <Route path="/realty" element={<RealtyPage />} />
 
             {/* Portfolio - Lifestyle */}
             <Route path="/lifestyle" element={<LifestylePage />} />

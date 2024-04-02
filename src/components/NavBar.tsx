@@ -32,7 +32,7 @@ const Container = styled.div<{ background: boolean; delay: number }>`
 `;
 
 const TitleContainer = styled.div<{ show: boolean }>`
-  flex: 6 0 auto;
+  flex: 9 0 auto;
   opacity: ${({ show }) => (show ? 1 : 0)};
   transition: 0.5s opacity;
 `;

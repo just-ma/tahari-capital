@@ -27,7 +27,7 @@ const ImagesContainer = styled.div`
 
 const Menu = styled.div`
   position: fixed;
-  top: 30%;
+  top: 20%;
   right: 60%;
   display: flex;
   flex-direction: column;
@@ -49,10 +49,27 @@ const Label = styled.div<{ active: boolean }>`
   cursor: pointer;
 `;
 
+const ImageContainer = styled.div`
+  width: 100%;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.5);
+`;
+
 const Image = styled.img<{ active: boolean }>`
   width: 100%;
   opacity: ${({ active }) => (active ? 1 : 0.2)};
   transition: opacity 0.5s;
+  box-shadow: inset 0 0 100px black;
+  z-index: -1;
+  position: relative;
+  display: block;
+`;
+
+const Title = styled.div`
+  color: white;
+  text-transform: uppercase;
+  font-size: 3vw;
+  font-weight: lighter;
+  margin-bottom: 20px;
 `;
 
 export type HoldingDefinition = {
@@ -62,8 +79,10 @@ export type HoldingDefinition = {
 
 export default function HoldingsDetailsPage({
   holdings,
+  title,
 }: {
   holdings: HoldingDefinition[];
+  title: string;
 }) {
   const { windowHeight } = useScreenSize();
 
@@ -121,6 +140,7 @@ export default function HoldingsDetailsPage({
   return (
     <>
       <Menu>
+        <Title>{title}</Title>
         {holdings.map(({ label }, index) => (
           <Label
             key={label}
@@ -134,12 +154,9 @@ export default function HoldingsDetailsPage({
       <Spacer />
       <ImagesContainer>
         {holdings.map(({ label, src }, index) => (
-          <Image
-            key={label}
-            id={String(index)}
-            src={src}
-            active={activeIndex === index}
-          />
+          <ImageContainer key={label} id={String(index)}>
+            <Image src={src} active={activeIndex === index} />
+          </ImageContainer>
         ))}
       </ImagesContainer>
       <Spacer />

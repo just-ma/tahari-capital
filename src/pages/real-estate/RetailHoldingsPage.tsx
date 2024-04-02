@@ -29,5 +29,5 @@ const HOLDINGS = [
 ];
 
 export default function RetailHoldingsPage() {
-  return <HoldingsDetailsPage holdings={HOLDINGS} />;
+  return <HoldingsDetailsPage title="Retail" holdings={HOLDINGS} />;
 }

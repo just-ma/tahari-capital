@@ -144,7 +144,7 @@ const PlaceholderItem = styled(Item)`
 const MENU_ITEMS = [
   {
     label: "Fashion",
-    to: "/elie-tahari",
+    to: "/fashion",
   },
   {
     label: "Real Estate",
@@ -154,8 +154,8 @@ const MENU_ITEMS = [
         to: "/holdings",
       },
       {
-        label: "Tahari Realty",
-        to: "/tahari-realty",
+        label: "Realty",
+        to: "/realty",
       },
     ],
   },

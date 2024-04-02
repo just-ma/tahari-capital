@@ -36,14 +36,27 @@ const BackgroundImage = styled.img`
 
 const LogoImage = styled.img`
   position: absolute;
-  width: 50%;
+  width: 45%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, calc(-50% - 40px));
+  transform: translate(-50%, -10%);
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
   animation: fadeIn 1s forwards;
   opacity: 0;
+`;
+
+const Shadow = styled.div`
+  position: absolute;
+  width: 35%;
+  height: 10px;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: black;
+  box-shadow: 0 0 100px 100px black;
+  opacity: 0.6;
+  z-index: 1;
 `;
 
 export default function LifestylePage() {
@@ -62,6 +75,7 @@ export default function LifestylePage() {
         )}
       >
         <BackgroundImage src={BackgroundImageSrc} />
+        <Shadow />
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
     </>
