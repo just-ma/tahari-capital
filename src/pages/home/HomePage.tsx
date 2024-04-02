@@ -4,6 +4,7 @@ import PortfolioSection from "../portfolio/PortfolioSection";
 import useAppContext from "../../hooks/useAppContext";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 
 const VideoSection = styled.video<{ opacity: number }>`
   height: 100vh;
@@ -23,7 +24,7 @@ export default function HomePage() {
   useEffect(() => {
     if (location.hash === "#portfolio") {
       window.scrollTo({
-        top: window.innerHeight,
+        top: window.innerHeight - NAV_BAR_HEIGHT,
         behavior: "smooth",
       });
     }

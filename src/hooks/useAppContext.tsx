@@ -14,10 +14,6 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    if (location.hash === "#portfolio") {
-      window.scrollTo({ top: window.innerHeight });
-    }
-
     window.addEventListener("scroll", handleScroll);
 
     return () => {

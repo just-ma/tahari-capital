@@ -35,7 +35,6 @@ const StatsSection = styled(Section)`
 const StatsBackgroundImage = styled.img`
   flex: 1 0 50%;
   height: 40%;
-  width: 55%;
   object-fit: cover;
   animation: fadeIn 2s forwards;
   opacity: 0;

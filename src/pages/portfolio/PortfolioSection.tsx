@@ -1,28 +1,48 @@
-import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import useAppContext from "../../hooks/useAppContext";
-import { useEffect, useState } from "react";
-import ImageSrc from "../../assets/images/portfolio-background.jpg";
+import { useState } from "react";
+import RealEstateBackgroundSrc from "../../assets/images/portfolio-real-estate.jpg";
+import VenturesBackgroundSrc from "../../assets/images/portfolio-ventures.jpg";
+import LogisticsBackgroundSrc from "../../assets/images/portfolio-logistics.jpg";
+import FashionBackgroundSrc from "../../assets/images/portfolio-fashion.jpg";
+import LifestyleBackgroundSrc from "../../assets/images/portfolio-lifestyle.jpg";
+import { debounce } from "../../utils";
+import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 
 const Section = styled.div<{ opacity: number }>`
   position: relative;
   width: 100vw;
-  height: 120vh;
-  background: linear-gradient(0deg, #3c3127 0%, #000 50%, #14110f 100%);
+  height: calc(100vh - ${NAV_BAR_HEIGHT}px);
   opacity: ${({ opacity }) => opacity};
+  display: flex;
+  flex-direction: column;
 `;
 
-const BackgroundImage = styled.img`
-  position: absolute;
+const Row = styled.div<{ active: boolean }>`
+  position: relative;
+  flex-basis: 0;
+  flex-grow: ${({ active }) => (active ? 3 : 1)};
+  opacity: ${({ active }) => (active ? 1 : 0.4)};
   width: 100%;
-  height: 100%;
+  transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0, 1), opacity 0.5s 0.1s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`;
+
+const RowImage = styled.img<{ delay: number }>`
+  position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  animation: fadeIn 2s forwards;
-  opacity: 0;
   user-select: none;
+  animation: fadeIn 2s ${({ delay }) => delay}s forwards;
+  opacity: 0;
+  z-index: -2;
+  pointer-events: none;
 
   @keyframes fadeIn {
     to {
@@ -31,113 +51,56 @@ const BackgroundImage = styled.img`
   }
 `;
 
-const MainContainer = styled.div`
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-  width: fit-content;
-  z-index: 1;
-  margin-bottom: 20%;
-`;
-
-const TitleOverflowContainer = styled.div`
-  position: relative;
+const RowTitleContainer = styled.div<{ expand: boolean }>`
+  width: 100%;
+  height: ${({ expand }) => (expand ? "calc(10vw + 50px)" : "4.1vw")};
   overflow: hidden;
-  height: 8vw;
-`;
-
-const TitleRow = styled.div<{ show: boolean }>`
-  display: flex;
-  margin-top: ${({ show }) => (show ? 0 : "8vw")};
-  transition: 0.8s margin-top cubic-bezier(0.4, 0, 0, 1);
-`;
-
-const Title = styled.div`
-  font-size: 8vw;
-  line-height: 8vw;
-  text-transform: uppercase;
   color: white;
-  user-select: none;
+  text-transform: uppercase;
+  z-index: 1;
+  transition: height 0.7s cubic-bezier(0.4, 0, 0, 1);
+  overflow: hidden;
 `;
 
-const Divider = styled.div`
-  border-bottom: 1px solid white;
+const RowTitle = styled.div<{ dim: boolean }>`
+  font-size: 4vw;
+  line-height: 4vw;
+  margin-left: 100px;
+  opacity: ${({ dim }) => (dim ? 0.6 : 1)};
+  font-weight: lighter;
 `;
 
-const MenuContainer = styled.div`
-  align-self: flex-end;
-  display: flex;
-  flex-direction: column;
-  margin: 7px 0 7px;
-`;
-
-const itemCss = css<{ show: boolean; delay: number }>`
+const RowSubtitle = styled.div`
+  width: 100%;
+  padding: 20px 130px 10px;
   font-size: 3vw;
   line-height: 3vw;
-  text-decoration: none;
-  color: #eaeaea;
-  text-transform: uppercase;
-  user-select: none;
-  margin-bottom: ${({ show }) => (show ? 0 : "4vw")};
-  transition: 0.6s margin-bottom ${({ delay }) => delay}s
-      cubic-bezier(0.4, 0, 0, 1),
-    0.5s padding cubic-bezier(0.4, 0, 0, 1), 0.5s color;
-  display: block;
-  white-space: nowrap;
-`;
-
-const Item = styled.div<{ show: boolean; delay: number }>`
   cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.5s;
 
-  ${itemCss}
-`;
+  &:last-of-type {
+    padding-top: 5px;
+  }
 
-const LinkItem = styled(Link)<{ show: boolean; delay: number }>`
-  ${itemCss}
-`;
-
-const ItemRelativeContainer = styled.div`
-  position: relative;
-  overflow: hidden;
-  height: 3vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  width: fit-content;
-  margin: 5px 0 5px;
-  transition: 0.5s height;
-
-  &:hover ${Item}, &:hover ${LinkItem} {
-    color: white;
+  &:hover {
+    opacity: 1;
   }
 `;
 
-const SubItemContainer = styled.div<{ show?: boolean }>`
-  height: ${({ show }) => (show ? "calc(5vw + 20px);" : 0)};
-  transition: 0.5s height cubic-bezier(0.4, 0, 0, 1);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  margin-left: 30px;
-
-  ${ItemRelativeContainer} {
-    margin: 3px 0 3px;
-    height: 2.5vw;
-  }
-
-  ${LinkItem} {
-    font-size: 2.5vw;
-    line-height: 2.5vw;
-  }
-`;
-
-const PlaceholderItem = styled(Item)`
-  color: transparent;
+const Shadow = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.7) 30%,
+    rgba(0, 0, 0, 0) 100%
+  );
   pointer-events: none;
 `;
 
@@ -145,9 +108,11 @@ const MENU_ITEMS = [
   {
     label: "Fashion",
     to: "/fashion",
+    src: FashionBackgroundSrc,
   },
   {
     label: "Real Estate",
+    src: RealEstateBackgroundSrc,
     subItems: [
       {
         label: "Holdings",
@@ -162,77 +127,66 @@ const MENU_ITEMS = [
   {
     label: "Lifestyle",
     to: "/lifestyle",
+    src: LifestyleBackgroundSrc,
   },
   {
     label: "Ventures",
     to: "/ventures",
+    src: VenturesBackgroundSrc,
   },
   {
     label: "Logistics",
     to: "/logistics",
+    src: LogisticsBackgroundSrc,
   },
 ];
 
 export default function PortfolioSection() {
+  const navigate = useNavigate();
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleMouseEnter = debounce((index: number) => {
+    setActiveIndex(index);
+  }, 100);
+
   const { scrollTop } = useAppContext();
 
-  const [show, setShow] = useState(false);
-  const [showRealEstate, setShowRealEstate] = useState(false);
-
-  useEffect(() => {
-    const scrolled = scrollTop > window.innerHeight * 0.6;
-    setShow(scrolled);
-    if (!scrolled) {
-      setShowRealEstate(false);
-    }
-  }, [scrollTop]);
+  // useEffect(() => {
+  //   const scrolled = scrollTop > window.innerHeight * 0.6;
+  //   setShow(scrolled);
+  //   if (!scrolled) {
+  //     setShowRealEstate(false);
+  //   }
+  // }, [scrollTop]);
 
   return (
     <Section opacity={Math.min(scrollTop / window.innerHeight, 1)}>
-      <BackgroundImage src={ImageSrc} />
-      <MainContainer>
-        <TitleOverflowContainer>
-          <TitleRow show={show}>
-            <Title>Portfolio</Title>
-            <PlaceholderItem delay={0} show>
-              Real Estate
-            </PlaceholderItem>
-          </TitleRow>
-        </TitleOverflowContainer>
-        <Divider />
-        <MenuContainer>
-          {MENU_ITEMS.map(({ label, to, subItems }, index) => (
-            <>
-              <ItemRelativeContainer key={index}>
-                {to ? (
-                  <LinkItem to={to} show={show} delay={index * 0.06 + 0.2}>
-                    {label}
-                  </LinkItem>
-                ) : (
-                  <Item
-                    show={show}
-                    delay={index * 0.06 + 0.2}
-                    onClick={() => setShowRealEstate((prev) => !prev)}
-                  >
-                    {label}
-                  </Item>
-                )}
-              </ItemRelativeContainer>
-              {subItems ? (
-                <SubItemContainer show={showRealEstate}>
-                  {subItems?.map(({ label, to }) => (
-                    <ItemRelativeContainer key={index}>
-                      <LinkItem to={to} show delay={index * 0.06 + 0.2}>
-                        {label}
-                      </LinkItem>
-                    </ItemRelativeContainer>
-                  ))}
-                </SubItemContainer>
-              ) : null}
-            </>
-          ))}
-        </MenuContainer>
-      </MainContainer>
+      {MENU_ITEMS.map(({ label, to, subItems, src }, index) => (
+        <Row
+          key={index}
+          active={index === activeIndex}
+          onMouseEnter={() => handleMouseEnter(index)}
+          onClick={() => navigate(to || subItems?.[0].to || "/")}
+        >
+          <RowImage src={src} draggable={false} delay={index * 0.15 + 0.2} />
+          <Shadow />
+          <RowTitleContainer expand={!!subItems && index === activeIndex}>
+            <RowTitle dim={!!subItems}>{label}</RowTitle>
+            {!!subItems &&
+              subItems.map(({ label, to }) => (
+                <RowSubtitle
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(to);
+                  }}
+                >
+                  {label}
+                </RowSubtitle>
+              ))}
+          </RowTitleContainer>
+        </Row>
+      ))}
     </Section>
   );
 }
