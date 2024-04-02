@@ -12,7 +12,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 14px;
-  gap: 80px;
   padding: 50px 50px 10px;
   box-sizing: border-box;
   text-transform: uppercase;
@@ -20,6 +19,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
+  height: 30vh;
   align-self: stretch;
   display: flex;
   justify-content: space-between;
@@ -77,6 +77,8 @@ const LogoColumn = styled.div`
 
 const StyledLogo = styled(TahariCaptialLogo)`
   width: 200px;
+  height: fit-content;
+  margin-top: 10px;
   user-select: none;
   cursor: pointer;
 `;
@@ -103,7 +105,7 @@ export default function Footer() {
         <Column>
           <Title>Sitemap</Title>
           <ColumnBody>
-            <InteralLink to="#portfolio">Portfolio</InteralLink>
+            <InteralLink to="/#portfolio">Portfolio</InteralLink>
             <InteralLink to="/history">History</InteralLink>
             <InteralLink to="/login">Login</InteralLink>
           </ColumnBody>

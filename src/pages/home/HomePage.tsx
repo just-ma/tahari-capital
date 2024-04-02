@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import LandingVideo from "../../assets/videos/tahari.m4v";
+import LandingVideo from "../../assets/videos/tahari-landing.m4v";
 import PortfolioSection from "../portfolio/PortfolioSection";
 import useAppContext from "../../hooks/useAppContext";
 import { useLocation } from "react-router-dom";

@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 import useAppContext from "../hooks/useAppContext";
 import TahariLogo from "../assets/graphics/tahari-logo.svg?react";
+import { useEffect, useState } from "react";
 
 export const NAV_BAR_HEIGHT = 40;
 
@@ -19,7 +20,7 @@ const Container = styled.div<{ background: boolean; delay: number }>`
   animation: fadeIn 2s ${({ delay }) => delay}s forwards;
   opacity: 0;
   z-index: 10;
-  transition: backdrop-filter 0.3s;
+  transition: backdrop-filter 0.5s;
 
   @keyframes fadeIn {
     from {
@@ -47,7 +48,7 @@ const ItemContainer = styled.div`
   justify-content: flex-end;
 `;
 
-const itemLabelCss = css`
+const itemLabelCss = css<{ hide: boolean }>`
   cursor: pointer;
   text-transform: uppercase;
   text-decoration: none;
@@ -57,13 +58,15 @@ const itemLabelCss = css`
   padding: 0 7px 0 0;
   transition: 0.5s color;
   color: #eaeaea;
+  opacity: ${({ hide }) => (hide ? 0 : 1)};
+  transition: opacity 0.5s;
 `;
 
-const ItemLabel = styled.div`
+const ItemLabel = styled.div<{ hide: boolean }>`
   ${itemLabelCss}
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link)<{ hide: boolean }>`
   ${itemLabelCss}
 `;
 
@@ -97,6 +100,8 @@ const MENU_ITEMS = [
 export default function NavBar() {
   const location = useLocation();
 
+  const [hide, setHide] = useState(false);
+
   const { scrollTop } = useAppContext();
 
   const isHome = location.pathname === "/";
@@ -105,18 +110,34 @@ export default function NavBar() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  useEffect(() => {
+    console.log({
+      scrollTop,
+      scrollHeight: document.documentElement.scrollHeight,
+      innerHeight: window.innerHeight,
+      hide:
+        scrollTop >=
+        document.documentElement.scrollHeight - window.innerHeight - 40,
+    });
+    setHide(
+      scrollTop >=
+        document.documentElement.scrollHeight - window.innerHeight - 40
+    );
+  }, [scrollTop]);
+
   return (
     <Container
       background={
-        isHome
+        !hide &&
+        (isHome
           ? scrollTop >= window.innerHeight - NAV_BAR_HEIGHT
-          : scrollTop > NAV_BAR_HEIGHT
+          : scrollTop > NAV_BAR_HEIGHT)
       }
       delay={isHome ? 1 : 0}
     >
       <TitleContainer show={!isHome || scrollTop >= window.innerHeight * 0.6}>
         <Item>
-          <StyledLink to="/" onClick={scrollToTop}>
+          <StyledLink to="/" onClick={scrollToTop} hide={hide}>
             <Logo />
           </StyledLink>
         </Item>
@@ -125,9 +146,13 @@ export default function NavBar() {
         <ItemContainer key={label}>
           <Item>
             {to ? (
-              <StyledLink to={to}>{label}</StyledLink>
+              <StyledLink to={to} hide={hide}>
+                {label}
+              </StyledLink>
             ) : (
-              <ItemLabel onClick={onClick}>{label}</ItemLabel>
+              <ItemLabel onClick={onClick} hide={hide}>
+                {label}
+              </ItemLabel>
             )}
           </Item>
         </ItemContainer>
