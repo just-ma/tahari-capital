@@ -16,6 +16,7 @@ import ResidentialHoldingsPage from "./pages/real-estate/ResidentialHoldingsPage
 import LifestylePage from "./pages/lifestyle/LifestylePage";
 import LoginPage from "./pages/login/LoginPage";
 import RealtyPage from "./pages/realty/RealtyPage";
+import VenturesPage from "./pages/ventures/VenturesPage";
 
 export default function App() {
   return (
@@ -62,6 +63,9 @@ export default function App() {
 
             {/* Portfolio - Lifestyle */}
             <Route path="/lifestyle" element={<LifestylePage />} />
+
+            {/* Portfolio - Ventures */}
+            <Route path="/ventures" element={<VenturesPage />} />
 
             {/* Portfolio - Logistics */}
             <Route path="/logistics" element={<LogisticsPage />} />
