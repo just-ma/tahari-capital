@@ -9,6 +9,8 @@ import FashionBackgroundSrc from "../../assets/images/portfolio-fashion.jpg";
 import LifestyleBackgroundSrc from "../../assets/images/portfolio-lifestyle.jpg";
 import { debounce } from "../../utils";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
+import useWindowSize from "../../hooks/useWindowSize";
+import { MEDIA_SIZE } from "../../constants";
 
 const Section = styled.div<{ opacity: number }>`
   position: relative;
@@ -60,6 +62,10 @@ const RowTitleContainer = styled.div<{ expand: boolean }>`
   z-index: 1;
   transition: height 0.7s cubic-bezier(0.4, 0, 0, 1);
   overflow: hidden;
+
+  @media ${MEDIA_SIZE.mobile} {
+    height: ${({ expand }) => (expand ? "100px" : "30px")};
+  }
 `;
 
 const RowTitle = styled.div<{ dim: boolean }>`
@@ -68,6 +74,12 @@ const RowTitle = styled.div<{ dim: boolean }>`
   margin-left: 100px;
   opacity: ${({ dim }) => (dim ? 0.6 : 1)};
   font-weight: lighter;
+
+  @media ${MEDIA_SIZE.mobile} {
+    font-size: ${({ dim }) => (dim ? 26 : 30)}px;
+    line-height: 30px;
+    margin-left: 40px;
+  }
 `;
 
 const RowSubtitle = styled.div`
@@ -85,6 +97,14 @@ const RowSubtitle = styled.div`
 
   &:hover {
     opacity: 1;
+  }
+
+  @media ${MEDIA_SIZE.mobile} {
+    font-size: 30px;
+    line-height: 30px;
+    padding: 5px 55px 0;
+    opacity: 1;
+    font-weight: lighter;
   }
 `;
 
@@ -151,6 +171,7 @@ export default function PortfolioSection() {
   }, 100);
 
   const { scrollTop } = useAppContext();
+  const { isMobile } = useWindowSize();
 
   // useEffect(() => {
   //   const scrolled = scrollTop > window.innerHeight * 0.6;
@@ -165,13 +186,15 @@ export default function PortfolioSection() {
       {MENU_ITEMS.map(({ label, to, subItems, src }, index) => (
         <Row
           key={index}
-          active={index === activeIndex}
+          active={isMobile || index === activeIndex}
           onMouseEnter={() => handleMouseEnter(index)}
           onClick={() => navigate(to || subItems?.[0].to || "/")}
         >
           <RowImage src={src} draggable={false} delay={index * 0.15 + 0.2} />
           <Shadow />
-          <RowTitleContainer expand={!!subItems && index === activeIndex}>
+          <RowTitleContainer
+            expand={!!subItems && (isMobile || index === activeIndex)}
+          >
             <RowTitle dim={!!subItems}>{label}</RowTitle>
             {!!subItems &&
               subItems.map(({ label, to }) => (

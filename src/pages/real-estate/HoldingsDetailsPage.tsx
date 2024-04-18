@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import useAppContext from "../../hooks/useAppContext";
-import useScreenSize from "../../hooks/useWindowSize";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const Spacer = styled.div`
   height: 20vh;
@@ -84,7 +84,7 @@ export default function HoldingsDetailsPage({
   holdings: HoldingDefinition[];
   title: string;
 }) {
-  const { windowHeight } = useScreenSize();
+  const { windowHeight } = useWindowSize();
 
   const scrollMin = useRef(0);
   const scrollMax = useRef(windowHeight);

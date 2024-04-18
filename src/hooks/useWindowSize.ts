@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { MOBILE_WIDTH } from "../constants";
 
-export default function useScreenSize() {
+export default function useWindowSize() {
   const [screenSize, setScreenSize] = useState({
     windowWidth: window.innerWidth,
     windowHeight: window.innerHeight,
@@ -21,5 +22,11 @@ export default function useScreenSize() {
     };
   }, []);
 
-  return screenSize;
+  return useMemo(
+    () => ({
+      ...screenSize,
+      isMobile: screenSize.windowWidth <= MOBILE_WIDTH,
+    }),
+    [screenSize]
+  );
 }

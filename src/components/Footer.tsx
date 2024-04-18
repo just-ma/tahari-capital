@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import TahariCaptialLogo from "../assets/graphics/tahari-captial-logo.svg?react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { MEDIA_SIZE } from "../constants";
 
 const CURRENT_YEAR = new Date().getFullYear();
 const EMAIL = "office@taharicaptial.com";
@@ -24,6 +25,13 @@ const Content = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 150px;
+
+  @media ${MEDIA_SIZE.mobile} {
+    flex-wrap: wrap;
+    gap: 50px;
+    height: fit-content;
+    margin-bottom: 50px;
+  }
 `;
 
 const Column = styled.div`
@@ -48,6 +56,10 @@ const Title = styled.div`
   margin-bottom: 10px;
   color: #dbd5cf;
   margin-bottom: 20px;
+
+  @media ${MEDIA_SIZE.mobile} {
+    margin-bottom: 10px;
+  }
 `;
 
 const linkCss = css<{ underline?: boolean }>`
@@ -84,15 +96,22 @@ const StyledLogo = styled(TahariCaptialLogo)`
 `;
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
   };
 
   return (
     <Container>
       <Content>
         <LogoColumn>
-          <StyledLogo onClick={scrollToTop} />
+          <StyledLogo onClick={handleLogoClick} />
         </LogoColumn>
         <Column>
           <Title>Contact</Title>

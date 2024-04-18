@@ -4,6 +4,7 @@ import LogoImageSrc from "../../assets/images/elie-tahari-logo.png";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
 import FashionGallery from "./FashionGallery";
+import { MEDIA_SIZE } from "../../constants";
 
 const Section = styled.div<{
   opacity: number;
@@ -21,7 +22,15 @@ const Section = styled.div<{
   opacity: ${({ opacity }) => opacity};
 `;
 
-const DescriptionSection = styled(Section)``;
+const StatsSection = styled(Section)`
+  height: fit-content;
+`;
+
+const DescriptionSection = styled(Section)`
+  @media ${MEDIA_SIZE.mobile} {
+    flex-direction: column;
+  }
+`;
 
 const LogoImage = styled.img`
   position: absolute;
@@ -33,19 +42,23 @@ const LogoImage = styled.img`
   z-index: 1;
   animation: fadeIn 1s forwards;
   opacity: 0;
-`;
-
-const StatsBackgroundImage = styled.img`
-  height: 100%;
-  object-fit: cover;
-  animation: fadeIn 2s forwards;
-  opacity: 0;
-  user-select: none;
 
   @keyframes fadeIn {
     to {
       opacity: 1;
     }
+  }
+`;
+
+const StatsBackgroundImage = styled.img`
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+
+  @media ${MEDIA_SIZE.mobile} {
+    width: 100%;
+    height: auto;
+    filter: brightness(0.5) blur(4px);
   }
 `;
 
@@ -56,6 +69,14 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: stretch;
   width: fit-content;
+
+  @media ${MEDIA_SIZE.mobile} {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    z-index: 1;
+    margin: 0;
+  }
 `;
 
 const MenuContainer = styled.div`
@@ -80,6 +101,12 @@ const MenuItem = styled.div<{
     1s opacity ${({ delay }) => delay}s;
   display: block;
   cursor: default;
+
+  @media ${MEDIA_SIZE.mobile} {
+    font-size: ${({ primary }) => (primary ? 50 : 25)}px;
+    line-height: ${({ primary }) => (primary ? 50 : 25)}px;
+    color: ${({ primary }) => (primary ? "white" : "#d1cccc")};
+  }
 `;
 
 const ItemOverflowContainer = styled.div<{ primary?: boolean }>`
@@ -90,12 +117,22 @@ const ItemOverflowContainer = styled.div<{ primary?: boolean }>`
   display: flex;
   align-items: flex-end;
   width: fit-content;
+
+  @media ${MEDIA_SIZE.mobile} {
+    height: ${({ primary }) => (primary ? 50 : 25)}px;
+    margin-top: ${({ primary }) => (primary ? 30 : 0)}px;
+  }
 `;
 
 const DescriptionContainer = styled.div`
   flex: 1 0 50%;
   padding: 0 50px;
   box-sizing: border-box;
+
+  @media ${MEDIA_SIZE.mobile} {
+    flex: 0 0 0;
+    padding: 0;
+  }
 `;
 
 const Description = styled.div`
@@ -110,6 +147,13 @@ const Description = styled.div`
   padding: 40px 0;
   font-weight: lighter;
   margin: 0 auto;
+
+  @media ${MEDIA_SIZE.mobile} {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: normal;
+    padding: 60px 20px;
+  }
 `;
 
 const ITEMS = [
@@ -155,7 +199,7 @@ export default function FashionPage() {
       >
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
-      <Section opacity={Math.min(scrollTop / window.innerHeight, 1)}>
+      <StatsSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
         <StatsBackgroundImage src={BackgroundImageSrc} draggable={false} />
         <MainContainer>
           <MenuContainer>
@@ -175,7 +219,7 @@ export default function FashionPage() {
             ))}
           </MenuContainer>
         </MainContainer>
-      </Section>
+      </StatsSection>
       <DescriptionSection opacity={1}>
         <DescriptionContainer>
           <Description>

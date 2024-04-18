@@ -45,6 +45,10 @@ const Image = styled.img`
   object-fit: cover;
   opacity: 0.5;
   transition: opacity 0.6s;
+
+  @media ${MEDIA_SIZE.mobile} {
+    opacity: 1;
+  }
 `;
 
 const Gradient = styled.div`
@@ -75,6 +79,7 @@ const Label = styled.div`
 
   @media ${MEDIA_SIZE.mobile} {
     font-size: 10vw;
+    opacity: 1;
   }
 `;
 

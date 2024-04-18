@@ -6,11 +6,16 @@ import Image3 from "../../assets/images/fashion-gallery-3.jpg";
 import Image4 from "../../assets/images/fashion-gallery-4.jpg";
 import Image5 from "../../assets/images/fashion-gallery-5.jpg";
 import { debounce } from "../../utils";
+import { MEDIA_SIZE } from "../../constants";
 
 const Container = styled.div`
   width: 50%;
   height: 100%;
   display: flex;
+
+  @media ${MEDIA_SIZE.mobile} {
+    width: 100%;
+  }
 `;
 
 const Column = styled.div<{ active: boolean; introAnimation: boolean }>`

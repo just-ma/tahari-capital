@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import BackgroundImageSrc from "../../assets/images/login-background.jpg";
 import { useEffect, useState } from "react";
+import { MEDIA_SIZE } from "../../constants";
 
 const Section = styled.div<{ reverse?: boolean }>`
   position: relative;
@@ -63,6 +64,12 @@ const Panel = styled.div`
     to {
       right: 0;
     }
+  }
+
+  @media ${MEDIA_SIZE.mobile} {
+    width: 300px;
+    right: -300px;
+    padding: 14px;
   }
 `;
 

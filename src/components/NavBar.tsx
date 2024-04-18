@@ -3,24 +3,31 @@ import styled, { css } from "styled-components";
 import useAppContext from "../hooks/useAppContext";
 import TahariLogo from "../assets/graphics/tahari-logo.svg?react";
 import { useEffect, useState } from "react";
+import useWindowSize from "../hooks/useWindowSize";
+import { MEDIA_SIZE } from "../constants";
 
 export const NAV_BAR_HEIGHT = 40;
 
-const Container = styled.div<{ background: boolean; delay: number }>`
+const Container = styled.div<{
+  background: boolean;
+  delay: number;
+  expand: boolean;
+}>`
   position: fixed;
+  top: 0;
   width: 100%;
-  display: flex;
-  align-items: center;
-  height: ${NAV_BAR_HEIGHT}px;
-  padding: 0 20px;
-  box-sizing: border-box;
-  backdrop-filter: ${({ background }) =>
-    background ? "brightness(0.7) blur(10px)" : "brightness(1) blur(0)"};
+  height: ${({ expand }) => (expand ? 400 : NAV_BAR_HEIGHT)}px;
+  backdrop-filter: ${({ background, expand }) =>
+    expand
+      ? "brightness(0.5) blur(10px)"
+      : background
+      ? "brightness(0.7) blur(10px)"
+      : "brightness(1) blur(0)"};
   overflow: hidden;
+  transition: backdrop-filter 0.5s, height 0.5s cubic-bezier(0.4, 0, 0, 1);
   animation: fadeIn 2s ${({ delay }) => delay}s forwards;
   opacity: 0;
   z-index: 10;
-  transition: backdrop-filter 0.5s;
 
   @keyframes fadeIn {
     from {
@@ -29,6 +36,19 @@ const Container = styled.div<{ background: boolean; delay: number }>`
     to {
       opacity: 1;
     }
+  }
+`;
+
+const Bar = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  height: ${NAV_BAR_HEIGHT}px;
+
+  @media ${MEDIA_SIZE.mobile} {
+    padding: 0 10px;
   }
 `;
 
@@ -82,6 +102,15 @@ const Item = styled.div`
   }
 `;
 
+const MobileMenu = styled.div`
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20%;
+`;
+
 const MENU_ITEMS = [
   {
     label: "Portfolio",
@@ -101,8 +130,10 @@ export default function NavBar() {
   const location = useLocation();
 
   const [hide, setHide] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const { scrollTop } = useAppContext();
+  const { isMobile } = useWindowSize();
 
   const isHome = location.pathname === "/";
 
@@ -111,14 +142,6 @@ export default function NavBar() {
   };
 
   useEffect(() => {
-    console.log({
-      scrollTop,
-      scrollHeight: document.documentElement.scrollHeight,
-      innerHeight: window.innerHeight,
-      hide:
-        scrollTop >=
-        document.documentElement.scrollHeight - window.innerHeight - 40,
-    });
     setHide(
       scrollTop >=
         document.documentElement.scrollHeight - window.innerHeight - 40
@@ -134,29 +157,62 @@ export default function NavBar() {
           : scrollTop > NAV_BAR_HEIGHT)
       }
       delay={isHome ? 1 : 0}
+      expand={showMobileMenu}
     >
-      <TitleContainer show={!isHome || scrollTop >= window.innerHeight * 0.6}>
-        <Item>
-          <StyledLink to="/" onClick={scrollToTop} hide={hide}>
-            <Logo />
-          </StyledLink>
-        </Item>
-      </TitleContainer>
-      {MENU_ITEMS.map(({ label, to, onClick }) => (
-        <ItemContainer key={label}>
+      <Bar>
+        <TitleContainer show={!isHome || scrollTop >= window.innerHeight * 0.6}>
           <Item>
-            {to ? (
-              <StyledLink to={to} hide={hide}>
-                {label}
-              </StyledLink>
-            ) : (
-              <ItemLabel onClick={onClick} hide={hide}>
-                {label}
-              </ItemLabel>
-            )}
+            <StyledLink to="/" onClick={scrollToTop} hide={hide}>
+              <Logo />
+            </StyledLink>
           </Item>
-        </ItemContainer>
-      ))}
+        </TitleContainer>
+        {isMobile ? (
+          <ItemContainer>
+            <ItemLabel
+              onClick={() => setShowMobileMenu((prev) => !prev)}
+              hide={hide}
+            >
+              {showMobileMenu ? "Close" : "Sitemap"}
+            </ItemLabel>
+          </ItemContainer>
+        ) : (
+          MENU_ITEMS.map(({ label, to, onClick }) => (
+            <ItemContainer key={label}>
+              <Item>
+                {to ? (
+                  <StyledLink to={to} hide={hide}>
+                    {label}
+                  </StyledLink>
+                ) : (
+                  <ItemLabel onClick={onClick} hide={hide}>
+                    {label}
+                  </ItemLabel>
+                )}
+              </Item>
+            </ItemContainer>
+          ))
+        )}
+      </Bar>
+      {isMobile && (
+        <MobileMenu>
+          {MENU_ITEMS.map(({ label, to, onClick }) => (
+            <ItemContainer key={label}>
+              <Item onClick={() => setShowMobileMenu(false)}>
+                {to ? (
+                  <StyledLink to={to} hide={hide}>
+                    {label}
+                  </StyledLink>
+                ) : (
+                  <ItemLabel onClick={onClick} hide={hide}>
+                    {label}
+                  </ItemLabel>
+                )}
+              </Item>
+            </ItemContainer>
+          ))}
+        </MobileMenu>
+      )}
     </Container>
   );
 }
