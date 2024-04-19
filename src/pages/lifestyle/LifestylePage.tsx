@@ -39,7 +39,7 @@ const LogoImage = styled.img`
   width: 45%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -10%);
+  transform: translate(-50%, -30%);
   pointer-events: none;
   z-index: 2;
   animation: fadeIn 1s forwards;
@@ -50,9 +50,9 @@ const Shadow = styled.div`
   position: absolute;
   width: 35%;
   height: 10px;
-  top: 60%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, -30%);
   background-color: black;
   box-shadow: 0 0 100px 100px black;
   opacity: 0.6;

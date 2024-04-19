@@ -7,7 +7,7 @@ import HoldingsDetailsPage from "./HoldingsDetailsPage";
 
 const HOLDINGS = [
   {
-    label: "294 East Houston",
+    label: "The B, 294 East Houston",
     src: Src1,
   },
   {
@@ -19,7 +19,7 @@ const HOLDINGS = [
     src: Src3,
   },
   {
-    label: "Ferrari Second Ave",
+    label: "Ferrari Residences, 2118 2nd Ave",
     src: Src4,
   },
   {

@@ -4,7 +4,7 @@ import HoldingsDetailsPage from "./HoldingsDetailsPage";
 
 const HOLDINGS = [
   {
-    label: "294 East Houston",
+    label: "88 University Place, NY",
     src: EightyEightUniverityNYSrc,
   },
   {

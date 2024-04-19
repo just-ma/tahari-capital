@@ -2,6 +2,7 @@ import styled from "styled-components";
 import BackgroundImageSrc from "../../assets/images/login-background.jpg";
 import { useEffect, useState } from "react";
 import { MEDIA_SIZE } from "../../constants";
+import TahariLogo from "../../assets/graphics/tahari-captial-logo.svg?react";
 
 const Section = styled.div<{ reverse?: boolean }>`
   position: relative;
@@ -50,7 +51,7 @@ const Panel = styled.div`
   right: -400px;
   height: 100%;
   width: 400px;
-  backdrop-filter: brightness(0.5) blur(10px);
+  backdrop-filter: brightness(0.6) blur(10px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -73,20 +74,16 @@ const Panel = styled.div`
   }
 `;
 
-const Title = styled.div`
-  color: white;
-  text-transform: uppercase;
-  font-size: 40px;
-  line-height: 45px;
-  font-weight: lighter;
-  white-space: pre-wrap;
-  margin-bottom: 12%;
-  cursor: default;
+const Logo = styled(TahariLogo)`
+  width: 70%;
+  margin: 0 auto;
+  height: fit-content;
+  margin-bottom: 20px;
 `;
 
 const InputContainer = styled.div`
   width: 100%;
-  margin: 20px 0 10px;
+  margin-top: 40px;
 `;
 
 const InputLabel = styled.label`
@@ -101,11 +98,11 @@ const InputLabel = styled.label`
 const Input = styled.input<{ error: boolean }>`
   width: 100%;
   height: 38px;
-  border-radius: 4px;
+  border-radius: 7px;
   border: ${({ error }) =>
-    error ? "#ffa2a2 solid 1px" : "transparent solid 1px"};
+    error ? "#ffa2a2 solid 1px" : "rgba(255, 255, 255, 0.5) solid 1px"};
   outline: none;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.4);
   transition: background-color 0.4s, opacity 0.4s;
   padding: 0 12px;
   font-family: system-ui;
@@ -135,7 +132,7 @@ const SubmitButton = styled.button`
   text-transform: uppercase;
   cursor: pointer;
   height: 38px;
-  border-radius: 4px;
+  border-radius: 7px;
   border: none;
   outline: none;
   transition: 0.4s background-color, 0.4s opacity;
@@ -187,7 +184,7 @@ export default function LoginPage() {
         <BackgroundImage src={BackgroundImageSrc} />
         <Shadow />
         <Panel>
-          <Title>{"Investor \nLogin"}</Title>
+          <Logo />
           <div>
             <InputContainer>
               <InputLabel>Username</InputLabel>

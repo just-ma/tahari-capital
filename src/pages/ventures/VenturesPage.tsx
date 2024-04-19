@@ -13,7 +13,7 @@ import Logo7 from "../../assets/images/ventures-sci-fi-foods.png";
 import Logo8 from "../../assets/images/ventures-zoa.jpg";
 import Logo9 from "../../assets/images/ventures-t-tahari.png";
 import Logo10 from "../../assets/images/ventures-anti.jpg";
-import Logo11 from "../../assets/images/ventures-fit-match.png";
+import Logo11 from "../../assets/images/ventures-fit-match.jpg";
 import Logo12 from "../../assets/images/ventures-catherine-malandrino.jpg";
 import Logo13 from "../../assets/images/ventures-veri-uomo.png";
 import Logo14 from "../../assets/images/ventures-iisli.jpg";
@@ -47,10 +47,6 @@ const Section = styled.div<{ opacity: number }>`
   align-items: center;
   justify-content: center;
   opacity: ${({ opacity }) => opacity};
-`;
-
-const DescriptionSection = styled(Section)`
-  height: fit-content;
 `;
 
 const LogosSection = styled(Section)`
@@ -106,27 +102,13 @@ const LogoImage = styled.img`
   opacity: 0;
 `;
 
-const Description = styled.div`
-  max-width: 800px;
-  font-size: 20px;
-  line-height: 30px;
-  white-space: pre-wrap;
-  cursor: default;
-  text-align: justify;
-  border-top: 1px solid #353535;
-  border-bottom: 1px solid #353535;
-  padding: 40px 0;
-  font-weight: lighter;
-  margin: 0 20px;
-`;
-
 export default function VenturesPage() {
   const [show, setShow] = useState(false);
 
   const { scrollTop } = useAppContext();
 
   useEffect(() => {
-    setShow(scrollTop > window.innerHeight);
+    setShow(scrollTop > window.innerHeight * 0.4);
   }, [scrollTop]);
 
   useEffect(() => {
@@ -144,21 +126,6 @@ export default function VenturesPage() {
         <BackgroundImage src={BackgroundImageSrc} />
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
-      <DescriptionSection
-        opacity={Math.min((2 * scrollTop) / window.innerHeight, 1)}
-      >
-        <Description>
-          {"\t"}Tahari Capital oversees a portfolio of venture capital
-          investments. Tahari Capital's focus is mainly on early stage (series A
-          & B) tech businesses in fashion and luxury, as well as hospitality and
-          crypto. The primary focus is on 4 verticals/10 sub sectors :
-          Traceability of the supply chain, Design and content creation, Retail
-          and new commerce, and Circular economy. Enabling tech such as data
-          mining, AI, Blockchain, Web3, 3D, IoT, AR/VR etc. Our aim is to power
-          this eco system of tech companies, brands and investors through
-          insights, learning, network and intelligent capital.
-        </Description>
-      </DescriptionSection>
       <LogosSection opacity={1}>
         {LOGOS.map((src, index) => (
           <Logo
