@@ -3,6 +3,7 @@ import BackgroundImageSrc from "../../assets/images/tahari-logistics-stats-backg
 import LogoImageSrc from "../../assets/images/tahari-logsitics-logo.png";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
+import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
@@ -28,19 +29,19 @@ const LogoImage = styled.img`
 `;
 
 const StatsSection = styled(Section)`
-  height: 250vh;
+  height: 150vh;
   align-items: flex-start;
 `;
 
 const StatsBackgroundImage = styled.img`
   flex: 1 0 50%;
-  height: 40%;
+  height: 66%;
   object-fit: cover;
   animation: fadeIn 2s forwards;
   opacity: 0;
   user-select: none;
   position: sticky;
-  top: 0px;
+  top: ${NAV_BAR_HEIGHT}px;
   display: block;
 
   @keyframes fadeIn {
@@ -52,19 +53,18 @@ const StatsBackgroundImage = styled.img`
 
 const HalfSection = styled.div`
   flex: 1 0 50%;
-  display: flex;
-  flex-direction: column;
   height: 100%;
 `;
 
 const MenuContainer = styled.div`
+  height: fit-content;
   width: 100%;
-  flex: 1 0 50%;
-  padding: 0 50px;
+  padding: 200px 50px 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
 `;
 
 const MenuItem = styled.div<{
@@ -96,14 +96,15 @@ const ItemOverflowContainer = styled.div<{ primary?: boolean }>`
   width: fit-content;
 `;
 
-const DescriptionContainer = styled.div`
-  width: 100%;
+const DescriptionContainer = styled.div<{ show: boolean }>`
+  position: absolute;
+  bottom: ${({ show }) => (show ? -230 : -250)}px;
+  left: 50px;
+  width: calc(100% - 100px);
   flex: 1 0 50%;
-  padding: 0 50px;
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: 1s bottom cubic-bezier(0.4, 0, 0, 1), 1s opacity;
 `;
 
 const Description = styled.div`
@@ -118,7 +119,7 @@ const Description = styled.div`
   border-bottom: 1px solid #353535;
   padding: 40px 0;
   font-weight: lighter;
-  margin-bottom: 50px;
+  margin: 0 auto 50px;
 `;
 
 const ITEMS = [
@@ -143,7 +144,8 @@ const ITEMS = [
 export default function LogisticsPage() {
   const { scrollTop } = useAppContext();
 
-  const [show, setShow] = useState(false);
+  const [showStats, setShowStats] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
   const [init, setInit] = useState(false);
 
   useEffect(() => {
@@ -156,7 +158,11 @@ export default function LogisticsPage() {
       return;
     }
 
-    setShow(scrollTop > window.innerHeight * 0.6);
+    setShowStats(
+      scrollTop > window.innerHeight * 0.5 &&
+        scrollTop < window.innerHeight * 1.3
+    );
+    setShowDescription(scrollTop >= window.innerHeight * 1.3);
   }, [scrollTop, init]);
 
   return (
@@ -176,32 +182,39 @@ export default function LogisticsPage() {
             {ITEMS.map(({ primary, secondary }, index) => (
               <>
                 <ItemOverflowContainer key={index} primary>
-                  <MenuItem show={show} delay={show ? index * 0.5 : 0} primary>
+                  <MenuItem
+                    show={showStats}
+                    delay={showStats ? index * 0.5 : 0}
+                    primary
+                  >
                     {primary}
                   </MenuItem>
                 </ItemOverflowContainer>
                 <ItemOverflowContainer key={`${index}-2`}>
-                  <MenuItem show={show} delay={show ? index * 0.5 + 0.1 : 0}>
+                  <MenuItem
+                    show={showStats}
+                    delay={showStats ? index * 0.5 + 0.1 : 0}
+                  >
                     {secondary}
                   </MenuItem>
                 </ItemOverflowContainer>
               </>
             ))}
+            <DescriptionContainer show={showDescription}>
+              <Description>
+                {"\t"}
+                Since 2003, Tahari Logistics has conducted full service third
+                party logistics operations by shipping and fulfilling over fifty
+                brands domestically and abroad. The firm gains a competitive
+                advantage through its complete responsibility of the affiliated
+                Tahari brand, as that standard of care is equally disseminated
+                to all clients. The state of the art WMS and RFID coupled with
+                the full steam tunnel and pressing capabilities sets apart
+                Tahari Logistics to service nearly 10M units annually across all
+                consumer goods products.
+              </Description>
+            </DescriptionContainer>
           </MenuContainer>
-          <DescriptionContainer>
-            <Description>
-              {"\t"}
-              Since 2003, Tahari Logistics has conducted full service third
-              party logistics operations by shipping and fulfilling over fifty
-              brands domestically and abroad. The firm gains a competitive
-              advantage through its complete responsibility of the affiliated
-              Tahari brand, as that standard of care is equally disseminated to
-              all clients. The state of the art WMS and RFID coupled with the
-              full steam tunnel and pressing capabilities sets apart Tahari
-              Logistics to service nearly 10M units annually across all consumer
-              goods products.
-            </Description>
-          </DescriptionContainer>
         </HalfSection>
       </StatsSection>
     </>

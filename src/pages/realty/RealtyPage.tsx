@@ -9,6 +9,7 @@ import ConstructionMgmtIconSrc from "../../assets/images/construction-mgmt-icon.
 import LogoImageSrc from "../../assets/images/tahari-realty-logo.png";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
+import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
@@ -18,6 +19,11 @@ const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   align-items: center;
   justify-content: center;
   opacity: ${({ opacity }) => opacity};
+`;
+
+const ServicesSection = styled(Section)`
+  height: 200vh;
+  align-items: flex-start;
 `;
 
 const BackgroundImage = styled.img`
@@ -40,6 +46,21 @@ const BackgroundImage = styled.img`
   }
 `;
 
+const ServicesBackgroundImage = styled(BackgroundImage)`
+  position: relative;
+  flex: 1 0 50%;
+  height: 50%;
+  position: sticky;
+  display: block;
+  width: 0;
+  top: ${NAV_BAR_HEIGHT}px;
+`;
+
+const HalfSection = styled.div`
+  flex: 1 0 50%;
+  height: 100%;
+`;
+
 const LogoImage = styled.img`
   position: absolute;
   width: 45%;
@@ -60,15 +81,17 @@ const Shadow = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: black;
-  box-shadow: 0 0 100px 100px black;
+  box-shadow: 0 0 80px 100px black;
   opacity: 0.6;
   z-index: 0;
 `;
 
 const ServicesContainer = styled.div`
-  width: 90%;
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
+  padding: 200px 100px 0;
+  position: relative;
 `;
 
 const ServiceItem = styled.div<{
@@ -77,9 +100,9 @@ const ServiceItem = styled.div<{
 }>`
   flex: 1 0 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 20px;
+  width: 100%;
+  gap: 50px;
   margin-top: ${({ show }) => (show ? 0 : 30)}px;
   margin-bottom: ${({ show }) => (show ? 30 : 0)}px;
   opacity: ${({ show }) => (show ? 1 : 0)};
@@ -97,15 +120,26 @@ const ServiceIcon = styled.img`
 const ServiceLabel = styled.div`
   color: white;
   text-transform: uppercase;
-  text-align: center;
   font-size: 24px;
   line-height: 30px;
   white-space: pre-wrap;
   cursor: default;
 `;
 
+const DescriptionContainer = styled.div<{ show: boolean }>`
+  position: absolute;
+  top: ${({ show }) => (show ? 550 : 570)}px;
+  left: 50px;
+  width: calc(100% - 100px);
+  flex: 1 0 50%;
+  box-sizing: border-box;
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: 1s bottom cubic-bezier(0.4, 0, 0, 1), 1s opacity;
+`;
+
 const Description = styled.div`
-  max-width: 800px;
+  width: 100%;
+  max-width: 480px;
   font-size: 20px;
   line-height: 30px;
   white-space: pre-wrap;
@@ -115,16 +149,21 @@ const Description = styled.div`
   border-bottom: 1px solid #353535;
   padding: 40px 0;
   font-weight: lighter;
-  margin: 0 20px;
+  margin: 0 auto 50px;
 `;
 
 export default function RealtyPage() {
-  const [show, setShow] = useState(false);
+  const [showServices, setShowServices] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
 
   const { scrollTop } = useAppContext();
 
   useEffect(() => {
-    setShow(scrollTop > window.innerHeight * 0.6);
+    setShowServices(
+      scrollTop > window.innerHeight * 0.5 &&
+        scrollTop < window.innerHeight * 1.3
+    );
+    setShowDescription(scrollTop >= window.innerHeight * 1.3);
   }, [scrollTop]);
 
   useEffect(() => {
@@ -143,54 +182,59 @@ export default function RealtyPage() {
         <Shadow />
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
-      <Section opacity={Math.min(scrollTop / window.innerHeight, 1)}>
-        <BackgroundImage src={ServicesBackgroundImageSrc} />
-        <ServicesContainer>
-          <ServiceItem show={show} delay={0}>
-            <ServiceIcon src={BrokerageIconSrc} />
-            <ServiceLabel>Brokerage</ServiceLabel>
-          </ServiceItem>
-          <ServiceItem show={show} delay={show ? 0.4 : 0}>
-            <ServiceIcon src={LendingIconSrc} />
-            <ServiceLabel>Lending</ServiceLabel>
-          </ServiceItem>
-          <ServiceItem show={show} delay={show ? 2 * 0.4 : 0}>
-            <ServiceIcon src={CaptialAdvisoryIconSrc} />
-            <ServiceLabel>{"Captial \nAdvisory"}</ServiceLabel>
-          </ServiceItem>
-          <ServiceItem show={show} delay={show ? 3 * 0.4 : 0}>
-            <ServiceIcon src={PropertyMgmtIconSrc} />
-            <ServiceLabel>{"Property \nManagement"}</ServiceLabel>
-          </ServiceItem>
-          <ServiceItem show={show} delay={show ? 4 * 0.4 : 0}>
-            <ServiceIcon src={ConstructionMgmtIconSrc} />
-            <ServiceLabel>{"Construction \nManagement"}</ServiceLabel>
-          </ServiceItem>
-        </ServicesContainer>
-      </Section>
-      <Section opacity={1}>
-        <Description>
-          {"\t"}Founded in 2021 by Jeremey Tahari, Tahari Realty is responsible
-          for all activities and services related to the operation of the Tahari
-          Capital portfolio of commercial properties and development projects,
-          Tahari Realty includes professionals with extensive experience in
-          office and retail leasing, property management, development,
-          construction management, accounting and financial reporting. Leasing,
-          Property Management and Construction Management professionals are
-          assigned to each property to develop and execute a specific business
-          plan to enhance and maximize the value of the asset. The Accounting
-          group has a team of professionals who are dedicated to the processes
-          of, budgeting, forecasting, bookkeeping and reporting in accordance
-          with established industry best practices and audit procedures. The
-          Construction Management group oversees projects ranging from tenant
-          improvement work to major building renovations and new ground-up
-          development.The integrated skill sets of these groups provide the
-          in-house expertise required to deal with the complex local building
-          codes, land use restrictions and other related regulations associated
-          with the ownership of real estate assets in New York City and other
-          areas of the country and across the globe.
-        </Description>
-      </Section>
+      <ServicesSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
+        <ServicesBackgroundImage src={ServicesBackgroundImageSrc} />
+        <HalfSection>
+          <ServicesContainer>
+            <ServiceItem show={showServices} delay={0}>
+              <ServiceIcon src={BrokerageIconSrc} />
+              <ServiceLabel>Brokerage</ServiceLabel>
+            </ServiceItem>
+            <ServiceItem show={showServices} delay={showServices ? 0.2 : 0}>
+              <ServiceIcon src={LendingIconSrc} />
+              <ServiceLabel>Lending</ServiceLabel>
+            </ServiceItem>
+            <ServiceItem show={showServices} delay={showServices ? 2 * 0.2 : 0}>
+              <ServiceIcon src={CaptialAdvisoryIconSrc} />
+              <ServiceLabel>{"Captial \nAdvisory"}</ServiceLabel>
+            </ServiceItem>
+            <ServiceItem show={showServices} delay={showServices ? 3 * 0.2 : 0}>
+              <ServiceIcon src={PropertyMgmtIconSrc} />
+              <ServiceLabel>{"Property \nManagement"}</ServiceLabel>
+            </ServiceItem>
+            <ServiceItem show={showServices} delay={showServices ? 4 * 0.2 : 0}>
+              <ServiceIcon src={ConstructionMgmtIconSrc} />
+              <ServiceLabel>{"Construction \nManagement"}</ServiceLabel>
+            </ServiceItem>
+            <DescriptionContainer show={showDescription}>
+              <Description>
+                {"\t"}Founded in 2021 by Jeremey Tahari, Tahari Realty is
+                responsible for all activities and services related to the
+                operation of the Tahari Capital portfolio of commercial
+                properties and development projects, Tahari Realty includes
+                professionals with extensive experience in office and retail
+                leasing, property management, development, construction
+                management, accounting and financial reporting. Leasing,
+                Property Management and Construction Management professionals
+                are assigned to each property to develop and execute a specific
+                business plan to enhance and maximize the value of the asset.
+                The Accounting group has a team of professionals who are
+                dedicated to the processes of, budgeting, forecasting,
+                bookkeeping and reporting in accordance with established
+                industry best practices and audit procedures. The Construction
+                Management group oversees projects ranging from tenant
+                improvement work to major building renovations and new ground-up
+                development.The integrated skill sets of these groups provide
+                the in-house expertise required to deal with the complex local
+                building codes, land use restrictions and other related
+                regulations associated with the ownership of real estate assets
+                in New York City and other areas of the country and across the
+                globe.
+              </Description>
+            </DescriptionContainer>
+          </ServicesContainer>
+        </HalfSection>
+      </ServicesSection>
     </>
   );
 }
