@@ -5,6 +5,7 @@ import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
 import FashionGallery from "./FashionGallery";
 import { MEDIA_SIZE } from "../../constants";
+import BackgroundVideoSrc from "../../assets/videos/tahari-fashion.m4v";
 
 const Section = styled.div<{
   opacity: number;
@@ -30,6 +31,18 @@ const DescriptionSection = styled(Section)`
   @media ${MEDIA_SIZE.mobile} {
     flex-direction: column;
   }
+`;
+
+const BackgroundVideo = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
 `;
 
 const LogoImage = styled.img`
@@ -197,6 +210,14 @@ export default function FashionPage() {
         )}
         gradient
       >
+        <BackgroundVideo
+          src={BackgroundVideoSrc}
+          autoPlay
+          loop
+          muted
+          controls={false}
+          playsInline
+        />
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
       <StatsSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>

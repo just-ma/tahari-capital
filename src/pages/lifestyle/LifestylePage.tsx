@@ -54,7 +54,7 @@ const Shadow = styled.div`
   left: 50%;
   transform: translate(-50%, -30%);
   background-color: black;
-  box-shadow: 0 0 100px 100px black;
+  box-shadow: 0 0 80px 100px black;
   opacity: 0.6;
   z-index: 1;
 `;

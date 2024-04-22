@@ -4,6 +4,7 @@ import LogoImageSrc from "../../assets/images/tahari-logsitics-logo.png";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
+import BackgroundVideoSrc from "../../assets/videos/tahari-logistics.m4v";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
@@ -23,9 +24,34 @@ const LogoImage = styled.img`
   left: 50%;
   transform: translate(-50%, calc(-50% - 40px));
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
   animation: fadeIn 1s forwards;
   opacity: 0;
+`;
+
+const BackgroundVideo = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+`;
+
+const Shadow = styled.div`
+  position: absolute;
+  width: 35%;
+  height: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  box-shadow: 0 0 80px 100px black;
+  opacity: 0.4;
+  z-index: 1;
 `;
 
 const StatsSection = styled(Section)`
@@ -173,6 +199,15 @@ export default function LogisticsPage() {
           0
         )}
       >
+        <BackgroundVideo
+          src={BackgroundVideoSrc}
+          autoPlay
+          loop
+          muted
+          controls={false}
+          playsInline
+        />
+        <Shadow />
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
       <StatsSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
