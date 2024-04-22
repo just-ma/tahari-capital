@@ -10,13 +10,11 @@ import BackgroundVideoSrc from "../../assets/videos/tahari-fashion.m4v";
 const Section = styled.div<{
   opacity: number;
   reverse?: boolean;
-  gradient?: boolean;
 }>`
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: ${({ gradient }) =>
-    gradient ? "linear-gradient(0deg, #000 50%, #201811 100%)" : "black"};
+  background: black;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -208,7 +206,6 @@ export default function FashionPage() {
           (window.innerHeight - scrollTop) / window.innerHeight,
           0
         )}
-        gradient
       >
         <BackgroundVideo
           src={BackgroundVideoSrc}
