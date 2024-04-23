@@ -2,10 +2,8 @@ import { Canvas } from "@react-three/fiber";
 import styled from "styled-components";
 import HistoryCanvasContent from "./HistoryCanvasContent";
 import {
-  Bloom,
   DepthOfField,
   EffectComposer,
-  Noise,
   Vignette,
 } from "@react-three/postprocessing";
 import { ScrollControls } from "@react-three/drei";

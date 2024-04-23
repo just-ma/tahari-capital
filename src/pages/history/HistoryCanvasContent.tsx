@@ -1,10 +1,8 @@
 import {
   Environment,
-  OrbitControls,
   PerspectiveCamera,
   Plane,
   Sky,
-  Sphere,
   useScroll,
   useTexture,
 } from "@react-three/drei";
@@ -70,9 +68,6 @@ export default function HistoryCanvasContent() {
 
     const xDisplacement = (pointAhead.x - curPoint.x) * 80;
 
-    // Math.PI / 2 -> LEFT
-    // -Math.PI / 2 -> RIGHT
-
     const angleRotation =
       (xDisplacement < 0 ? 1 : -1) *
       Math.min(Math.abs(xDisplacement), Math.PI / 3);
@@ -95,26 +90,10 @@ export default function HistoryCanvasContent() {
       <group ref={cameraGroup}>
         <PerspectiveCamera fov={30} position={[-1, 0, 1]} makeDefault />
       </group>
-      {/* <OrbitControls enableZoom={false} /> */}
       <fog attach="fog" args={["white", 0, 80]} />
       <pointLight intensity={20} position={[7, 5, 1]} />
       <Sky sunPosition={[7, 5, 1]} />
       <Environment preset="sunset" />
-      {/* <Sphere scale={[100, 100, 100]} rotation-y={Math.PI / 2}>
-        <LayerMaterial
-          lighting="physical"
-          transmission={1}
-          side={THREE.BackSide}
-        >
-          <Gradient
-            colorA={"white"}
-            colorB={"black"}
-            axes={"y"}
-            start={0.5}
-            end={0}
-          />
-        </LayerMaterial>
-      </Sphere> */}
       <group position-y={1}>
         <mesh>
           <extrudeGeometry
@@ -122,7 +101,7 @@ export default function HistoryCanvasContent() {
               shape,
               {
                 steps: LINE_NB_POINTS,
-                // bevelEnabled: false,
+                bevelEnabled: false,
                 extrudePath: curve,
               },
             ]}
