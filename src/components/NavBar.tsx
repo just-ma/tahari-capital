@@ -23,6 +23,12 @@ const Container = styled.div<{
       : background
       ? "brightness(0.7) blur(10px)"
       : "brightness(1) blur(0)"};
+  -webkit-backdrop-filter: ${({ background, expand }) =>
+    expand
+      ? "brightness(0.5) blur(10px)"
+      : background
+      ? "brightness(0.7) blur(10px)"
+      : "brightness(1) blur(0)"};
   overflow: hidden;
   transition: backdrop-filter 0.5s, height 0.5s cubic-bezier(0.4, 0, 0, 1);
   animation: fadeIn 2s ${({ delay }) => delay}s forwards;

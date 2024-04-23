@@ -52,6 +52,7 @@ const Panel = styled.div`
   height: 100%;
   width: 400px;
   backdrop-filter: brightness(0.6) blur(10px);
+  -webkit-backdrop-filter: brightness(0.6) blur(10px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -209,7 +210,7 @@ export default function LoginPage() {
           </div>
           <SubmitContainer>
             <SubmitButton onClick={handleSubmit} disabled={submitting}>
-              Login
+              Investor Login
             </SubmitButton>
           </SubmitContainer>
         </Panel>

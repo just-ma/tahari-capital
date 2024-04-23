@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MEDIA_SIZE } from "../constants";
 
 const CURRENT_YEAR = new Date().getFullYear();
-const EMAIL = "office@taharicaptial.com";
+const EMAIL = "info@taharicaptial.com";
 
 const Container = styled.div`
   color: #aca9a7;
@@ -89,7 +89,7 @@ const LogoColumn = styled.div`
 
 const StyledLogo = styled(TahariCaptialLogo)`
   width: 200px;
-  height: fit-content;
+  height: 50px;
   margin-top: 10px;
   user-select: none;
   cursor: pointer;

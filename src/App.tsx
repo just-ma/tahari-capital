@@ -17,6 +17,7 @@ import LifestylePage from "./pages/lifestyle/LifestylePage";
 import LoginPage from "./pages/login/LoginPage";
 import RealtyPage from "./pages/realty/RealtyPage";
 import VenturesPage from "./pages/ventures/VenturesPage";
+import HistoryPage from "./pages/history/HistoryPage";
 
 export default function App() {
   return (
@@ -71,10 +72,7 @@ export default function App() {
             <Route path="/logistics" element={<LogisticsPage />} />
 
             {/* History */}
-            <Route path="/history" element={<></>} />
-
-            {/* Contact */}
-            <Route path="/contact" element={<></>} />
+            <Route path="/history" element={<HistoryPage />} />
 
             {/* Login */}
             <Route path="/login" element={<LoginPage />} />

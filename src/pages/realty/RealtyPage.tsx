@@ -140,15 +140,12 @@ const DescriptionContainer = styled.div<{ show: boolean }>`
 const Description = styled.div`
   width: 100%;
   max-width: 480px;
-  font-size: 20px;
-  line-height: 30px;
+  font-size: 16px;
+  line-height: 24px;
   white-space: pre-wrap;
   cursor: default;
   text-align: justify;
-  border-top: 1px solid #353535;
-  border-bottom: 1px solid #353535;
   padding: 40px 0;
-  font-weight: lighter;
   margin: 0 auto 50px;
 `;
 

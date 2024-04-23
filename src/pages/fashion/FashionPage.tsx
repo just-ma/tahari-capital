@@ -62,7 +62,7 @@ const LogoImage = styled.img`
 `;
 
 const StatsBackgroundImage = styled.img`
-  height: 100%;
+  height: 100vh;
   object-fit: cover;
   user-select: none;
 
@@ -70,6 +70,7 @@ const StatsBackgroundImage = styled.img`
     width: 100%;
     height: auto;
     filter: brightness(0.5) blur(4px);
+    -webkit-backdrop-filter: brightness(0.5) blur(4px);
   }
 `;
 
@@ -148,15 +149,12 @@ const DescriptionContainer = styled.div`
 
 const Description = styled.div`
   max-width: 480px;
-  font-size: 20px;
-  line-height: 30px;
+  font-size: 16px;
+  line-height: 24px;
   white-space: pre-wrap;
   cursor: default;
   text-align: justify;
-  border-top: 1px solid #353535;
-  border-bottom: 1px solid #353535;
   padding: 40px 0;
-  font-weight: lighter;
   margin: 0 auto;
 
   @media ${MEDIA_SIZE.mobile} {
