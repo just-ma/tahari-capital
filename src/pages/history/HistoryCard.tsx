@@ -11,6 +11,7 @@ export default function HistoryCard({
   height = 1,
   src,
   cameraPosition,
+  align,
 }: {
   position: [number, number, number];
   year: number;
@@ -19,6 +20,7 @@ export default function HistoryCard({
   height?: number;
   src: string;
   cameraPosition: React.RefObject<THREE.Group<THREE.Object3DEventMap>>;
+  align: "left" | "right";
 }) {
   const [opacity, setOpacity] = useState(0);
 
@@ -35,7 +37,8 @@ export default function HistoryCard({
     <group position={position}>
       <Text
         fontSize={0.4}
-        anchorX={"left"}
+        anchorX={align}
+        textAlign={align}
         anchorY={"bottom"}
         font={"./fonts/AeonikPro-Light.otf"}
         color={"black"}
@@ -46,7 +49,8 @@ export default function HistoryCard({
       <Text
         fontSize={0.13}
         maxWidth={2.7}
-        anchorX={"left"}
+        anchorX={align}
+        textAlign={align}
         anchorY={"top"}
         font={"./fonts/AeonikPro-Regular.otf"}
         color={"black"}
@@ -57,13 +61,14 @@ export default function HistoryCard({
       <Image
         url={src}
         position={[
-          0.5 * width,
+          (align === "left" ? 0.5 : -0.5) * width,
           -0.5 * height - 0.1 + -0.17 * Math.ceil(children.length / 48),
           0,
         ]}
         scale={[width, height]}
         transparent
         opacity={opacity}
+        radius={0.1}
       />
     </group>
   );

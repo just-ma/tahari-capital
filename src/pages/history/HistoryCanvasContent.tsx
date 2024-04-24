@@ -34,13 +34,13 @@ export default function HistoryCanvasContent() {
         new THREE.Vector3(-2, 0, -120),
         new THREE.Vector3(0, 3, -140),
         new THREE.Vector3(3, 4, -160),
-        new THREE.Vector3(0, 0, -180),
-        new THREE.Vector3(0, 0, -200),
+        new THREE.Vector3(6, 0, -180),
+        new THREE.Vector3(3, 0, -200),
         new THREE.Vector3(0, 0, -300),
       ],
       false,
       "catmullrom",
-      0.6
+      0.5
     );
   }, []);
 
@@ -89,7 +89,7 @@ export default function HistoryCanvasContent() {
   return (
     <>
       <group ref={cameraGroup}>
-        <PerspectiveCamera fov={30} position={[-1, 0, 1]} makeDefault />
+        <PerspectiveCamera fov={30} position={[0, 0, 0]} makeDefault />
       </group>
       <fog attach="fog" args={["white", 0, 80]} />
       <pointLight intensity={20} position={[7, 5, 1]} />
@@ -129,13 +129,49 @@ export default function HistoryCanvasContent() {
       >
         <meshStandardMaterial attach="material" color="black" />
       </Plane>
-
       <HistoryCard
-        position={[1, 0.2, -20]}
+        position={[-1, -1.5, -5]}
         year={1972}
         width={1.5}
         src={Image1}
         cameraPosition={cameraGroup}
+        align="right"
+      >
+        Elie Tahari arrives in New York City from Israel with $100 in his
+        pocket. With nowhere to go, Elie spends his first night in Manhattan on
+        a bench in Central Park.
+      </HistoryCard>
+      <HistoryCard
+        position={[1, 0.2, -15]}
+        year={1972}
+        width={1.5}
+        src={Image1}
+        cameraPosition={cameraGroup}
+        align="left"
+      >
+        Elie Tahari arrives in New York City from Israel with $100 in his
+        pocket. With nowhere to go, Elie spends his first night in Manhattan on
+        a bench in Central Park.
+      </HistoryCard>
+      <HistoryCard
+        position={[0.2, 0.5, -25]}
+        year={1972}
+        width={1.5}
+        src={Image1}
+        cameraPosition={cameraGroup}
+        align="left"
+      >
+        Elie Tahari arrives in New York City from Israel with $100 in his
+        pocket. With nowhere to go, Elie spends his first night in Manhattan on
+        a bench in Central Park.
+      </HistoryCard>
+      <HistoryCard
+        position={[-3.5, 0, -35]}
+        year={1972}
+        width={1.5}
+        src={Image1}
+        cameraPosition={cameraGroup}
+        align="right"
       >
         Elie Tahari arrives in New York City from Israel with $100 in his
         pocket. With nowhere to go, Elie spends his first night in Manhattan on
