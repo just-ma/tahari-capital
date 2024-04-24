@@ -51,7 +51,7 @@ const Section = styled.div<{ opacity: number }>`
 
 const LogosSection = styled(Section)`
   height: fit-content;
-  padding: 150px 50px;
+  padding: 0 50px 150px;
   flex-wrap: wrap;
   gap: 50px;
   box-sizing: border-box;

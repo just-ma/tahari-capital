@@ -10,6 +10,8 @@ import DisplacementMap from "../../assets/images/terrain.jpg";
 import * as THREE from "three";
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import HistoryCard from "./HistoryCard";
+import Image1 from "../../assets/images/central-park.jpg";
 
 const LINE_NB_POINTS = 12000;
 
@@ -38,7 +40,7 @@ export default function HistoryCanvasContent() {
       ],
       false,
       "catmullrom",
-      0.5
+      0.6
     );
   }, []);
 
@@ -81,7 +83,6 @@ export default function HistoryCanvasContent() {
     );
 
     cameraGroup.current?.quaternion.slerp(targetCameraQuaternion, delta * 2);
-
     cameraGroup.current?.position.lerp(curPoint, delta * 24);
   });
 
@@ -109,27 +110,37 @@ export default function HistoryCanvasContent() {
           <meshStandardMaterial color={"white"} opacity={0.7} transparent />
         </mesh>
       </group>
-      <group>
-        <Plane
-          args={[15, 5, 3000, 1000]}
-          scale={15}
-          position={[0, -4, -90]}
-          rotation={[-Math.PI / 2, 0, Math.PI / 2]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color="black"
-            displacementMap={displacementMap}
-          />
-        </Plane>
-        <Plane
-          args={[1000, 1000]}
-          position={[0, -4, -0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        >
-          <meshStandardMaterial attach="material" color="black" />
-        </Plane>
-      </group>
+      <Plane
+        args={[15, 5, 3000, 1000]}
+        scale={15}
+        position={[0, -4, -90]}
+        rotation={[-Math.PI / 2, 0, Math.PI / 2]}
+      >
+        <meshStandardMaterial
+          attach="material"
+          color="black"
+          displacementMap={displacementMap}
+        />
+      </Plane>
+      <Plane
+        args={[1000, 1000]}
+        position={[0, -4, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
+      >
+        <meshStandardMaterial attach="material" color="black" />
+      </Plane>
+
+      <HistoryCard
+        position={[1, 0.2, -20]}
+        year={1972}
+        width={1.5}
+        src={Image1}
+        cameraPosition={cameraGroup}
+      >
+        Elie Tahari arrives in New York City from Israel with $100 in his
+        pocket. With nowhere to go, Elie spends his first night in Manhattan on
+        a bench in Central Park.
+      </HistoryCard>
     </>
   );
 }

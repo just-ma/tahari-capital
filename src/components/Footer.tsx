@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MEDIA_SIZE } from "../constants";
 
 const CURRENT_YEAR = new Date().getFullYear();
-const EMAIL = "info@taharicaptial.com";
+const EMAIL = "info@taharicapital.com";
 
 const Container = styled.div`
   color: #aca9a7;
@@ -106,6 +106,10 @@ export default function Footer() {
       navigate("/");
     }
   };
+
+  if (location.pathname === "/history") {
+    return null;
+  }
 
   return (
     <Container>
