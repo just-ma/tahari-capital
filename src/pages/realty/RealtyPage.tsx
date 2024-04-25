@@ -22,7 +22,7 @@ const Section = styled.div<{ opacity: number; reverse?: boolean }>`
 `;
 
 const ServicesSection = styled(Section)`
-  height: 200vh;
+  height: 235vh;
   align-items: flex-start;
 `;
 
@@ -49,7 +49,7 @@ const BackgroundImage = styled.img`
 const ServicesBackgroundImage = styled(BackgroundImage)`
   position: relative;
   flex: 1 0 50%;
-  height: 50%;
+  height: 100vh;
   position: sticky;
   display: block;
   width: 0;
@@ -91,7 +91,6 @@ const ServicesContainer = styled.div`
   align-items: flex-start;
   flex-direction: column;
   padding: 200px 100px 0;
-  position: relative;
 `;
 
 const ServiceItem = styled.div<{
@@ -126,27 +125,16 @@ const ServiceLabel = styled.div`
   cursor: default;
 `;
 
-const DescriptionContainer = styled.div<{ show: boolean }>`
-  position: absolute;
-  top: ${({ show }) => (show ? 550 : 570)}px;
-  left: 50px;
-  width: calc(100% - 100px);
-  flex: 1 0 50%;
+const Description = styled.div<{ show: boolean }>`
+  width: 100%;
+  font-size: 22px;
+  line-height: 30px;
+  white-space: pre-wrap;
+  cursor: default;
+  padding: 140px 100px 0;
   box-sizing: border-box;
   opacity: ${({ show }) => (show ? 1 : 0)};
   transition: 1s bottom cubic-bezier(0.4, 0, 0, 1), 1s opacity;
-`;
-
-const Description = styled.div`
-  width: 100%;
-  max-width: 480px;
-  font-size: 16px;
-  line-height: 24px;
-  white-space: pre-wrap;
-  cursor: default;
-  text-align: justify;
-  padding: 40px 0;
-  margin: 0 auto 50px;
 `;
 
 export default function RealtyPage() {
@@ -156,11 +144,8 @@ export default function RealtyPage() {
   const { scrollTop } = useAppContext();
 
   useEffect(() => {
-    setShowServices(
-      scrollTop > window.innerHeight * 0.5 &&
-        scrollTop < window.innerHeight * 1.3
-    );
-    setShowDescription(scrollTop >= window.innerHeight * 1.3);
+    setShowServices(scrollTop > window.innerHeight * 0.5);
+    setShowDescription(scrollTop >= window.innerHeight * 1.25);
   }, [scrollTop]);
 
   useEffect(() => {
@@ -203,33 +188,31 @@ export default function RealtyPage() {
               <ServiceIcon src={ConstructionMgmtIconSrc} />
               <ServiceLabel>{"Construction \nManagement"}</ServiceLabel>
             </ServiceItem>
-            <DescriptionContainer show={showDescription}>
-              <Description>
-                {"\t"}Founded in 2021 by Jeremey Tahari, Tahari Realty is
-                responsible for all activities and services related to the
-                operation of the Tahari Capital portfolio of commercial
-                properties and development projects, Tahari Realty includes
-                professionals with extensive experience in office and retail
-                leasing, property management, development, construction
-                management, accounting and financial reporting. Leasing,
-                Property Management and Construction Management professionals
-                are assigned to each property to develop and execute a specific
-                business plan to enhance and maximize the value of the asset.
-                The Accounting group has a team of professionals who are
-                dedicated to the processes of, budgeting, forecasting,
-                bookkeeping and reporting in accordance with established
-                industry best practices and audit procedures. The Construction
-                Management group oversees projects ranging from tenant
-                improvement work to major building renovations and new ground-up
-                development.The integrated skill sets of these groups provide
-                the in-house expertise required to deal with the complex local
-                building codes, land use restrictions and other related
-                regulations associated with the ownership of real estate assets
-                in New York City and other areas of the country and across the
-                globe.
-              </Description>
-            </DescriptionContainer>
           </ServicesContainer>
+          <Description show={showDescription}>
+            Founded in 2021 by Jeremey Tahari, Tahari Realty is responsible for
+            all activities and services related to the operation of the Tahari
+            Capital portfolio of commercial properties and development projects.
+            {"\n\n"}
+            Tahari Realty includes professionals with extensive experience in
+            office and retail leasing, property management, development,
+            construction management, accounting and financial reporting.
+            Leasing, Property Management and Construction Management
+            professionals are assigned to each property to develop and execute a
+            specific business plan to enhance and maximize the value of the
+            asset. The Accounting group has a team of professionals who are
+            dedicated to the processes of, budgeting, forecasting, bookkeeping
+            and reporting in accordance with established industry best practices
+            and audit procedures. The Construction Management group oversees
+            projects ranging from tenant improvement work to major building
+            renovations and new ground-up development.
+            {"\n\n"}
+            The integrated skill sets of these groups provide the in-house
+            expertise required to deal with the complex local building codes,
+            land use restrictions and other related regulations associated with
+            the ownership of real estate assets in New York City and other areas
+            of the country and across the globe.
+          </Description>
         </HalfSection>
       </ServicesSection>
     </>

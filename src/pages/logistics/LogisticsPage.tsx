@@ -55,13 +55,13 @@ const Shadow = styled.div`
 `;
 
 const StatsSection = styled(Section)`
-  height: 150vh;
+  height: 180vh;
   align-items: flex-start;
 `;
 
 const StatsBackgroundImage = styled.img`
   flex: 1 0 50%;
-  height: 66%;
+  height: 100vh;
   object-fit: cover;
   animation: fadeIn 2s forwards;
   opacity: 0;
@@ -90,7 +90,6 @@ const MenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: relative;
 `;
 
 const MenuItem = styled.div<{
@@ -122,27 +121,16 @@ const ItemOverflowContainer = styled.div<{ primary?: boolean }>`
   width: fit-content;
 `;
 
-const DescriptionContainer = styled.div<{ show: boolean }>`
-  position: absolute;
-  bottom: ${({ show }) => (show ? -230 : -250)}px;
-  left: 50px;
-  width: calc(100% - 100px);
-  flex: 1 0 50%;
+const Description = styled.div<{ show: boolean }>`
+  width: 100%;
+  font-size: 22px;
+  line-height: 30px;
+  white-space: pre-wrap;
+  cursor: default;
+  padding: 150px 50px 0;
   box-sizing: border-box;
   opacity: ${({ show }) => (show ? 1 : 0)};
   transition: 1s bottom cubic-bezier(0.4, 0, 0, 1), 1s opacity;
-`;
-
-const Description = styled.div`
-  width: 100%;
-  max-width: 480px;
-  font-size: 16px;
-  line-height: 24px;
-  white-space: pre-wrap;
-  cursor: default;
-  text-align: justify;
-  padding: 40px 0;
-  margin: 0 auto 50px;
 `;
 
 const ITEMS = [
@@ -181,11 +169,8 @@ export default function LogisticsPage() {
       return;
     }
 
-    setShowStats(
-      scrollTop > window.innerHeight * 0.5 &&
-        scrollTop < window.innerHeight * 1.3
-    );
-    setShowDescription(scrollTop >= window.innerHeight * 1.3);
+    setShowStats(scrollTop > window.innerHeight * 0.5);
+    setShowDescription(scrollTop > window.innerHeight * 1.4);
   }, [scrollTop, init]);
 
   return (
@@ -232,21 +217,17 @@ export default function LogisticsPage() {
                 </ItemOverflowContainer>
               </>
             ))}
-            <DescriptionContainer show={showDescription}>
-              <Description>
-                {"\t"}
-                Since 2003, Tahari Logistics has conducted full service third
-                party logistics operations by shipping and fulfilling over fifty
-                brands domestically and abroad. The firm gains a competitive
-                advantage through its complete responsibility of the affiliated
-                Tahari brand, as that standard of care is equally disseminated
-                to all clients. The state of the art WMS and RFID coupled with
-                the full steam tunnel and pressing capabilities sets apart
-                Tahari Logistics to service nearly 10M units annually across all
-                consumer goods products.
-              </Description>
-            </DescriptionContainer>
           </MenuContainer>
+          <Description show={showDescription}>
+            Since 2003, Tahari Logistics has conducted full service third party
+            logistics operations by shipping and fulfilling over fifty brands
+            domestically and abroad. The firm gains a competitive advantage
+            through its complete responsibility of the affiliated Tahari brand,
+            as that standard of care is equally disseminated to all clients. The
+            state of the art WMS and RFID coupled with the full steam tunnel and
+            pressing capabilities sets apart Tahari Logistics to service nearly
+            10M units annually across all consumer goods products.
+          </Description>
         </HalfSection>
       </StatsSection>
     </>

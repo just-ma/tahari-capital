@@ -9,8 +9,8 @@ import { debounce } from "../../utils";
 import { MEDIA_SIZE } from "../../constants";
 
 const Container = styled.div`
-  width: 50%;
-  height: 100%;
+  width: 50vw;
+  height: 100vh;
   display: flex;
 
   @media ${MEDIA_SIZE.mobile} {

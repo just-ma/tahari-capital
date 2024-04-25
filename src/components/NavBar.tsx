@@ -65,6 +65,7 @@ const TitleContainer = styled.div<{ show: boolean }>`
 `;
 
 const Logo = styled(TahariLogo)`
+  width: 120px;
   height: 16px;
 `;
 

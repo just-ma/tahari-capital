@@ -19,6 +19,7 @@ import Logo13 from "../../assets/images/ventures-veri-uomo.png";
 import Logo14 from "../../assets/images/ventures-iisli.jpg";
 import Logo15 from "../../assets/images/ventures-rocksolid.jpg";
 import Logo16 from "../../assets/images/ventures-morning-lady.jpg";
+import { MEDIA_SIZE } from "../../constants";
 
 const LOGOS = [
   Logo1,
@@ -56,6 +57,7 @@ const LogosSection = styled(Section)`
   gap: 50px;
   box-sizing: border-box;
   pointer-events: none;
+  margin-top: -100px;
 `;
 
 const Logo = styled.img<{
@@ -68,6 +70,10 @@ const Logo = styled.img<{
   margin-top: ${({ show }) => (show ? 30 : 0)}px;
   transition: 1s margin-top ${({ delay }) => delay}s cubic-bezier(0.4, 0, 0, 1),
     1s opacity ${({ delay }) => delay}s;
+
+  @media ${MEDIA_SIZE.mobile} {
+    transform: scale(0.4);
+  }
 `;
 
 const BackgroundImage = styled.img`
@@ -100,6 +106,10 @@ const LogoImage = styled.img`
   z-index: 1;
   animation: fadeIn 1s forwards;
   opacity: 0;
+
+  @media ${MEDIA_SIZE.mobile} {
+    width: 90%;
+  }
 `;
 
 export default function VenturesPage() {
@@ -108,7 +118,7 @@ export default function VenturesPage() {
   const { scrollTop } = useAppContext();
 
   useEffect(() => {
-    setShow(scrollTop > window.innerHeight * 0.4);
+    setShow(scrollTop > window.innerHeight * 0.15);
   }, [scrollTop]);
 
   useEffect(() => {

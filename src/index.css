@@ -1,5 +1,6 @@
 :root {
-  font-family: "AeonikPro", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "AeonikPro", Inter, system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -18,40 +19,42 @@ body {
 
 @font-face {
   font-family: "AeonikPro";
-  src: url(./assets/fonts/AeonikPro-Regular.otf) format("otf");
+  src: url(./fonts/AeonikPro-Regular.otf) format("otf"),
+  url(./assets/fonts/AeonikPro-Regular.woff2) format("woff2");
   font-weight: normal;
 }
 
 @font-face {
   font-family: "AeonikPro";
-  src: url(./assets/fonts/AeonikPro-Bold.otf) format("otf");
+  src: url(./fonts/AeonikPro-Bold.otf) format("otf"),
+  url(./assets/fonts/AeonikPro-Bold.woff2) format("woff2");
   font-weight: bold;
 }
 
 @font-face {
   font-family: "AeonikPro";
-  src: url(./assets/fonts/AeonikPro-Light.otf) format("otf");
+  src: url(./fonts/AeonikPro-Light.otf) format("otf"),
+  url(./assets/fonts/AeonikPro-Light.woff2) format("woff2");
   font-weight: lighter;
 }
 
 @font-face {
   font-family: "AeonikPro";
-  src: url(./assets/fonts/AeonikPro-RegularItalic.otf) format("otf");
+  src: url(./fonts/AeonikPro-RegularItalic.otf) format("otf"),
+  url(./assets/fonts/AeonikPro-RegularItalic.woff2) format("woff2");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "AeonikPro";
-  src: url(./assets/fonts/AeonikPro-BoldItalic.otf) format("otf");
-  font-weight: bold;
-  font-style: italic;
+  font-family: "Tiempos";
+  src: url(./fonts/TiemposText-Regular.otf) format("otf"),
+    url(./assets/fonts/TiemposText-Regular.woff2) format("woff2");
 }
 
 @font-face {
-  font-family: "AeonikPro";
-  src: url(./assets/fonts/AeonikPro-LightItalic.otf) format("otf");
-  font-weight: lighter;
-  font-style: italic;
+  font-family: "Tiempos";
+  src: url(./fonts/TiemposText-RegularItalic.otf) format("otf"),
+    url(./assets/fonts/TiemposText-RegularItalic.woff2) format("woff2");
+    font-style: italic;
 }
-

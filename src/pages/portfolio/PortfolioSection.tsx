@@ -173,14 +173,6 @@ export default function PortfolioSection() {
   const { scrollTop } = useAppContext();
   const { isMobile } = useWindowSize();
 
-  // useEffect(() => {
-  //   const scrolled = scrollTop > window.innerHeight * 0.6;
-  //   setShow(scrolled);
-  //   if (!scrolled) {
-  //     setShowRealEstate(false);
-  //   }
-  // }, [scrollTop]);
-
   return (
     <Section opacity={Math.min(scrollTop / window.innerHeight, 1)}>
       {MENU_ITEMS.map(({ label, to, subItems, src }, index) => (

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import FashionGallery from "./FashionGallery";
 import { MEDIA_SIZE } from "../../constants";
 import BackgroundVideoSrc from "../../assets/videos/tahari-fashion.m4v";
+import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 
 const Section = styled.div<{
   opacity: number;
@@ -26,6 +27,8 @@ const StatsSection = styled(Section)`
 `;
 
 const DescriptionSection = styled(Section)`
+  height: 150vh;
+
   @media ${MEDIA_SIZE.mobile} {
     flex-direction: column;
   }
@@ -149,11 +152,10 @@ const DescriptionContainer = styled.div`
 
 const Description = styled.div`
   max-width: 480px;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 22px;
+  line-height: 30px;
   white-space: pre-wrap;
   cursor: default;
-  text-align: justify;
   padding: 40px 0;
   margin: 0 auto;
 
@@ -163,6 +165,12 @@ const Description = styled.div`
     font-weight: normal;
     padding: 60px 20px;
   }
+`;
+
+const GalleryContainer = styled.div`
+  position: sticky;
+  top: ${NAV_BAR_HEIGHT}px;
+  align-self: flex-start;
 `;
 
 const ITEMS = [
@@ -239,21 +247,32 @@ export default function FashionPage() {
       <DescriptionSection opacity={1}>
         <DescriptionContainer>
           <Description>
-            {"\t"}
-            True to the entrepreneurial spirit that has driven Tahari Capital
-            since its inception, the company combines the power of a corporate
-            group with the flexibility of a start-up. The management of Tahari
-            Capital is based on three fundamental values: imagination, audacity
-            and tenacity. They mirror the personality of Elie Tahari who, from a
-            small apparel company in 1973, has built an enduring player in the
-            fashion industry. These values are translated into the vision of
-            continual search for excellence. We believe long-term value can be
-            created through a variety of strategic initiatives, including brand
-            building, new product development, strategic alliances, and entry
-            into new channels.
+            Elie Tahari is a global leader in fashion design and distribution of
+            luxury lifestyle products. Our reputation and distinctive image of
+            timeless design have been developed across a wide range of products,
+            brands, distribution channels and international markets in four
+            categories: apparel, footwear & accessories, home, and fragrance.
+            {"\n\n"}
+            For more than 50 years, Elie Tahari has sought to inspire women
+            around the world with sexy, sophisticated and feminine designs. Our
+            reputation and distinctive image have been developed across a wide
+            range of products, brands, distribution channels and international
+            markets.
+            {"\n\n"}
+            The Tahari brand name is one of the most widely recognized fashion
+            brand names. We believe that our global reach, breadth of product
+            offerings, and multichannel distribution are unique among luxury and
+            apparel companies. Elie Tahari has been an innovator time and again,
+            and believe that, under the direction of internationally renowned
+            designer Elie Tahari, we have had a considerable influence on the
+            women dress over the last five decades. We combine consumer insights
+            with our design, marketing, along with our licensing alliances,
+            broad lifestyle product collections with a unified vision.
           </Description>
         </DescriptionContainer>
-        <FashionGallery />
+        <GalleryContainer>
+          <FashionGallery />
+        </GalleryContainer>
       </DescriptionSection>
     </>
   );
