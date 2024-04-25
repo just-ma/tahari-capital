@@ -124,9 +124,9 @@ export default function LifestylePage() {
       <Gallery opacity={Math.min(scrollTop / window.innerHeight, 1)}>
         <GalleryImage src={LifestyleImg7} />
         <GalleryImage src={LifestyleImg6} grow />
-        <GalleryImage src={LifestyleImg8} grow full />
+        <GalleryImage src={LifestyleImg4} grow full />
         <GalleryImage src={LifestyleImg1} grow />
-        <GalleryImage src={LifestyleImg4} />
+        <GalleryImage src={LifestyleImg8} />
         <GalleryImage src={LifestyleImg5} grow full />
         <GalleryImage src={LifestyleImg2} />
         <GalleryImage src={LifestyleImg3} grow />
