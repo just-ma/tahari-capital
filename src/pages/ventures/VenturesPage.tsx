@@ -75,6 +75,8 @@ const Logo = styled.img<{
   margin-top: ${({ show }) => (show ? 30 : 0)}px;
   transition: 1s margin-top ${({ delay }) => delay}s cubic-bezier(0.4, 0, 0, 1),
     1s opacity ${({ delay }) => delay}s;
+  max-width: 500px;
+  max-height: 200px;
 
   @media ${MEDIA_SIZE.mobile} {
     display: block;

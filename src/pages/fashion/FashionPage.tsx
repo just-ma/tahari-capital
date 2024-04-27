@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import FashionGallery from "./FashionGallery";
 import { MEDIA_SIZE } from "../../constants";
 import BackgroundVideoSrc from "../../assets/videos/tahari-fashion.m4v";
-import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 
 const Section = styled.div<{
   opacity: number;
