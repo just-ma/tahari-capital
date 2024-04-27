@@ -10,6 +10,8 @@ import LogoImageSrc from "../../assets/images/tahari-realty-logo.png";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
+import { MEDIA_SIZE } from "../../constants";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
@@ -22,8 +24,13 @@ const Section = styled.div<{ opacity: number; reverse?: boolean }>`
 `;
 
 const ServicesSection = styled(Section)`
-  height: 235vh;
+  height: 200vh;
   align-items: flex-start;
+
+  @media ${MEDIA_SIZE.mobile} {
+    height: fit-content;
+    flex-direction: column;
+  }
 `;
 
 const BackgroundImage = styled.img`
@@ -46,19 +53,34 @@ const BackgroundImage = styled.img`
   }
 `;
 
-const ServicesBackgroundImage = styled(BackgroundImage)`
-  position: relative;
+const ServicesBackgroundImage = styled(BackgroundImage)<{ show: boolean }>`
   flex: 1 0 50%;
   height: 100vh;
   position: sticky;
   display: block;
   width: 0;
   top: ${NAV_BAR_HEIGHT}px;
+
+  @media ${MEDIA_SIZE.mobile} {
+    width: 100vw;
+    flex: auto;
+    position: relative;
+    top: 0;
+    filter: ${({ show }) => (show ? "brightness(0.4) blur(4px)" : "none")};
+    -webkit-backdrop-filter: ${({ show }) =>
+      show ? "brightness(0.4) blur(4px)" : "none"};
+    transition: 2s filter, 2s -webkit-backdrop-filter;
+  }
 `;
 
 const HalfSection = styled.div`
   flex: 1 0 50%;
   height: 100%;
+
+  @media ${MEDIA_SIZE.mobile} {
+    flex: auto;
+    height: fit-content;
+  }
 `;
 
 const LogoImage = styled.img`
@@ -71,6 +93,10 @@ const LogoImage = styled.img`
   z-index: 1;
   animation: fadeIn 1s forwards;
   opacity: 0;
+
+  @media ${MEDIA_SIZE.mobile} {
+    width: 90%;
+  }
 `;
 
 const Shadow = styled.div`
@@ -84,6 +110,10 @@ const Shadow = styled.div`
   box-shadow: 0 0 80px 100px black;
   opacity: 0.6;
   z-index: 0;
+
+  @media ${MEDIA_SIZE.mobile} {
+    width: 70%;
+  }
 `;
 
 const ServicesContainer = styled.div`
@@ -91,6 +121,17 @@ const ServicesContainer = styled.div`
   align-items: flex-start;
   flex-direction: column;
   padding: 200px 100px 0;
+
+  @media ${MEDIA_SIZE.mobile} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 40px;
+    justify-content: center;
+    box-sizing: border-box;
+  }
 `;
 
 const ServiceItem = styled.div<{
@@ -108,12 +149,24 @@ const ServiceItem = styled.div<{
   transition: 1s margin-top ${({ delay }) => delay}s cubic-bezier(0.4, 0, 0, 1),
     1s margin-bottom ${({ delay }) => delay}s cubic-bezier(0.4, 0, 0, 1),
     1s opacity ${({ delay }) => delay}s;
+
+  @media ${MEDIA_SIZE.mobile} {
+    flex: 0 0 0;
+    gap: 30px;
+    margin-top: ${({ show }) => (show ? 0 : 40)}px;
+    margin-bottom: ${({ show }) => (show ? 40 : 0)}px;
+  }
 `;
 
 const ServiceIcon = styled.img`
   width: 80px;
   height: 80px;
   pointer-events: none;
+
+  @media ${MEDIA_SIZE.mobile} {
+    width: 50px;
+    height: 50px;
+  }
 `;
 
 const ServiceLabel = styled.div`
@@ -123,18 +176,32 @@ const ServiceLabel = styled.div`
   line-height: 30px;
   white-space: pre-wrap;
   cursor: default;
+
+  @media ${MEDIA_SIZE.mobile} {
+    font-size: 20px;
+    line-height: 26px;
+  }
 `;
 
 const Description = styled.div<{ show: boolean }>`
   width: 100%;
-  font-size: 22px;
-  line-height: 30px;
+  font-size: 18px;
+  line-height: 26px;
   white-space: pre-wrap;
   cursor: default;
   padding: 140px 100px 0;
   box-sizing: border-box;
   opacity: ${({ show }) => (show ? 1 : 0)};
   transition: 1s bottom cubic-bezier(0.4, 0, 0, 1), 1s opacity;
+  text-align: justify;
+  font-family: "AeonikPro";
+  font-weight: lighter;
+
+  @media ${MEDIA_SIZE.mobile} {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 100px 20px;
+  }
 `;
 
 export default function RealtyPage() {
@@ -142,9 +209,10 @@ export default function RealtyPage() {
   const [showDescription, setShowDescription] = useState(false);
 
   const { scrollTop } = useAppContext();
+  const { isMobile } = useWindowSize();
 
   useEffect(() => {
-    setShowServices(scrollTop > window.innerHeight * 0.5);
+    setShowServices(scrollTop > window.innerHeight * (isMobile ? 0.7 : 0.5));
     setShowDescription(scrollTop >= window.innerHeight * 1.25);
   }, [scrollTop]);
 
@@ -165,7 +233,10 @@ export default function RealtyPage() {
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
       <ServicesSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
-        <ServicesBackgroundImage src={ServicesBackgroundImageSrc} />
+        <ServicesBackgroundImage
+          src={ServicesBackgroundImageSrc}
+          show={showServices}
+        />
         <HalfSection>
           <ServicesContainer>
             <ServiceItem show={showServices} delay={0}>

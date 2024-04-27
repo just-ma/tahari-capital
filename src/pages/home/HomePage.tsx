@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 import LogoSvg from "../../assets/graphics/tahari-captial-logo.svg?react";
+import { MEDIA_SIZE } from "../../constants";
 
 const MainSection = styled.div<{ opacity: number }>`
   height: 100vh;
@@ -41,6 +42,10 @@ const Logo = styled(LogoSvg)`
     to {
       opacity: 1;
     }
+  }
+
+  @media ${MEDIA_SIZE.mobile} {
+    width: 90%;
   }
 `;
 

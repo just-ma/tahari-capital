@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import useAppContext from "../../hooks/useAppContext";
 import useWindowSize from "../../hooks/useWindowSize";
+import MobileHoldingsDetailsPage from "./MobileHoldingsDetailsPage";
 
 const Spacer = styled.div`
   height: 20vh;
@@ -39,6 +40,7 @@ const Menu = styled.div`
 const Label = styled.div<{ active: boolean }>`
   font-size: 2vw;
   color: white;
+  font-family: "AeonikPro";
   font-weight: lighter;
   opacity: ${({ active }) => (active ? 1 : 0.5)};
   transition: opacity 0.6s;
@@ -68,6 +70,7 @@ const Title = styled.div`
   color: white;
   text-transform: uppercase;
   font-size: 3vw;
+  font-family: "AeonikPro";
   font-weight: lighter;
   margin-bottom: 20px;
 `;
@@ -136,6 +139,12 @@ export default function HoldingsDetailsPage({
       setActiveIndex((prev) => Math.max(prev - 1, 0));
     }
   }, [scrollTop]);
+
+  const { isMobile } = useWindowSize();
+
+  if (isMobile) {
+    return <MobileHoldingsDetailsPage holdings={holdings} />;
+  }
 
   return (
     <>

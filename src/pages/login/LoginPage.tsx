@@ -69,8 +69,8 @@ const Panel = styled.div`
   }
 
   @media ${MEDIA_SIZE.mobile} {
-    width: 300px;
-    right: -300px;
+    width: 100vw;
+    right: -100vw;
     padding: 14px;
   }
 `;

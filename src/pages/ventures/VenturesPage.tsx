@@ -8,9 +8,9 @@ import Logo2 from "../../assets/images/ventures-wework.png";
 import Logo3 from "../../assets/images/ventures-cafeteria.jpg";
 import Logo4 from "../../assets/images/ventures-tahari-asl.jpg";
 import Logo5 from "../../assets/images/ventures-sweet-deliverance.png";
-import Logo6 from "../../assets/images/ventures-t21.jpg";
-import Logo7 from "../../assets/images/ventures-sci-fi-foods.png";
-import Logo8 from "../../assets/images/ventures-zoa.jpg";
+import Logo6 from "../../assets/images/ventures-zoa.jpg";
+import Logo7 from "../../assets/images/ventures-t21.jpg";
+import Logo8 from "../../assets/images/ventures-sci-fi-foods.png";
 import Logo9 from "../../assets/images/ventures-t-tahari.png";
 import Logo10 from "../../assets/images/ventures-anti.jpg";
 import Logo11 from "../../assets/images/ventures-fit-match.jpg";
@@ -52,12 +52,17 @@ const Section = styled.div<{ opacity: number }>`
 
 const LogosSection = styled(Section)`
   height: fit-content;
-  padding: 0 50px 150px;
+  padding: 0 150px 150px;
   flex-wrap: wrap;
   gap: 50px;
   box-sizing: border-box;
   pointer-events: none;
   margin-top: -100px;
+
+  @media ${MEDIA_SIZE.mobile} {
+    padding: 0 20px 150px;
+    gap: 10px;
+  }
 `;
 
 const Logo = styled.img<{
@@ -72,7 +77,11 @@ const Logo = styled.img<{
     1s opacity ${({ delay }) => delay}s;
 
   @media ${MEDIA_SIZE.mobile} {
-    transform: scale(0.4);
+    display: block;
+    max-width: 150px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
   }
 `;
 

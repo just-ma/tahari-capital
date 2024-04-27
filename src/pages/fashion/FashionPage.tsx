@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import BackgroundImageSrc from "../../assets/images/fashion-stats-background.jpg";
 import LogoImageSrc from "../../assets/images/elie-tahari-logo.png";
 import useAppContext from "../../hooks/useAppContext";
@@ -31,6 +31,7 @@ const DescriptionSection = styled(Section)`
 
   @media ${MEDIA_SIZE.mobile} {
     flex-direction: column;
+    height: fit-content;
   }
 `;
 
@@ -62,9 +63,13 @@ const LogoImage = styled.img`
       opacity: 1;
     }
   }
+
+  @media ${MEDIA_SIZE.mobile} {
+    width: 90%;
+  }
 `;
 
-const StatsBackgroundImage = styled.img`
+const StatsBackgroundImage = styled.img<{ show: boolean }>`
   height: 100vh;
   object-fit: cover;
   user-select: none;
@@ -72,8 +77,10 @@ const StatsBackgroundImage = styled.img`
   @media ${MEDIA_SIZE.mobile} {
     width: 100%;
     height: auto;
-    filter: brightness(0.5) blur(4px);
-    -webkit-backdrop-filter: brightness(0.5) blur(4px);
+    filter: ${({ show }) => (show ? "brightness(0.4) blur(4px)" : "none")};
+    -webkit-backdrop-filter: ${({ show }) =>
+      show ? "brightness(0.4) blur(4px)" : "none"};
+    transition: 2s filter, 2s -webkit-backdrop-filter;
   }
 `;
 
@@ -104,10 +111,20 @@ const MenuItem = styled.div<{
   delay: number;
   primary?: boolean;
 }>`
-  font-size: ${({ primary }) => (primary ? 5 : 2.5)}vw;
-  line-height: ${({ primary }) => (primary ? 5 : 2.5)}vw;
-  color: ${({ primary }) => (primary ? "white" : "#726969")};
-  font-weight: ${({ primary }) => (primary ? "lighter" : "regular")};
+  ${({ primary }) =>
+    primary
+      ? css`
+          font-size: 5vw;
+          line-height: 5vw;
+          color: white;
+          font-weight: lighter;
+          font-family: "AeonikPro";
+        `
+      : css`
+          font-size: 2.5vw;
+          line-height: 2.5vw;
+          color: #726969;
+        `};
   text-transform: uppercase;
   margin-bottom: ${({ show, primary }) => (show ? 0 : primary ? 7 : 3)}vw;
   opacity: ${({ show }) => (show ? 1 : 0)};
@@ -152,17 +169,19 @@ const DescriptionContainer = styled.div`
 
 const Description = styled.div`
   max-width: 480px;
-  font-size: 22px;
-  line-height: 30px;
+  font-size: 18px;
+  line-height: 26px;
   white-space: pre-wrap;
   cursor: default;
   padding: 40px 0;
   margin: 0 auto;
+  text-align: justify;
+  font-family: "AeonikPro";
+  font-weight: lighter;
 
   @media ${MEDIA_SIZE.mobile} {
     font-size: 14px;
     line-height: 20px;
-    font-weight: normal;
     padding: 60px 20px;
   }
 `;
@@ -224,7 +243,11 @@ export default function FashionPage() {
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
       <StatsSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
-        <StatsBackgroundImage src={BackgroundImageSrc} draggable={false} />
+        <StatsBackgroundImage
+          src={BackgroundImageSrc}
+          draggable={false}
+          show={show}
+        />
         <MainContainer>
           <MenuContainer>
             {ITEMS.map(({ primary, secondary }, index) => (
@@ -251,7 +274,7 @@ export default function FashionPage() {
             luxury lifestyle products. Our reputation and distinctive image of
             timeless design have been developed across a wide range of products,
             brands, distribution channels and international markets in four
-            categories: apparel, footwear & accessories, home, and fragrance.
+            categories: apparel, footwear and accessories, home, and fragrance.
             {"\n\n"}
             For more than 50 years, Elie Tahari has sought to inspire women
             around the world with sexy, sophisticated and feminine designs. Our

@@ -72,6 +72,7 @@ const Label = styled.div`
   font-size: 4vw;
   line-height: 4vw;
   color: white;
+  font-family: "AeonikPro";
   font-weight: lighter;
   opacity: 0.5;
   transition: opacity 0.6s;
@@ -110,11 +111,6 @@ export default function HoldingsPage() {
     <>
       <NavBarPlaceholder />
       <Container>
-        <Section to="/holdings/industrial">
-          <Image src={IndustrialImageSrc} />
-          <Gradient />
-          <Label>Industrial</Label>
-        </Section>
         <Section to="/holdings/retail">
           <Image src={RetailImageSrc} />
           <Gradient />
@@ -129,6 +125,11 @@ export default function HoldingsPage() {
           <Image src={ResidentialImageSrc} />
           <Gradient />
           <Label>Residential</Label>
+        </Section>
+        <Section to="/holdings/industrial">
+          <Image src={IndustrialImageSrc} />
+          <Gradient />
+          <Label>Industrial</Label>
         </Section>
       </Container>
     </>
