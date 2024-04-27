@@ -73,8 +73,7 @@ const RowTitle = styled.div<{ dim: boolean }>`
   line-height: 4vw;
   margin-left: 100px;
   opacity: ${({ dim }) => (dim ? 0.6 : 1)};
-  font-family: "AeonikPro";
-  font-weight: lighter;
+  font-weight: 100;
 
   @media ${MEDIA_SIZE.mobile} {
     font-size: ${({ dim }) => (dim ? 26 : 30)}px;
@@ -91,8 +90,7 @@ const RowSubtitle = styled.div`
   cursor: pointer;
   opacity: 0.5;
   transition: opacity 0.5s;
-  font-family: "AeonikPro";
-  font-weight: lighter;
+  font-weight: 100;
 
   &:last-of-type {
     padding-top: 5px;

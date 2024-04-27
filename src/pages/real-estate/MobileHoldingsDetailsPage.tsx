@@ -23,8 +23,6 @@ const Gallery = styled.div`
 const Label = styled.div`
   font-size: 18px;
   color: white;
-  font-family: "AeonikPro";
-  font-weight: lighter;
   text-transform: uppercase;
   line-height: 2.1vw;
   padding: 5px 0;

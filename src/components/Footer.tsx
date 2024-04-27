@@ -52,7 +52,7 @@ const Copyright = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 10px;
   color: #dbd5cf;
   margin-bottom: 20px;

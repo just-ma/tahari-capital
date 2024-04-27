@@ -83,10 +83,9 @@ const itemLabelCss = css<{ hide: boolean }>`
   font-size: 14px;
   user-select: none;
   padding: 0 7px 0 0;
-  transition: 0.5s color;
   color: #eaeaea;
   opacity: ${({ hide }) => (hide ? 0 : 1)};
-  transition: opacity 0.5s;
+  transition: opacity 0.5s, color 0.5s;
 `;
 
 const ItemLabel = styled.div<{ hide: boolean }>`

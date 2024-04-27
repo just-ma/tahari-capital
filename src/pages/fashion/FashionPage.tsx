@@ -27,7 +27,7 @@ const StatsSection = styled(Section)`
 `;
 
 const DescriptionSection = styled(Section)`
-  height: 150vh;
+  height: 100vh;
 
   @media ${MEDIA_SIZE.mobile} {
     flex-direction: column;
@@ -117,8 +117,7 @@ const MenuItem = styled.div<{
           font-size: 5vw;
           line-height: 5vw;
           color: white;
-          font-weight: lighter;
-          font-family: "AeonikPro";
+          font-weight: 100;
         `
       : css`
           font-size: 2.5vw;
@@ -176,20 +175,12 @@ const Description = styled.div`
   padding: 40px 0;
   margin: 0 auto;
   text-align: justify;
-  font-family: "AeonikPro";
-  font-weight: lighter;
 
   @media ${MEDIA_SIZE.mobile} {
     font-size: 14px;
     line-height: 20px;
     padding: 60px 20px;
   }
-`;
-
-const GalleryContainer = styled.div`
-  position: sticky;
-  top: ${NAV_BAR_HEIGHT}px;
-  align-self: flex-start;
 `;
 
 const ITEMS = [
@@ -293,9 +284,7 @@ export default function FashionPage() {
             broad lifestyle product collections with a unified vision.
           </Description>
         </DescriptionContainer>
-        <GalleryContainer>
-          <FashionGallery />
-        </GalleryContainer>
+        <FashionGallery />
       </DescriptionSection>
     </>
   );

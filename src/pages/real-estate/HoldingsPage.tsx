@@ -72,8 +72,7 @@ const Label = styled.div`
   font-size: 4vw;
   line-height: 4vw;
   color: white;
-  font-family: "AeonikPro";
-  font-weight: lighter;
+  font-weight: 100;
   opacity: 0.5;
   transition: opacity 0.6s;
   text-transform: uppercase;

@@ -40,8 +40,6 @@ const Menu = styled.div`
 const Label = styled.div<{ active: boolean }>`
   font-size: 2vw;
   color: white;
-  font-family: "AeonikPro";
-  font-weight: lighter;
   opacity: ${({ active }) => (active ? 1 : 0.5)};
   transition: opacity 0.6s;
   text-transform: uppercase;
@@ -70,8 +68,7 @@ const Title = styled.div`
   color: white;
   text-transform: uppercase;
   font-size: 3vw;
-  font-family: "AeonikPro";
-  font-weight: lighter;
+  font-weight: 100;
   margin-bottom: 20px;
 `;
 

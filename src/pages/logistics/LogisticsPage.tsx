@@ -144,8 +144,7 @@ const MenuItem = styled.div<{
           font-size: 5vw;
           line-height: 5vw;
           color: white;
-          font-weight: lighter;
-          font-family: "AeonikPro";
+          font-weight: 100;
         `
       : css`
           font-size: 2.5vw;
@@ -194,8 +193,6 @@ const Description = styled.div<{ show: boolean }>`
   opacity: ${({ show }) => (show ? 1 : 0)};
   transition: 1s bottom cubic-bezier(0.4, 0, 0, 1), 1s opacity;
   text-align: justify;
-  font-family: "AeonikPro";
-  font-weight: lighter;
 
   @media ${MEDIA_SIZE.mobile} {
     font-size: 14px;
