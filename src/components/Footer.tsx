@@ -2,9 +2,10 @@ import styled, { css } from "styled-components";
 import TahariCaptialLogo from "../assets/graphics/tahari-captial-logo.svg?react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MEDIA_SIZE } from "../constants";
+import useGetDocument from "../sanity/useGetDocument";
+import { ContactDefinition } from "../sanity";
 
 const CURRENT_YEAR = new Date().getFullYear();
-const EMAIL = "info@taharicapital.com";
 
 const Container = styled.div`
   color: #aca9a7;
@@ -99,6 +100,10 @@ export default function Footer() {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const { data } = useGetDocument<ContactDefinition>("contact");
+
+  const email = data?.email || "";
+
   const handleLogoClick = () => {
     if (location.pathname === "/") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -120,8 +125,8 @@ export default function Footer() {
         <Column>
           <Title>Contact</Title>
           <ColumnBody>
-            <ExternalLink href={`mailto:${EMAIL}`} underline>
-              {EMAIL}
+            <ExternalLink href={`mailto:${email}`} underline>
+              {email}
             </ExternalLink>
           </ColumnBody>
         </Column>

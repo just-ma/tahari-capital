@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import BackgroundImageSrc from "../../assets/images/tahari-logistics-stats-background.jpg";
 import LogoImageSrc from "../../assets/images/tahari-logsitics-logo.png";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
@@ -7,6 +6,9 @@ import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 import BackgroundVideoSrc from "../../assets/videos/tahari-logistics.m4v";
 import { MEDIA_SIZE } from "../../constants";
 import useWindowSize from "../../hooks/useWindowSize";
+import useGetDocument from "../../sanity/useGetDocument";
+import { LogisticsPageDefinition, getSrc } from "../../sanity";
+import { PortableText } from "@portabletext/react";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
@@ -65,11 +67,10 @@ const Shadow = styled.div`
 `;
 
 const StatsSection = styled(Section)`
-  height: 180vh;
+  height: fit-content;
   align-items: flex-start;
 
   @media ${MEDIA_SIZE.mobile} {
-    height: fit-content;
     flex-direction: column;
   }
 `;
@@ -188,7 +189,7 @@ const Description = styled.div<{ show: boolean }>`
   line-height: 26px;
   white-space: pre-wrap;
   cursor: default;
-  padding: 150px 50px 0;
+  padding: 140px 50px 300px;
   box-sizing: border-box;
   opacity: ${({ show }) => (show ? 1 : 0)};
   transition: 1s bottom cubic-bezier(0.4, 0, 0, 1), 1s opacity;
@@ -201,27 +202,10 @@ const Description = styled.div<{ show: boolean }>`
   }
 `;
 
-const ITEMS = [
-  {
-    primary: "10M+",
-    secondary: "Units Anually",
-  },
-  {
-    primary: "50+",
-    secondary: "Luxury Brands",
-  },
-  {
-    primary: "Hi-Tech",
-    secondary: "WMS+RFID+EDI",
-  },
-  {
-    primary: "Intl",
-    secondary: "Shipping",
-  },
-];
-
 export default function LogisticsPage() {
   const { scrollTop } = useAppContext();
+
+  const { data } = useGetDocument<LogisticsPageDefinition>("logisticsPage");
 
   const [showStats, setShowStats] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
@@ -264,13 +248,13 @@ export default function LogisticsPage() {
       </Section>
       <StatsSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
         <StatsBackgroundImage
-          src={BackgroundImageSrc}
+          src={getSrc(data?.statsImage)}
           draggable={false}
           show={showStats}
         />
         <HalfSection>
           <MenuContainer>
-            {ITEMS.map(({ primary, secondary }, index) => (
+            {data?.stats.map(({ title, subtitle }, index) => (
               <>
                 <ItemOverflowContainer key={index} primary>
                   <MenuItem
@@ -278,7 +262,7 @@ export default function LogisticsPage() {
                     delay={showStats ? index * 0.5 : 0}
                     primary
                   >
-                    {primary}
+                    {title}
                   </MenuItem>
                 </ItemOverflowContainer>
                 <ItemOverflowContainer key={`${index}-2`}>
@@ -286,21 +270,14 @@ export default function LogisticsPage() {
                     show={showStats}
                     delay={showStats ? index * 0.5 + 0.1 : 0}
                   >
-                    {secondary}
+                    {subtitle}
                   </MenuItem>
                 </ItemOverflowContainer>
               </>
             ))}
           </MenuContainer>
           <Description show={showDescription}>
-            Since 2003, Tahari Logistics has conducted full service third party
-            logistics operations by shipping and fulfilling over fifty brands
-            domestically and abroad. The firm gains a competitive advantage
-            through its complete responsibility of the affiliated Tahari brand,
-            as that standard of care is equally disseminated to all clients. The
-            state of the art WMS and RFID coupled with the full steam tunnel and
-            pressing capabilities sets apart Tahari Logistics to service nearly
-            10M units annually across all consumer goods products.
+            {data && <PortableText value={data.copy} />}
           </Description>
         </HalfSection>
       </StatsSection>

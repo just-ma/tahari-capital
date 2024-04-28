@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Image1 from "../../assets/images/fashion-gallery-1.jpg";
-import Image2 from "../../assets/images/fashion-gallery-2.jpg";
-import Image3 from "../../assets/images/fashion-gallery-3.jpg";
-import Image4 from "../../assets/images/fashion-gallery-4.jpg";
-import Image5 from "../../assets/images/fashion-gallery-5.jpg";
 import { debounce } from "../../utils";
 import { MEDIA_SIZE } from "../../constants";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { getSrc } from "../../sanity";
 
 const Container = styled.div`
   width: 50vw;
@@ -45,9 +42,11 @@ const ColumnImage = styled.img<{ delay: number }>`
   }
 `;
 
-const IMAGES = [Image1, Image2, Image3, Image4, Image5];
-
-export default function FashionGallery() {
+export default function FashionGallery({
+  images,
+}: {
+  images: SanityImageSource[] | undefined;
+}) {
   const [introAnimation, setIntroAnimation] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -62,7 +61,7 @@ export default function FashionGallery() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => {
-        if (prev === IMAGES.length - 1) {
+        if (prev === (images?.length || 5) - 1) {
           setIntroAnimation(false);
           clearInterval(interval);
           return prev;
@@ -79,14 +78,18 @@ export default function FashionGallery() {
 
   return (
     <Container>
-      {IMAGES.map((src, index) => (
+      {images?.map((image, index) => (
         <Column
           key={index}
           active={index === activeIndex}
           onMouseEnter={() => handleMouseEnter(index)}
           introAnimation={introAnimation}
         >
-          <ColumnImage src={src} draggable={false} delay={index * 0.15 + 0.2} />
+          <ColumnImage
+            src={getSrc(image)}
+            draggable={false}
+            delay={index * 0.15 + 0.2}
+          />
         </Column>
       ))}
     </Container>

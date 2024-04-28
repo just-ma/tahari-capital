@@ -1,11 +1,13 @@
 import styled, { css } from "styled-components";
-import BackgroundImageSrc from "../../assets/images/fashion-stats-background.jpg";
 import LogoImageSrc from "../../assets/images/elie-tahari-logo.png";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
 import FashionGallery from "./FashionGallery";
 import { MEDIA_SIZE } from "../../constants";
 import BackgroundVideoSrc from "../../assets/videos/tahari-fashion.m4v";
+import useGetDocument from "../../sanity/useGetDocument";
+import { FashionPageDefinition, getSrc } from "../../sanity";
+import { PortableText } from "@portabletext/react";
 
 const Section = styled.div<{
   opacity: number;
@@ -182,27 +184,10 @@ const Description = styled.div`
   }
 `;
 
-const ITEMS = [
-  {
-    primary: "$1B+",
-    secondary: "Annual Revenue",
-  },
-  {
-    primary: "800",
-    secondary: "Points of Sale",
-  },
-  {
-    primary: "50",
-    secondary: "Years",
-  },
-  {
-    primary: "40",
-    secondary: "Countries",
-  },
-];
-
 export default function FashionPage() {
   const { scrollTop } = useAppContext();
+
+  const { data } = useGetDocument<FashionPageDefinition>("fashionPage");
 
   const [show, setShow] = useState(false);
 
@@ -234,22 +219,22 @@ export default function FashionPage() {
       </Section>
       <StatsSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
         <StatsBackgroundImage
-          src={BackgroundImageSrc}
+          src={getSrc(data?.statsImage)}
           draggable={false}
           show={show}
         />
         <MainContainer>
           <MenuContainer>
-            {ITEMS.map(({ primary, secondary }, index) => (
+            {data?.stats.map(({ title, subtitle }, index) => (
               <>
                 <ItemOverflowContainer key={index} primary>
                   <MenuItem show={show} delay={show ? index * 0.5 : 0} primary>
-                    {primary}
+                    {title}
                   </MenuItem>
                 </ItemOverflowContainer>
                 <ItemOverflowContainer key={`${index}-2`}>
                   <MenuItem show={show} delay={show ? index * 0.5 + 0.1 : 0}>
-                    {secondary}
+                    {subtitle}
                   </MenuItem>
                 </ItemOverflowContainer>
               </>
@@ -260,30 +245,10 @@ export default function FashionPage() {
       <DescriptionSection opacity={1}>
         <DescriptionContainer>
           <Description>
-            Elie Tahari is a global leader in fashion design and distribution of
-            luxury lifestyle products. Our reputation and distinctive image of
-            timeless design have been developed across a wide range of products,
-            brands, distribution channels and international markets in four
-            categories: apparel, footwear and accessories, home, and fragrance.
-            {"\n\n"}
-            For more than 50 years, Elie Tahari has sought to inspire women
-            around the world with sexy, sophisticated and feminine designs. Our
-            reputation and distinctive image have been developed across a wide
-            range of products, brands, distribution channels and international
-            markets.
-            {"\n\n"}
-            The Tahari brand name is one of the most widely recognized fashion
-            brand names. We believe that our global reach, breadth of product
-            offerings, and multichannel distribution are unique among luxury and
-            apparel companies. Elie Tahari has been an innovator time and again,
-            and believe that, under the direction of internationally renowned
-            designer Elie Tahari, we have had a considerable influence on the
-            women dress over the last five decades. We combine consumer insights
-            with our design, marketing, along with our licensing alliances,
-            broad lifestyle product collections with a unified vision.
+            {data && <PortableText value={data?.copy} />}
           </Description>
         </DescriptionContainer>
-        <FashionGallery />
+        <FashionGallery images={data?.galleryImages} />
       </DescriptionSection>
     </>
   );

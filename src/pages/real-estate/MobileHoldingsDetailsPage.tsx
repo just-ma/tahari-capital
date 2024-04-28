@@ -1,23 +1,20 @@
 import styled from "styled-components";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import { getSrc } from "../../sanity";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import PagePlaceholder from "../../components/PagePlaceholder";
 
-const Gallery = styled.div`
+const Gallery = styled.div<{ show: boolean }>`
   width: 90vw;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   margin: 50px auto 0;
-  animation: fadeIn 2s forwards;
   pointer-events: none;
-  opacity: 0;
   box-sizing: border-box;
   gap: 10px;
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: opacity 2s;
 `;
 
 const Label = styled.div`
@@ -44,25 +41,35 @@ const Image = styled.img`
 `;
 
 export type HoldingDefinition = {
-  label: string;
-  src: string;
+  name: string;
+  image: SanityImageSource;
 };
 
 export default function MobileHoldingsDetailsPage({
   holdings,
 }: {
-  holdings: HoldingDefinition[];
+  holdings?: HoldingDefinition[];
 }) {
+  const [numImagesLoaded, setNumImagesLoaded] = useState(0);
+
   return (
-    <Gallery>
-      {holdings.map(({ label, src }, index) => (
-        <Fragment key={label}>
-          <Label>{label}</Label>
-          <ImageContainer id={String(index)}>
-            <Image src={src} />
-          </ImageContainer>
-        </Fragment>
-      ))}
-    </Gallery>
+    <>
+      <Gallery show={holdings ? numImagesLoaded === holdings.length : false}>
+        {holdings?.map(({ name, image }, index) => (
+          <Fragment key={name}>
+            <Label>{name}</Label>
+            <ImageContainer id={String(index)}>
+              <Image
+                src={getSrc(image)}
+                onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
+              />
+            </ImageContainer>
+          </Fragment>
+        ))}
+      </Gallery>
+      {(!holdings || numImagesLoaded !== holdings?.length) && (
+        <PagePlaceholder />
+      )}
+    </>
   );
 }

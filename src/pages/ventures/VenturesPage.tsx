@@ -1,44 +1,10 @@
 import styled from "styled-components";
-import BackgroundImageSrc from "../../assets/images/tahari-ventures-background.jpg";
 import LogoImageSrc from "../../assets/graphics/tahari-ventures-logo.svg";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
-import Logo1 from "../../assets/images/ventures-theory.png";
-import Logo2 from "../../assets/images/ventures-wework.png";
-import Logo3 from "../../assets/images/ventures-cafeteria.jpg";
-import Logo4 from "../../assets/images/ventures-tahari-asl.jpg";
-import Logo5 from "../../assets/images/ventures-sweet-deliverance.png";
-import Logo6 from "../../assets/images/ventures-zoa.jpg";
-import Logo7 from "../../assets/images/ventures-t21.jpg";
-import Logo8 from "../../assets/images/ventures-sci-fi-foods.png";
-import Logo9 from "../../assets/images/ventures-t-tahari.png";
-import Logo10 from "../../assets/images/ventures-anti.jpg";
-import Logo11 from "../../assets/images/ventures-fit-match.jpg";
-import Logo12 from "../../assets/images/ventures-catherine-malandrino.jpg";
-import Logo13 from "../../assets/images/ventures-veri-uomo.png";
-import Logo14 from "../../assets/images/ventures-iisli.jpg";
-import Logo15 from "../../assets/images/ventures-rocksolid.jpg";
-import Logo16 from "../../assets/images/ventures-morning-lady.jpg";
 import { MEDIA_SIZE } from "../../constants";
-
-const LOGOS = [
-  Logo1,
-  Logo2,
-  Logo3,
-  Logo4,
-  Logo5,
-  Logo6,
-  Logo7,
-  Logo8,
-  Logo9,
-  Logo10,
-  Logo11,
-  Logo12,
-  Logo13,
-  Logo14,
-  Logo15,
-  Logo16,
-];
+import useGetDocument from "../../sanity/useGetDocument";
+import { VenturesPageDefinition, getSrc } from "../../sanity";
 
 const Section = styled.div<{ opacity: number }>`
   position: relative;
@@ -87,7 +53,7 @@ const Logo = styled.img<{
   }
 `;
 
-const BackgroundImage = styled.img`
+const BackgroundImage = styled.img<{ show: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -97,14 +63,8 @@ const BackgroundImage = styled.img`
   object-fit: cover;
   pointer-events: none;
   user-select: none;
-  animation: fadeIn 2s forwards;
-  opacity: 0;
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: 2s opacity;
 `;
 
 const LogoImage = styled.img`
@@ -118,13 +78,22 @@ const LogoImage = styled.img`
   animation: fadeIn 1s forwards;
   opacity: 0;
 
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
   @media ${MEDIA_SIZE.mobile} {
     width: 90%;
   }
 `;
 
 export default function VenturesPage() {
+  const { data } = useGetDocument<VenturesPageDefinition>("venturesPage");
+
   const [show, setShow] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const { scrollTop } = useAppContext();
 
@@ -144,14 +113,18 @@ export default function VenturesPage() {
           0
         )}
       >
-        <BackgroundImage src={BackgroundImageSrc} />
+        <BackgroundImage
+          src={getSrc(data?.primaryImage)}
+          onLoad={() => setImageLoaded(true)}
+          show={imageLoaded}
+        />
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
       <LogosSection opacity={1}>
-        {LOGOS.map((src, index) => (
+        {data?.logos.map((logo, index) => (
           <Logo
             key={index}
-            src={src}
+            src={getSrc(logo)}
             show={show}
             delay={show ? index * 0.1 : 0}
           />

@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import IndustrialImageSrc from "../../assets/images/holdings-industrial.jpg";
-import CommercialImageSrc from "../../assets/images/holdings-commercial.jpg";
-import RetailImageSrc from "../../assets/images/1-main-east-hampton.jpg";
-import ResidentialImageSrc from "../../assets/images/holdings-residential.jpg";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { MEDIA_SIZE } from "../../constants";
+import useGetDocument from "../../sanity/useGetDocument";
+import { HoldingsPageDefinition, getSrc } from "../../sanity";
 
 const Container = styled.div`
   display: flex;
@@ -102,6 +100,8 @@ const Section = styled(Link)`
 `;
 
 export default function HoldingsPage() {
+  const { data } = useGetDocument<HoldingsPageDefinition>("holdingsPage");
+
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
@@ -111,22 +111,22 @@ export default function HoldingsPage() {
       <NavBarPlaceholder />
       <Container>
         <Section to="/holdings/retail">
-          <Image src={RetailImageSrc} />
+          <Image src={getSrc(data?.retail)} />
           <Gradient />
           <Label>Retail</Label>
         </Section>
         <Section to="/holdings/commercial">
-          <Image src={CommercialImageSrc} />
+          <Image src={getSrc(data?.commercial)} />
           <Gradient />
           <Label>Commercial</Label>
         </Section>
         <Section to="/holdings/residential">
-          <Image src={ResidentialImageSrc} />
+          <Image src={getSrc(data?.residential)} />
           <Gradient />
           <Label>Residential</Label>
         </Section>
         <Section to="/holdings/industrial">
-          <Image src={IndustrialImageSrc} />
+          <Image src={getSrc(data?.industrial)} />
           <Gradient />
           <Label>Industrial</Label>
         </Section>

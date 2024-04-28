@@ -3,27 +3,25 @@ import { useEffect, useRef, useState } from "react";
 import useAppContext from "../../hooks/useAppContext";
 import useWindowSize from "../../hooks/useWindowSize";
 import MobileHoldingsDetailsPage from "./MobileHoldingsDetailsPage";
+import { useQuery } from "@tanstack/react-query";
+import { HoldingsListPageDefinition, client, getSrc } from "../../sanity";
+import PagePlaceholder from "../../components/PagePlaceholder";
 
 const Spacer = styled.div`
   height: 20vh;
 `;
 
-const ImagesContainer = styled.div`
+const ImagesContainer = styled.div<{ show: boolean }>`
   width: 45vw;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   margin: 0 10% 0 auto;
-  animation: fadeIn 2s forwards;
   pointer-events: none;
   opacity: 0;
   box-sizing: border-box;
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: opacity 2s;
 `;
 
 const Menu = styled.div`
@@ -77,20 +75,25 @@ export type HoldingDefinition = {
   src: string;
 };
 
-export default function HoldingsDetailsPage({
-  holdings,
-  title,
-}: {
-  holdings: HoldingDefinition[];
-  title: string;
-}) {
+export default function HoldingsDetailsPage({ title }: { title: string }) {
   const { windowHeight } = useWindowSize();
+
+  const { data, isLoading } = useQuery({
+    queryKey: [`holdings${title}`],
+    queryFn: async (): Promise<HoldingsListPageDefinition> => {
+      const response = await client.fetch(
+        `*[_type == "holdingsListPage" && category == "${title.toLowerCase()}"]`
+      );
+      return response?.[0];
+    },
+  });
 
   const scrollMin = useRef(0);
   const scrollMax = useRef(windowHeight);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollToActiveIndex, setScrollToActiveIndex] = useState(0);
+  const [numImagesLoaded, setNumImagesLoaded] = useState(0);
 
   const { scrollTop } = useAppContext();
 
@@ -129,42 +132,55 @@ export default function HoldingsDetailsPage({
   }, [activeIndex]);
 
   useEffect(() => {
+    if (!data?.holdings) {
+      return;
+    }
+
     const halfWindowHeight = windowHeight / 2;
     if (scrollTop + halfWindowHeight > scrollMax.current) {
-      setActiveIndex((prev) => Math.min(prev + 1, holdings.length - 1));
+      setActiveIndex((prev) => Math.min(prev + 1, data.holdings.length - 1));
     } else if (scrollTop + halfWindowHeight < scrollMin.current) {
       setActiveIndex((prev) => Math.max(prev - 1, 0));
     }
-  }, [scrollTop]);
+  }, [scrollTop, data?.holdings]);
 
   const { isMobile } = useWindowSize();
 
   if (isMobile) {
-    return <MobileHoldingsDetailsPage holdings={holdings} />;
+    return <MobileHoldingsDetailsPage holdings={data?.holdings} />;
   }
 
   return (
     <>
       <Menu>
         <Title>{title}</Title>
-        {holdings.map(({ label }, index) => (
+        {data?.holdings.map(({ name }, index) => (
           <Label
-            key={label}
+            key={name}
             onClick={() => setScrollToActiveIndex(index)}
             active={activeIndex === index}
           >
-            {label}
+            {name}
           </Label>
         ))}
       </Menu>
       <Spacer />
-      <ImagesContainer>
-        {holdings.map(({ label, src }, index) => (
-          <ImageContainer key={label} id={String(index)}>
-            <Image src={src} active={activeIndex === index} />
+      <ImagesContainer
+        show={!isLoading && numImagesLoaded === data?.holdings.length}
+      >
+        {data?.holdings.map(({ name, image }, index) => (
+          <ImageContainer key={name} id={String(index)}>
+            <Image
+              src={getSrc(image)}
+              active={activeIndex === index}
+              onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
+            />
           </ImageContainer>
         ))}
       </ImagesContainer>
+      {(isLoading || numImagesLoaded !== data?.holdings.length) && (
+        <PagePlaceholder />
+      )}
       <Spacer />
     </>
   );

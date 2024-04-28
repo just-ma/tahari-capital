@@ -1,17 +1,13 @@
 import styled from "styled-components";
-import BackgroundImageSrc from "../../assets/images/tahari-realty-background.jpg";
-import ServicesBackgroundImageSrc from "../../assets/images/tahari-realty-services-background.jpg";
-import BrokerageIconSrc from "../../assets/images/brokerage-icon.png";
-import LendingIconSrc from "../../assets/images/lending-icon.png";
-import CaptialAdvisoryIconSrc from "../../assets/images/captial-advisory-icon.png";
-import PropertyMgmtIconSrc from "../../assets/images/property-mgmt-icon.png";
-import ConstructionMgmtIconSrc from "../../assets/images/construction-mgmt-icon.png";
 import LogoImageSrc from "../../assets/images/tahari-realty-logo.png";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 import { MEDIA_SIZE } from "../../constants";
 import useWindowSize from "../../hooks/useWindowSize";
+import useGetDocument from "../../sanity/useGetDocument";
+import { RealtyPageDefinition, getSrc } from "../../sanity";
+import { PortableText } from "@portabletext/react";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
@@ -24,16 +20,15 @@ const Section = styled.div<{ opacity: number; reverse?: boolean }>`
 `;
 
 const ServicesSection = styled(Section)`
-  height: 200vh;
+  height: fit-content;
   align-items: flex-start;
 
   @media ${MEDIA_SIZE.mobile} {
-    height: fit-content;
     flex-direction: column;
   }
 `;
 
-const BackgroundImage = styled.img`
+const BackgroundImage = styled.img<{ show: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -43,14 +38,8 @@ const BackgroundImage = styled.img`
   object-fit: cover;
   pointer-events: none;
   user-select: none;
-  animation: fadeIn 2s forwards;
-  opacity: 0;
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: 2s opacity;
 `;
 
 const ServicesBackgroundImage = styled(BackgroundImage)<{ show: boolean }>`
@@ -93,6 +82,12 @@ const LogoImage = styled.img`
   z-index: 1;
   animation: fadeIn 1s forwards;
   opacity: 0;
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
 
   @media ${MEDIA_SIZE.mobile} {
     width: 90%;
@@ -176,6 +171,7 @@ const ServiceLabel = styled.div`
   line-height: 30px;
   white-space: pre-wrap;
   cursor: default;
+  max-width: 200px;
 
   @media ${MEDIA_SIZE.mobile} {
     font-size: 20px;
@@ -189,7 +185,7 @@ const Description = styled.div<{ show: boolean }>`
   line-height: 26px;
   white-space: pre-wrap;
   cursor: default;
-  padding: 140px 100px 0;
+  padding: 140px 100px;
   box-sizing: border-box;
   opacity: ${({ show }) => (show ? 1 : 0)};
   transition: 1s bottom cubic-bezier(0.4, 0, 0, 1), 1s opacity;
@@ -203,8 +199,11 @@ const Description = styled.div<{ show: boolean }>`
 `;
 
 export default function RealtyPage() {
+  const { data } = useGetDocument<RealtyPageDefinition>("realtyPage");
+
   const [showServices, setShowServices] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const { scrollTop } = useAppContext();
   const { isMobile } = useWindowSize();
@@ -226,61 +225,34 @@ export default function RealtyPage() {
           0
         )}
       >
-        <BackgroundImage src={BackgroundImageSrc} />
+        <BackgroundImage
+          src={getSrc(data?.primaryImage)}
+          onLoad={() => setImageLoaded(true)}
+          show={imageLoaded}
+        />
         <Shadow />
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
       <ServicesSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
         <ServicesBackgroundImage
-          src={ServicesBackgroundImageSrc}
+          src={getSrc(data?.secondaryImage)}
           show={showServices}
         />
         <HalfSection>
           <ServicesContainer>
-            <ServiceItem show={showServices} delay={0}>
-              <ServiceIcon src={BrokerageIconSrc} />
-              <ServiceLabel>Brokerage</ServiceLabel>
-            </ServiceItem>
-            <ServiceItem show={showServices} delay={showServices ? 0.2 : 0}>
-              <ServiceIcon src={LendingIconSrc} />
-              <ServiceLabel>Lending</ServiceLabel>
-            </ServiceItem>
-            <ServiceItem show={showServices} delay={showServices ? 2 * 0.2 : 0}>
-              <ServiceIcon src={CaptialAdvisoryIconSrc} />
-              <ServiceLabel>{"Captial \nAdvisory"}</ServiceLabel>
-            </ServiceItem>
-            <ServiceItem show={showServices} delay={showServices ? 3 * 0.2 : 0}>
-              <ServiceIcon src={PropertyMgmtIconSrc} />
-              <ServiceLabel>{"Property \nManagement"}</ServiceLabel>
-            </ServiceItem>
-            <ServiceItem show={showServices} delay={showServices ? 4 * 0.2 : 0}>
-              <ServiceIcon src={ConstructionMgmtIconSrc} />
-              <ServiceLabel>{"Construction \nManagement"}</ServiceLabel>
-            </ServiceItem>
+            {data?.services.map(({ label, icon }, index) => (
+              <ServiceItem
+                show={showServices}
+                delay={showServices ? 0.2 * index : 0}
+                key={label}
+              >
+                <ServiceIcon src={getSrc(icon)} />
+                <ServiceLabel>{label}</ServiceLabel>
+              </ServiceItem>
+            ))}
           </ServicesContainer>
           <Description show={showDescription}>
-            Founded in 2021 by Jeremey Tahari, Tahari Realty is responsible for
-            all activities and services related to the operation of the Tahari
-            Capital portfolio of commercial properties and development projects.
-            {"\n\n"}
-            Tahari Realty includes professionals with extensive experience in
-            office and retail leasing, property management, development,
-            construction management, accounting and financial reporting.
-            Leasing, Property Management and Construction Management
-            professionals are assigned to each property to develop and execute a
-            specific business plan to enhance and maximize the value of the
-            asset. The Accounting group has a team of professionals who are
-            dedicated to the processes of, budgeting, forecasting, bookkeeping
-            and reporting in accordance with established industry best practices
-            and audit procedures. The Construction Management group oversees
-            projects ranging from tenant improvement work to major building
-            renovations and new ground-up development.
-            {"\n\n"}
-            The integrated skill sets of these groups provide the in-house
-            expertise required to deal with the complex local building codes,
-            land use restrictions and other related regulations associated with
-            the ownership of real estate assets in New York City and other areas
-            of the country and across the globe.
+            {data && <PortableText value={data.copy} />}
           </Description>
         </HalfSection>
       </ServicesSection>

@@ -1,17 +1,10 @@
 import styled from "styled-components";
-import BackgroundImageSrc from "../../assets/images/tahari-lifestyle-background.jpg";
 import LogoImageSrc from "../../assets/graphics/tahari-lifestyle-logo.svg";
 import useAppContext from "../../hooks/useAppContext";
-import { useEffect } from "react";
-import LifestyleImg1 from "../../assets/images/lifestyle-gallery-1.jpg";
-import LifestyleImg2 from "../../assets/images/lifestyle-gallery-2.jpg";
-import LifestyleImg3 from "../../assets/images/lifestyle-gallery-3.jpg";
-import LifestyleImg4 from "../../assets/images/lifestyle-gallery-4.jpg";
-import LifestyleImg5 from "../../assets/images/lifestyle-gallery-5.jpg";
-import LifestyleImg6 from "../../assets/images/lifestyle-gallery-6.jpg";
-import LifestyleImg7 from "../../assets/images/lifestyle-gallery-7.jpg";
-import LifestyleImg8 from "../../assets/images/lifestyle-gallery-8.jpg";
+import { useEffect, useState } from "react";
 import { MEDIA_SIZE } from "../../constants";
+import useGetDocument from "../../sanity/useGetDocument";
+import { LifestylePageDefinition, getSrc } from "../../sanity";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
@@ -23,7 +16,7 @@ const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   background-color: black;
 `;
 
-const BackgroundImage = styled.img`
+const BackgroundImage = styled.img<{ show: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -35,12 +28,8 @@ const BackgroundImage = styled.img`
   user-select: none;
   animation: fadeIn 2s forwards;
   opacity: 0;
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: 2s opacity;
 `;
 
 const LogoImage = styled.img`
@@ -53,6 +42,12 @@ const LogoImage = styled.img`
   z-index: 2;
   animation: fadeIn 1s forwards;
   opacity: 0;
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
 
   @media ${MEDIA_SIZE.mobile} {
     width: 90%;
@@ -80,21 +75,29 @@ const Gallery = styled.div<{ opacity: number }>`
   width: 100vw;
   height: fit-content;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   opacity: ${({ opacity }) => opacity};
   gap: 2px;
   margin-top: 2px;
 `;
 
-const GalleryImage = styled.img<{ grow?: boolean; full?: boolean }>`
+const Row = styled.div`
+  display: flex;
+  gap: 2px;
+  width: 100%;
+
+  @media ${MEDIA_SIZE.mobile} {
+    flex-direction: column;
+  }
+`;
+
+const GalleryImage = styled.img`
   display: block;
   height: 60vh;
-  flex: ${({ grow }) => (grow ? 1 : 0)} 0
-    ${({ full }) => (full ? "100%" : "0px")};
+  flex: 1 0;
   object-fit: cover;
 
   @media ${MEDIA_SIZE.mobile} {
-    flex: 1 0 100%;
     height: auto;
     width: 100%;
     min-height: 200px;
@@ -104,6 +107,10 @@ const GalleryImage = styled.img<{ grow?: boolean; full?: boolean }>`
 
 export default function LifestylePage() {
   const { scrollTop } = useAppContext();
+
+  const { data } = useGetDocument<LifestylePageDefinition>("lifestylePage");
+
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -117,19 +124,22 @@ export default function LifestylePage() {
           0
         )}
       >
-        <BackgroundImage src={BackgroundImageSrc} />
+        <BackgroundImage
+          src={getSrc(data?.primaryImage)}
+          onLoad={() => setImageLoaded(true)}
+          show={imageLoaded}
+        />
         <Shadow />
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
       <Gallery opacity={Math.min(scrollTop / window.innerHeight, 1)}>
-        <GalleryImage src={LifestyleImg7} />
-        <GalleryImage src={LifestyleImg6} grow />
-        <GalleryImage src={LifestyleImg4} grow full />
-        <GalleryImage src={LifestyleImg1} grow />
-        <GalleryImage src={LifestyleImg8} />
-        <GalleryImage src={LifestyleImg5} grow full />
-        <GalleryImage src={LifestyleImg2} />
-        <GalleryImage src={LifestyleImg3} grow />
+        {data?.gallery.map(({ image1, image2, image3 }, index) => (
+          <Row key={index}>
+            <GalleryImage src={getSrc(image1)} />
+            {image2 && <GalleryImage src={getSrc(image2)} />}
+            {image3 && <GalleryImage src={getSrc(image3)} />}
+          </Row>
+        ))}
       </Gallery>
     </>
   );

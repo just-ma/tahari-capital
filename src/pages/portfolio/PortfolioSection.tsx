@@ -2,15 +2,12 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import useAppContext from "../../hooks/useAppContext";
 import { useState } from "react";
-import RealEstateBackgroundSrc from "../../assets/images/portfolio-real-estate.jpg";
-import VenturesBackgroundSrc from "../../assets/images/portfolio-ventures.jpg";
-import LogisticsBackgroundSrc from "../../assets/images/portfolio-logistics.jpg";
-import FashionBackgroundSrc from "../../assets/images/portfolio-fashion.jpg";
-import LifestyleBackgroundSrc from "../../assets/images/portfolio-lifestyle.jpg";
 import { debounce } from "../../utils";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 import useWindowSize from "../../hooks/useWindowSize";
 import { MEDIA_SIZE } from "../../constants";
+import useGetDocument from "../../sanity/useGetDocument";
+import { PortfolioImagesDefinition, getSrc } from "../../sanity";
 
 const Section = styled.div<{ opacity: number }>`
   position: relative;
@@ -124,15 +121,25 @@ const Shadow = styled.div`
   pointer-events: none;
 `;
 
-const MENU_ITEMS = [
+type MenuItemDefinition = {
+  key: keyof PortfolioImagesDefinition;
+  label: string;
+  to?: string;
+  subItems?: {
+    label: string;
+    to: string;
+  }[];
+};
+
+const MENU_ITEMS: readonly MenuItemDefinition[] = [
   {
+    key: "fashion",
     label: "Fashion",
     to: "/fashion",
-    src: FashionBackgroundSrc,
   },
   {
+    key: "realEstate",
     label: "Real Estate",
-    src: RealEstateBackgroundSrc,
     subItems: [
       {
         label: "Holdings",
@@ -145,19 +152,19 @@ const MENU_ITEMS = [
     ],
   },
   {
+    key: "lifestyle",
     label: "Lifestyle",
     to: "/lifestyle",
-    src: LifestyleBackgroundSrc,
   },
   {
+    key: "ventures",
     label: "Ventures",
     to: "/ventures",
-    src: VenturesBackgroundSrc,
   },
   {
+    key: "logistics",
     label: "Logistics",
     to: "/logistics",
-    src: LogisticsBackgroundSrc,
   },
 ];
 
@@ -165,6 +172,8 @@ export default function PortfolioSection() {
   const navigate = useNavigate();
 
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const { data } = useGetDocument<PortfolioImagesDefinition>("portfolioImages");
 
   const handleMouseEnter = debounce((index: number) => {
     setActiveIndex(index);
@@ -175,14 +184,18 @@ export default function PortfolioSection() {
 
   return (
     <Section opacity={Math.min(scrollTop / window.innerHeight, 1)}>
-      {MENU_ITEMS.map(({ label, to, subItems, src }, index) => (
+      {MENU_ITEMS.map(({ key, label, to, subItems }, index) => (
         <Row
           key={index}
           active={isMobile || index === activeIndex}
           onMouseEnter={() => handleMouseEnter(index)}
           onClick={() => navigate(to || subItems?.[0].to || "/")}
         >
-          <RowImage src={src} draggable={false} delay={index * 0.15 + 0.2} />
+          <RowImage
+            src={getSrc(data?.[key])}
+            draggable={false}
+            delay={index * 0.15 + 0.2}
+          />
           <Shadow />
           <RowTitleContainer
             expand={!!subItems && (isMobile || index === activeIndex)}

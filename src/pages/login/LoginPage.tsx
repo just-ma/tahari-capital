@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import BackgroundImageSrc from "../../assets/images/login-background.jpg";
 import { useEffect, useState } from "react";
 import { MEDIA_SIZE } from "../../constants";
 import TahariLogo from "../../assets/graphics/tahari-captial-logo.svg?react";
+import useGetDocument from "../../sanity/useGetDocument";
+import { LoginBackgroundDefinition, getSrc } from "../../sanity";
 
 const Section = styled.div<{ reverse?: boolean }>`
   position: relative;
@@ -10,7 +11,7 @@ const Section = styled.div<{ reverse?: boolean }>`
   height: 100vh;
 `;
 
-const BackgroundImage = styled.img`
+const BackgroundImage = styled.img<{ show: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -20,14 +21,8 @@ const BackgroundImage = styled.img`
   object-fit: cover;
   pointer-events: none;
   user-select: none;
-  animation: fadeIn 2s forwards;
-  opacity: 0;
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: 2s opacity;
 `;
 
 const Shadow = styled.div`
@@ -159,8 +154,11 @@ const Error = styled.div<{ show: boolean }>`
 `;
 
 export default function LoginPage() {
+  const { data } = useGetDocument<LoginBackgroundDefinition>("loginBackground");
+
   const [submitting, setSubmitting] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -182,7 +180,11 @@ export default function LoginPage() {
   return (
     <>
       <Section>
-        <BackgroundImage src={BackgroundImageSrc} />
+        <BackgroundImage
+          src={getSrc(data?.image)}
+          onLoad={() => setImageLoaded(true)}
+          show={imageLoaded}
+        />
         <Shadow />
         <Panel>
           <Logo />
