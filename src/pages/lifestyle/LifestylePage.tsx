@@ -26,8 +26,6 @@ const BackgroundImage = styled.img<{ show: boolean }>`
   object-fit: cover;
   pointer-events: none;
   user-select: none;
-  animation: fadeIn 2s forwards;
-  opacity: 0;
   opacity: ${({ show }) => (show ? 1 : 0)};
   transition: 2s opacity;
 `;
