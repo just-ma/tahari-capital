@@ -1,25 +1,20 @@
 import styled from "styled-components";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MEDIA_SIZE } from "../../constants";
 import useGetDocument from "../../sanity/useGetDocument";
 import { HoldingsPageDefinition, getSrc } from "../../sanity";
+import { get100ViewportHeight } from "../../utils";
 
-const Container = styled.div`
+const Container = styled.div<{ show: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  height: calc(100vh - ${NAV_BAR_HEIGHT}px);
-  animation: fadeIn 2s forwards;
-  opacity: 0;
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
+  height: calc(${get100ViewportHeight()} - ${NAV_BAR_HEIGHT}px);
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: opacity 2s;
 
   @media ${MEDIA_SIZE.desktop} {
     flex-direction: row;
@@ -100,7 +95,10 @@ const Section = styled(Link)`
 `;
 
 export default function HoldingsPage() {
-  const { data } = useGetDocument<HoldingsPageDefinition>("holdingsPage");
+  const { data, isLoading } =
+    useGetDocument<HoldingsPageDefinition>("holdingsPage");
+
+  const [numImagesLoaded, setNumImagesLoaded] = useState(0);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -109,24 +107,36 @@ export default function HoldingsPage() {
   return (
     <>
       <NavBarPlaceholder />
-      <Container>
+      <Container show={!isLoading && numImagesLoaded === 4}>
         <Section to="/holdings/retail">
-          <Image src={getSrc(data?.retail)} />
+          <Image
+            src={getSrc(data?.retail)}
+            onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
+          />
           <Gradient />
           <Label>Retail</Label>
         </Section>
         <Section to="/holdings/commercial">
-          <Image src={getSrc(data?.commercial)} />
+          <Image
+            src={getSrc(data?.commercial)}
+            onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
+          />
           <Gradient />
           <Label>Commercial</Label>
         </Section>
         <Section to="/holdings/residential">
-          <Image src={getSrc(data?.residential)} />
+          <Image
+            src={getSrc(data?.residential)}
+            onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
+          />
           <Gradient />
           <Label>Residential</Label>
         </Section>
         <Section to="/holdings/industrial">
-          <Image src={getSrc(data?.industrial)} />
+          <Image
+            src={getSrc(data?.industrial)}
+            onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
+          />
           <Gradient />
           <Label>Industrial</Label>
         </Section>
