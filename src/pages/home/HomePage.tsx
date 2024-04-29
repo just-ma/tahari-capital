@@ -7,9 +7,10 @@ import { useEffect } from "react";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 import LogoSvg from "../../assets/graphics/tahari-captial-logo.svg?react";
 import { MEDIA_SIZE } from "../../constants";
+import { get100ViewportHeight } from "../../utils";
 
 const MainSection = styled.div<{ opacity: number }>`
-  height: 100vh;
+  height: ${get100ViewportHeight()};
   width: 100vw;
   position: relative;
   opacity: ${({ opacity }) => opacity};

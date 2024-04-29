@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import useAppContext from "../../hooks/useAppContext";
 import { useState } from "react";
-import { debounce } from "../../utils";
+import { debounce, get100ViewportHeight } from "../../utils";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 import useWindowSize from "../../hooks/useWindowSize";
 import { MEDIA_SIZE } from "../../constants";
@@ -12,7 +12,7 @@ import { PortfolioImagesDefinition, getSrc } from "../../sanity";
 const Section = styled.div<{ opacity: number }>`
   position: relative;
   width: 100vw;
-  height: calc(100vh - ${NAV_BAR_HEIGHT}px);
+  height: calc(${get100ViewportHeight()} - ${NAV_BAR_HEIGHT}px);
   opacity: ${({ opacity }) => opacity};
   display: flex;
   flex-direction: column;

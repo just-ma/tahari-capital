@@ -4,11 +4,12 @@ import { MEDIA_SIZE } from "../../constants";
 import TahariLogo from "../../assets/graphics/tahari-captial-logo.svg?react";
 import useGetDocument from "../../sanity/useGetDocument";
 import { LoginBackgroundDefinition, getSrc } from "../../sanity";
+import { get100ViewportHeight } from "../../utils";
 
 const Section = styled.div<{ reverse?: boolean }>`
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: ${get100ViewportHeight()};
 `;
 
 const BackgroundImage = styled.img<{ show: boolean }>`

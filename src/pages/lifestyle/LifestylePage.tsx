@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import { MEDIA_SIZE } from "../../constants";
 import useGetDocument from "../../sanity/useGetDocument";
 import { LifestylePageDefinition, getSrc } from "../../sanity";
+import { get100ViewportHeight } from "../../utils";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: ${get100ViewportHeight()};
   display: flex;
   align-items: center;
   opacity: ${({ opacity }) => opacity};
@@ -91,7 +92,7 @@ const Row = styled.div`
 
 const GalleryImage = styled.img`
   display: block;
-  height: 60vh;
+  height: ${get100ViewportHeight(0.6)};
   flex: 1 0;
   object-fit: cover;
 

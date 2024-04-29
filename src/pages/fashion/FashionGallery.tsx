@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { debounce } from "../../utils";
+import { debounce, get100ViewportHeight } from "../../utils";
 import { MEDIA_SIZE } from "../../constants";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { getSrc } from "../../sanity";
 
 const Container = styled.div`
   width: 50vw;
-  height: 100vh;
+  height: ${get100ViewportHeight()};
   display: flex;
 
   @media ${MEDIA_SIZE.mobile} {

@@ -9,11 +9,12 @@ import useWindowSize from "../../hooks/useWindowSize";
 import useGetDocument from "../../sanity/useGetDocument";
 import { LogisticsPageDefinition, getSrc } from "../../sanity";
 import { PortableText } from "@portabletext/react";
+import { get100ViewportHeight } from "../../utils";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: ${get100ViewportHeight()};
   background-color: black;
   box-sizing: border-box;
   display: flex;
@@ -77,7 +78,7 @@ const StatsSection = styled(Section)`
 
 const StatsBackgroundImage = styled.img<{ show: boolean }>`
   flex: 1 0 50%;
-  height: 100vh;
+  height: ${get100ViewportHeight()};
   object-fit: cover;
   animation: fadeIn 2s forwards;
   opacity: 0;
@@ -129,7 +130,7 @@ const MenuContainer = styled.div`
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: ${get100ViewportHeight()};
     padding: 40px;
   }
 `;

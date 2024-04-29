@@ -6,9 +6,10 @@ import MobileHoldingsDetailsPage from "./MobileHoldingsDetailsPage";
 import { useQuery } from "@tanstack/react-query";
 import { HoldingsListPageDefinition, client, getSrc } from "../../sanity";
 import PagePlaceholder from "../../components/PagePlaceholder";
+import { get100ViewportHeight } from "../../utils";
 
 const Spacer = styled.div`
-  height: 20vh;
+  height: ${get100ViewportHeight(0.2)};
 `;
 
 const ImagesContainer = styled.div<{ show: boolean }>`

@@ -21,7 +21,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  height: 30vh;
+  min-height: 240px;
   align-self: stretch;
   display: flex;
   justify-content: space-between;

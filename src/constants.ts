@@ -8,3 +8,5 @@ export const MEDIA_SIZE = {
   mobile: `screen and (max-width: ${MOBILE_WIDTH}px)`,
   desktop: `screen and (min-width: ${MOBILE_WIDTH + 1}px)`,
 };
+
+export const INITIAL_VIEWPORT_HEIGHT = window.innerHeight;

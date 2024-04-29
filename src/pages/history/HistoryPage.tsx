@@ -4,9 +4,10 @@ import HistoryCanvasContent from "./HistoryCanvasContent";
 import { EffectComposer, Vignette } from "@react-three/postprocessing";
 import { ScrollControls } from "@react-three/drei";
 import { Suspense } from "react";
+import { get100ViewportHeight } from "../../utils";
 
 const StyledCanvas = styled(Canvas)`
-  height: 100vh !important;
+  height: ${get100ViewportHeight()} !important;
   z-index: 0;
 `;
 

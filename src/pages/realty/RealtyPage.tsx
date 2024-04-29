@@ -8,11 +8,12 @@ import useWindowSize from "../../hooks/useWindowSize";
 import useGetDocument from "../../sanity/useGetDocument";
 import { RealtyPageDefinition, getSrc } from "../../sanity";
 import { PortableText } from "@portabletext/react";
+import { get100ViewportHeight } from "../../utils";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: ${get100ViewportHeight()};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +45,7 @@ const BackgroundImage = styled.img<{ show: boolean }>`
 
 const ServicesBackgroundImage = styled(BackgroundImage)<{ show: boolean }>`
   flex: 1 0 50%;
-  height: 100vh;
+  height: ${get100ViewportHeight()};
   position: sticky;
   display: block;
   width: 0;
@@ -122,7 +123,7 @@ const ServicesContainer = styled.div`
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: ${get100ViewportHeight()};
     padding: 40px;
     justify-content: center;
     box-sizing: border-box;

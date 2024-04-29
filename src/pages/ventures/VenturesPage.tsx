@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import { MEDIA_SIZE } from "../../constants";
 import useGetDocument from "../../sanity/useGetDocument";
 import { VenturesPageDefinition, getSrc } from "../../sanity";
+import { get100ViewportHeight } from "../../utils";
 
 const Section = styled.div<{ opacity: number }>`
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: ${get100ViewportHeight()};
   display: flex;
   align-items: center;
   justify-content: center;

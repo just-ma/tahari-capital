@@ -8,6 +8,7 @@ import BackgroundVideoSrc from "../../assets/videos/tahari-fashion.m4v";
 import useGetDocument from "../../sanity/useGetDocument";
 import { FashionPageDefinition, getSrc } from "../../sanity";
 import { PortableText } from "@portabletext/react";
+import { get100ViewportHeight } from "../../utils";
 
 const Section = styled.div<{
   opacity: number;
@@ -15,7 +16,7 @@ const Section = styled.div<{
 }>`
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: ${get100ViewportHeight()};
   background: black;
   box-sizing: border-box;
   display: flex;
@@ -28,7 +29,7 @@ const StatsSection = styled(Section)`
 `;
 
 const DescriptionSection = styled(Section)`
-  height: 100vh;
+  height: ${get100ViewportHeight()};
 
   @media ${MEDIA_SIZE.mobile} {
     flex-direction: column;
@@ -71,7 +72,7 @@ const LogoImage = styled.img`
 `;
 
 const StatsBackgroundImage = styled.img<{ show: boolean }>`
-  height: 100vh;
+  height: ${get100ViewportHeight()};
   object-fit: cover;
   user-select: none;
 
