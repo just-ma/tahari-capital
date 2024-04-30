@@ -43,23 +43,23 @@ const BackgroundImage = styled.img<{ show: boolean }>`
   transition: 2s opacity;
 `;
 
-const ServicesBackgroundImage = styled(BackgroundImage)<{ show: boolean }>`
-  flex: 1 0 50%;
+const ServicesBackgroundImage = styled.img`
+  width: 0;
   height: ${get100ViewportHeight()};
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  flex: 1 0 50%;
   position: sticky;
   display: block;
-  width: 0;
   top: ${NAV_BAR_HEIGHT}px;
 
   @media ${MEDIA_SIZE.mobile} {
+    opacity: 1;
     width: 100vw;
     flex: auto;
     position: relative;
     top: 0;
-    filter: ${({ show }) => (show ? "brightness(0.4) blur(4px)" : "none")};
-    -webkit-backdrop-filter: ${({ show }) =>
-      show ? "brightness(0.4) blur(4px)" : "none"};
-    transition: 2s filter, 2s -webkit-backdrop-filter;
   }
 `;
 
@@ -119,13 +119,9 @@ const ServicesContainer = styled.div`
   padding: 200px 100px 0;
 
   @media ${MEDIA_SIZE.mobile} {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100vw;
-    height: ${get100ViewportHeight()};
+    height: fit-content;
     padding: 40px;
-    justify-content: center;
     box-sizing: border-box;
   }
 `;
@@ -210,7 +206,7 @@ export default function RealtyPage() {
   const { isMobile } = useWindowSize();
 
   useEffect(() => {
-    setShowServices(scrollTop > window.innerHeight * (isMobile ? 0.7 : 0.5));
+    setShowServices(scrollTop > window.innerHeight * 0.5);
     setShowDescription(scrollTop >= window.innerHeight * 1.25);
   }, [scrollTop]);
 
@@ -235,10 +231,9 @@ export default function RealtyPage() {
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
       <ServicesSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
-        <ServicesBackgroundImage
-          src={getSrc(data?.secondaryImage)}
-          show={showServices}
-        />
+        {!isMobile && (
+          <ServicesBackgroundImage src={getSrc(data?.secondaryImage)} />
+        )}
         <HalfSection>
           <ServicesContainer>
             {data?.services.map(({ label, icon }, index) => (
@@ -252,6 +247,9 @@ export default function RealtyPage() {
               </ServiceItem>
             ))}
           </ServicesContainer>
+          {isMobile && (
+            <ServicesBackgroundImage src={getSrc(data?.secondaryImage)} />
+          )}
           <Description show={showDescription}>
             {data && <PortableText value={data.copy} />}
           </Description>

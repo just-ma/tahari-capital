@@ -9,6 +9,7 @@ import useGetDocument from "../../sanity/useGetDocument";
 import { FashionPageDefinition, getSrc } from "../../sanity";
 import { PortableText } from "@portabletext/react";
 import { get100ViewportHeight } from "../../utils";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const Section = styled.div<{
   opacity: number;
@@ -26,6 +27,10 @@ const Section = styled.div<{
 
 const StatsSection = styled(Section)`
   height: fit-content;
+
+  @media ${MEDIA_SIZE.mobile} {
+    flex-direction: column-reverse;
+  }
 `;
 
 const DescriptionSection = styled(Section)`
@@ -71,7 +76,7 @@ const LogoImage = styled.img`
   }
 `;
 
-const StatsBackgroundImage = styled.img<{ show: boolean }>`
+const StatsBackgroundImage = styled.img`
   height: ${get100ViewportHeight()};
   object-fit: cover;
   user-select: none;
@@ -79,10 +84,6 @@ const StatsBackgroundImage = styled.img<{ show: boolean }>`
   @media ${MEDIA_SIZE.mobile} {
     width: 100%;
     height: auto;
-    filter: ${({ show }) => (show ? "brightness(0.4) blur(4px)" : "none")};
-    -webkit-backdrop-filter: ${({ show }) =>
-      show ? "brightness(0.4) blur(4px)" : "none"};
-    transition: 2s filter, 2s -webkit-backdrop-filter;
   }
 `;
 
@@ -95,11 +96,10 @@ const MainContainer = styled.div`
   width: fit-content;
 
   @media ${MEDIA_SIZE.mobile} {
-    position: absolute;
-    top: 30px;
-    left: 20px;
-    z-index: 1;
     margin: 0;
+    box-sizing: border-box;
+    padding: 30px 40px 60px;
+    width: 100%;
   }
 `;
 
@@ -187,6 +187,7 @@ const Description = styled.div`
 
 export default function FashionPage() {
   const { scrollTop } = useAppContext();
+  const { isMobile } = useWindowSize();
 
   const { data } = useGetDocument<FashionPageDefinition>("fashionPage");
 
@@ -197,8 +198,8 @@ export default function FashionPage() {
   }, []);
 
   useEffect(() => {
-    setShow(scrollTop > window.innerHeight * 0.6);
-  }, [scrollTop]);
+    setShow(scrollTop > window.innerHeight * (isMobile ? 0.4 : 0.6));
+  }, [scrollTop, isMobile]);
 
   return (
     <>
@@ -222,7 +223,6 @@ export default function FashionPage() {
         <StatsBackgroundImage
           src={getSrc(data?.statsImage)}
           draggable={false}
-          show={show}
         />
         <MainContainer>
           <MenuContainer>

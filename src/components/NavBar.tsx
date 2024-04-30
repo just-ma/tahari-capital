@@ -20,13 +20,13 @@ const Container = styled.div<{
   height: ${({ expand }) => (expand ? 250 : NAV_BAR_HEIGHT)}px;
   backdrop-filter: ${({ background, expand }) =>
     expand
-      ? "brightness(0.5) blur(10px)"
+      ? "brightness(0.5) blur(4px)"
       : background
       ? "brightness(0.7) blur(10px)"
       : "brightness(1) blur(0)"};
   -webkit-backdrop-filter: ${({ background, expand }) =>
     expand
-      ? "brightness(0.5) blur(10px)"
+      ? "brightness(0.5) blur(4px)"
       : background
       ? "brightness(0.7) blur(10px)"
       : "brightness(1) blur(0)"};

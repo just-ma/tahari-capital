@@ -76,7 +76,7 @@ const StatsSection = styled(Section)`
   }
 `;
 
-const StatsBackgroundImage = styled.img<{ show: boolean }>`
+const StatsBackgroundImage = styled.img`
   flex: 1 0 50%;
   height: ${get100ViewportHeight()};
   object-fit: cover;
@@ -95,14 +95,10 @@ const StatsBackgroundImage = styled.img<{ show: boolean }>`
 
   @media ${MEDIA_SIZE.mobile} {
     width: 100vw;
+    height: auto;
     flex: auto;
     position: relative;
     top: 0;
-    filter: ${({ show }) => (show ? "brightness(0.4) blur(4px)" : "none")};
-    -webkit-backdrop-filter: ${({ show }) =>
-      show ? "brightness(0.4) blur(4px)" : "none"};
-    transition: 2s filter, 2s -webkit-backdrop-filter;
-    object-position: right;
   }
 `;
 
@@ -126,12 +122,10 @@ const MenuContainer = styled.div`
   justify-content: center;
 
   @media ${MEDIA_SIZE.mobile} {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: ${get100ViewportHeight()};
-    padding: 40px;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 30px 40px 60px;
+    width: 100%;
   }
 `;
 
@@ -199,7 +193,7 @@ const Description = styled.div<{ show: boolean }>`
   @media ${MEDIA_SIZE.mobile} {
     font-size: 14px;
     line-height: 20px;
-    padding: 100px 40px;
+    padding: 50px 40px 80px;
   }
 `;
 
@@ -224,7 +218,7 @@ export default function LogisticsPage() {
       return;
     }
 
-    setShowStats(scrollTop > window.innerHeight * (isMobile ? 0.7 : 0.5));
+    setShowStats(scrollTop > window.innerHeight * (isMobile ? 0.4 : 0.5));
     setShowDescription(scrollTop > window.innerHeight * 1.4);
   }, [scrollTop, init]);
 
@@ -248,11 +242,12 @@ export default function LogisticsPage() {
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
       <StatsSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
-        <StatsBackgroundImage
-          src={getSrc(data?.statsImage)}
-          draggable={false}
-          show={showStats}
-        />
+        {!isMobile && (
+          <StatsBackgroundImage
+            src={getSrc(data?.statsImage)}
+            draggable={false}
+          />
+        )}
         <HalfSection>
           <MenuContainer>
             {data?.stats.map(({ title, subtitle }, index) => (
@@ -277,6 +272,12 @@ export default function LogisticsPage() {
               </>
             ))}
           </MenuContainer>
+          {isMobile && (
+            <StatsBackgroundImage
+              src={getSrc(data?.statsImage)}
+              draggable={false}
+            />
+          )}
           <Description show={showDescription}>
             {data && <PortableText value={data.copy} />}
           </Description>
