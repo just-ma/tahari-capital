@@ -68,6 +68,8 @@ const Panel = styled.div`
     width: 100vw;
     right: -100vw;
     padding: 14px;
+    backdrop-filter: brightness(0.4);
+    -webkit-backdrop-filter: brightness(0.4);
   }
 `;
 

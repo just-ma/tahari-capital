@@ -146,7 +146,8 @@ export default function NavBar() {
   const { isMobile } = useWindowSize();
 
   const isHome = location.pathname === "/";
-  const isHistory = location.pathname === "/history";
+  const isFullHeightPage =
+    location.pathname === "/history" || location.pathname === "/login";
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -154,7 +155,7 @@ export default function NavBar() {
 
   useEffect(() => {
     setHide(
-      !isHistory &&
+      !isFullHeightPage &&
         scrollTop >=
           document.documentElement.scrollHeight -
             window.innerHeight -
