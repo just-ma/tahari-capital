@@ -181,7 +181,7 @@ const Description = styled.div`
   @media ${MEDIA_SIZE.mobile} {
     font-size: 14px;
     line-height: 20px;
-    padding: 60px 20px;
+    padding: 60px 40px;
   }
 `;
 

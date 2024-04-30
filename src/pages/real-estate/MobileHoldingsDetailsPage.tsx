@@ -1,30 +1,54 @@
 import styled from "styled-components";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { getSrc } from "../../sanity";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import PagePlaceholder from "../../components/PagePlaceholder";
+import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 
 const Gallery = styled.div<{ show: boolean }>`
-  width: 90vw;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  margin: 50px auto 0;
+  margin: ${NAV_BAR_HEIGHT}px auto 0;
   pointer-events: none;
   box-sizing: border-box;
-  gap: 10px;
+  gap: 2px;
   opacity: ${({ show }) => (show ? 1 : 0)};
   transition: opacity 2s;
 `;
 
+const Item = styled.div`
+  width: 100%;
+  height: fit-content;
+  position: relative;
+`;
+
 const Label = styled.div`
-  font-size: 18px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 22px;
   color: white;
   text-transform: uppercase;
-  line-height: 2.1vw;
-  padding: 5px 0;
   cursor: pointer;
-  margin-top: 40px;
+  z-index: 2;
+`;
+
+const Gradient = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 1;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0.6;
 `;
 
 const ImageContainer = styled.div`
@@ -56,15 +80,16 @@ export default function MobileHoldingsDetailsPage({
     <>
       <Gallery show={holdings ? numImagesLoaded === holdings.length : false}>
         {holdings?.map(({ name, image }, index) => (
-          <Fragment key={name}>
+          <Item key={name}>
             <Label>{name}</Label>
+            <Gradient />
             <ImageContainer id={String(index)}>
               <Image
                 src={getSrc(image)}
                 onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
               />
             </ImageContainer>
-          </Fragment>
+          </Item>
         ))}
       </Gallery>
       {(!holdings || numImagesLoaded !== holdings?.length) && (

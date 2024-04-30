@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MEDIA_SIZE } from "../constants";
 import useGetDocument from "../sanity/useGetDocument";
 import { ContactDefinition } from "../sanity";
+import { PortableText } from "@portabletext/react";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -18,6 +19,10 @@ const Container = styled.div`
   box-sizing: border-box;
   text-transform: uppercase;
   cursor: default;
+
+  @media ${MEDIA_SIZE.mobile} {
+    padding: 50px 40px 10px;
+  }
 `;
 
 const Content = styled.div`
@@ -39,11 +44,20 @@ const Column = styled.div`
   flex-shrink: 0;
 `;
 
+const ContactColumn = styled(Column)`
+  @media ${MEDIA_SIZE.mobile} {
+    width: 100%;
+  }
+`;
+
 const ColumnBody = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10%;
   line-height: 22px;
+`;
+
+const ContactColumnBody = styled(ColumnBody)`
+  gap: 10px;
 `;
 
 const Copyright = styled.div`
@@ -84,8 +98,22 @@ const InteralLink = styled(Link)<{ underline?: boolean }>`
   ${linkCss}
 `;
 
+const Label = styled.div`
+  color: #aca9a7;
+  margin: 0;
+  line-height: 18px;
+
+  p {
+    margin: 0;
+  }
+`;
+
 const LogoColumn = styled.div`
   flex: 2 0 0;
+
+  @media ${MEDIA_SIZE.mobile} {
+    order: 1;
+  }
 `;
 
 const StyledLogo = styled(TahariCaptialLogo)`
@@ -94,6 +122,11 @@ const StyledLogo = styled(TahariCaptialLogo)`
   margin-top: 10px;
   user-select: none;
   cursor: pointer;
+
+  @media ${MEDIA_SIZE.mobile} {
+    width: 300px;
+    height: 70px;
+  }
 `;
 
 export default function Footer() {
@@ -103,6 +136,7 @@ export default function Footer() {
   const { data } = useGetDocument<ContactDefinition>("contact");
 
   const email = data?.email || "";
+  const phone = data?.phone || "";
 
   const handleLogoClick = () => {
     if (location.pathname === "/") {
@@ -122,14 +156,18 @@ export default function Footer() {
         <LogoColumn>
           <StyledLogo onClick={handleLogoClick} />
         </LogoColumn>
-        <Column>
+        <ContactColumn>
           <Title>Contact</Title>
-          <ColumnBody>
+          <ContactColumnBody>
             <ExternalLink href={`mailto:${email}`} underline>
               {email}
             </ExternalLink>
-          </ColumnBody>
-        </Column>
+            <ExternalLink href={`tel:${phone}`} underline>
+              {phone}
+            </ExternalLink>
+            <Label>{data && <PortableText value={data.address} />}</Label>
+          </ContactColumnBody>
+        </ContactColumn>
         <Column>
           <Title>Sitemap</Title>
           <ColumnBody>

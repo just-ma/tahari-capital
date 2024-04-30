@@ -5,6 +5,7 @@ import TahariLogo from "../assets/graphics/tahari-logo.svg?react";
 import { useEffect, useState } from "react";
 import useWindowSize from "../hooks/useWindowSize";
 import { MEDIA_SIZE } from "../constants";
+import HamburgerButton from "./HamburgerButton";
 
 export const NAV_BAR_HEIGHT = 40;
 
@@ -16,7 +17,7 @@ const Container = styled.div<{
   position: fixed;
   top: 0;
   width: 100%;
-  height: ${({ expand }) => (expand ? 400 : NAV_BAR_HEIGHT)}px;
+  height: ${({ expand }) => (expand ? 250 : NAV_BAR_HEIGHT)}px;
   backdrop-filter: ${({ background, expand }) =>
     expand
       ? "brightness(0.5) blur(10px)"
@@ -86,6 +87,10 @@ const itemLabelCss = css<{ hide: boolean }>`
   color: #eaeaea;
   opacity: ${({ hide }) => (hide ? 0 : 1)};
   transition: opacity 0.5s, color 0.5s;
+
+  @media ${MEDIA_SIZE.mobile} {
+    font-size: 20px;
+  }
 `;
 
 const ItemLabel = styled.div<{ hide: boolean }>`
@@ -109,12 +114,11 @@ const Item = styled.div`
 `;
 
 const MobileMenu = styled.div`
-  height: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  margin-top: 20%;
+  gap: 10px;
+  margin-top: 20px;
 `;
 
 const MENU_ITEMS = [
@@ -179,12 +183,11 @@ export default function NavBar() {
         </TitleContainer>
         {isMobile ? (
           <ItemContainer>
-            <ItemLabel
+            <HamburgerButton
+              show={showMobileMenu}
               onClick={() => setShowMobileMenu((prev) => !prev)}
               hide={hide}
-            >
-              {showMobileMenu ? "Close" : "Sitemap"}
-            </ItemLabel>
+            />
           </ItemContainer>
         ) : (
           MENU_ITEMS.map(({ label, to, onClick }) => (

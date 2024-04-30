@@ -52,7 +52,7 @@ const Gradient = styled.div`
   height: 100%;
   z-index: -1;
   background: linear-gradient(
-    90deg,
+    45deg,
     rgba(0, 0, 0, 1) 0%,
     rgba(0, 0, 0, 0.8) 40%,
     rgba(0, 0, 0, 0) 100%
@@ -73,6 +73,7 @@ const Label = styled.div`
   @media ${MEDIA_SIZE.mobile} {
     font-size: 10vw;
     opacity: 1;
+    margin: 0 0 20px 10px;
   }
 `;
 
@@ -108,14 +109,6 @@ export default function HoldingsPage() {
     <>
       <NavBarPlaceholder />
       <Container show={!isLoading && numImagesLoaded === 4}>
-        <Section to="/holdings/retail">
-          <Image
-            src={getSrc(data?.retail)}
-            onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
-          />
-          <Gradient />
-          <Label>Retail</Label>
-        </Section>
         <Section to="/holdings/commercial">
           <Image
             src={getSrc(data?.commercial)}
@@ -124,13 +117,13 @@ export default function HoldingsPage() {
           <Gradient />
           <Label>Commercial</Label>
         </Section>
-        <Section to="/holdings/residential">
+        <Section to="/holdings/retail">
           <Image
-            src={getSrc(data?.residential)}
+            src={getSrc(data?.retail)}
             onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
           />
           <Gradient />
-          <Label>Residential</Label>
+          <Label>Retail</Label>
         </Section>
         <Section to="/holdings/industrial">
           <Image
@@ -139,6 +132,14 @@ export default function HoldingsPage() {
           />
           <Gradient />
           <Label>Industrial</Label>
+        </Section>
+        <Section to="/holdings/residential">
+          <Image
+            src={getSrc(data?.residential)}
+            onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
+          />
+          <Gradient />
+          <Label>Residential</Label>
         </Section>
       </Container>
     </>

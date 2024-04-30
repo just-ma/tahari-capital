@@ -10,3 +10,4 @@ export const MEDIA_SIZE = {
 };
 
 export const INITIAL_VIEWPORT_HEIGHT = window.innerHeight;
+export const INITIAL_VIEWPORT_WIDTH = window.innerWidth;

@@ -61,7 +61,8 @@ const RowTitleContainer = styled.div<{ expand: boolean }>`
   overflow: hidden;
 
   @media ${MEDIA_SIZE.mobile} {
-    height: ${({ expand }) => (expand ? "100px" : "30px")};
+    height: ${({ expand }) => (expand ? 80 : 40)}px;
+    text-align: center;
   }
 `;
 
@@ -73,9 +74,13 @@ const RowTitle = styled.div<{ dim: boolean }>`
   font-weight: 100;
 
   @media ${MEDIA_SIZE.mobile} {
-    font-size: ${({ dim }) => (dim ? 26 : 30)}px;
-    line-height: 30px;
-    margin-left: 40px;
+    font-size: 30px;
+    line-height: 40px;
+    margin-left: 0;
+    font-weight: 400;
+    height: ${({ dim }) => (dim ? 0 : 40)}px;
+    transition: height 0.7s cubic-bezier(0.4, 0, 0, 1);
+    overflow: hidden;
   }
 `;
 
@@ -99,9 +104,10 @@ const RowSubtitle = styled.div`
 
   @media ${MEDIA_SIZE.mobile} {
     font-size: 30px;
-    line-height: 30px;
-    padding: 5px 55px 0;
+    line-height: 40px;
+    padding: 0;
     opacity: 1;
+    font-weight: 400;
   }
 `;
 
@@ -119,6 +125,16 @@ const Shadow = styled.div`
     rgba(0, 0, 0, 0) 100%
   );
   pointer-events: none;
+
+  @media ${MEDIA_SIZE.mobile} {
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 1) 40%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+    opacity: 0.6;
+  }
 `;
 
 type MenuItemDefinition = {
@@ -172,6 +188,7 @@ export default function PortfolioSection() {
   const navigate = useNavigate();
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mobileExpand, setMobileExpand] = useState(false);
 
   const { data } = useGetDocument<PortfolioImagesDefinition>("portfolioImages");
 
@@ -182,6 +199,15 @@ export default function PortfolioSection() {
   const { scrollTop } = useAppContext();
   const { isMobile } = useWindowSize();
 
+  const handleRowClick = (to?: string, secondaryTo?: string) => {
+    if (isMobile && secondaryTo && !mobileExpand) {
+      setMobileExpand(true);
+      return;
+    }
+
+    navigate(to || secondaryTo || "/");
+  };
+
   return (
     <Section opacity={Math.min(scrollTop / window.innerHeight, 1)}>
       {MENU_ITEMS.map(({ key, label, to, subItems }, index) => (
@@ -189,7 +215,7 @@ export default function PortfolioSection() {
           key={index}
           active={isMobile || index === activeIndex}
           onMouseEnter={() => handleMouseEnter(index)}
-          onClick={() => navigate(to || subItems?.[0].to || "/")}
+          onClick={() => handleRowClick(to, subItems?.[0].to)}
         >
           <RowImage
             src={getSrc(data?.[key])}
@@ -198,9 +224,13 @@ export default function PortfolioSection() {
           />
           <Shadow />
           <RowTitleContainer
-            expand={!!subItems && (isMobile || index === activeIndex)}
+            expand={
+              !!subItems && (isMobile ? mobileExpand : index === activeIndex)
+            }
           >
-            <RowTitle dim={!!subItems}>{label}</RowTitle>
+            <RowTitle dim={(!isMobile || mobileExpand) && !!subItems}>
+              {label}
+            </RowTitle>
             {!!subItems &&
               subItems.map(({ label, to }) => (
                 <RowSubtitle

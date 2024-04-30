@@ -199,7 +199,7 @@ const Description = styled.div<{ show: boolean }>`
   @media ${MEDIA_SIZE.mobile} {
     font-size: 14px;
     line-height: 20px;
-    padding: 100px 20px;
+    padding: 100px 40px;
   }
 `;
 
