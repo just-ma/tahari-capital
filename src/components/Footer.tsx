@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import TahariCaptialLogo from "../assets/graphics/tahari-captial-logo.svg?react";
+import TahariCapitalLogo from "../assets/graphics/tahari-capital-logo.svg?react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MEDIA_SIZE } from "../constants";
 import useGetDocument from "../sanity/useGetDocument";
@@ -116,7 +116,7 @@ const LogoColumn = styled.div`
   }
 `;
 
-const StyledLogo = styled(TahariCaptialLogo)`
+const StyledLogo = styled(TahariCapitalLogo)`
   width: 200px;
   height: 50px;
   margin-top: 10px;

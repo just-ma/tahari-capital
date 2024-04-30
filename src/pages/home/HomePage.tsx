@@ -5,7 +5,7 @@ import useAppContext from "../../hooks/useAppContext";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
-import LogoSvg from "../../assets/graphics/tahari-captial-logo.svg?react";
+import LogoSvg from "../../assets/graphics/tahari-capital-logo.svg?react";
 import { MEDIA_SIZE } from "../../constants";
 import { get100ViewportHeight } from "../../utils";
 

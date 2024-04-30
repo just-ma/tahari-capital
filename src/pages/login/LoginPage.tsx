@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { MEDIA_SIZE } from "../../constants";
-import TahariLogo from "../../assets/graphics/tahari-captial-logo.svg?react";
+import TahariLogo from "../../assets/graphics/tahari-capital-logo.svg?react";
 import useGetDocument from "../../sanity/useGetDocument";
 import { LoginBackgroundDefinition, getSrc } from "../../sanity";
 import { get100ViewportHeight } from "../../utils";
