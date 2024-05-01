@@ -73,7 +73,7 @@ const Label = styled.div`
   @media ${MEDIA_SIZE.mobile} {
     font-size: 10vw;
     opacity: 1;
-    margin: 0 0 20px 10px;
+    margin: auto;
   }
 `;
 

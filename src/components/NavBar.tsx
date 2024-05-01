@@ -126,7 +126,7 @@ const MENU_ITEMS = [
     label: "Portfolio",
     to: "/#portfolio",
   },
-  { label: "History", to: "/history" },
+  // { label: "History", to: "/history" },
   {
     label: "Contact",
     onClick: () => {

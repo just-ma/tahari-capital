@@ -48,7 +48,7 @@ export default function FashionGallery({
   images: SanityImageSource[] | undefined;
 }) {
   const [introAnimation, setIntroAnimation] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
 
   const handleMouseEnter = debounce((index: number) => {
     if (introAnimation) {

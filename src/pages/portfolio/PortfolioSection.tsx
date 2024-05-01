@@ -21,7 +21,8 @@ const Section = styled.div<{ opacity: number }>`
 const Row = styled.div<{ active: boolean }>`
   position: relative;
   flex-basis: 0;
-  flex-grow: ${({ active }) => (active ? 3 : 1)};
+  /* flex-grow: ${({ active }) => (active ? 3 : 1)}; */
+  flex-grow: ${({ active }) => (active ? 2.5 : 1)};
   opacity: ${({ active }) => (active ? 1 : 0.4)};
   width: 100%;
   transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0, 1), opacity 0.5s 0.1s;
@@ -167,11 +168,11 @@ const MENU_ITEMS: readonly MenuItemDefinition[] = [
       },
     ],
   },
-  {
-    key: "lifestyle",
-    label: "Lifestyle",
-    to: "/lifestyle",
-  },
+  // {
+  //   key: "lifestyle",
+  //   label: "Lifestyle",
+  //   to: "/lifestyle",
+  // },
   {
     key: "ventures",
     label: "Ventures",

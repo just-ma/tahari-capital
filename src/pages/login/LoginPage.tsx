@@ -5,6 +5,7 @@ import TahariLogo from "../../assets/graphics/tahari-capital-logo.svg?react";
 import useGetDocument from "../../sanity/useGetDocument";
 import { LoginBackgroundDefinition, getSrc } from "../../sanity";
 import { get100ViewportHeight } from "../../utils";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const Section = styled.div<{ reverse?: boolean }>`
   position: relative;
@@ -44,9 +45,9 @@ const Shadow = styled.div`
 const Panel = styled.div`
   position: absolute;
   top: 0;
-  right: -400px;
+  right: -440px;
   height: 100%;
-  width: 400px;
+  width: 440px;
   backdrop-filter: brightness(0.6) blur(10px);
   -webkit-backdrop-filter: brightness(0.6) blur(10px);
   display: flex;
@@ -158,6 +159,7 @@ const Error = styled.div<{ show: boolean }>`
 
 export default function LoginPage() {
   const { data } = useGetDocument<LoginBackgroundDefinition>("loginBackground");
+  const { isMobile } = useWindowSize();
 
   const [submitting, setSubmitting] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -184,7 +186,7 @@ export default function LoginPage() {
     <>
       <Section>
         <BackgroundImage
-          src={getSrc(data?.image)}
+          src={getSrc((isMobile && data?.mobileImage) || data?.image)}
           onLoad={() => setImageLoaded(true)}
           show={imageLoaded}
         />

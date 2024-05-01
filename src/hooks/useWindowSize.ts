@@ -25,7 +25,12 @@ export default function useWindowSize() {
   return useMemo(
     () => ({
       ...screenSize,
-      isMobile: screenSize.windowWidth <= MOBILE_WIDTH,
+      isMobile:
+        screenSize.windowWidth <= MOBILE_WIDTH &&
+        screenSize.windowWidth < screenSize.windowHeight,
+      isMobileLandscape:
+        screenSize.windowWidth <= MOBILE_WIDTH &&
+        screenSize.windowWidth >= screenSize.windowHeight,
     }),
     [screenSize]
   );

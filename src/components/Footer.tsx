@@ -34,7 +34,7 @@ const Content = styled.div`
 
   @media ${MEDIA_SIZE.mobile} {
     flex-wrap: wrap;
-    gap: 50px;
+    gap: 50px 20px;
     height: fit-content;
     margin-bottom: 50px;
   }
@@ -42,12 +42,6 @@ const Content = styled.div`
 
 const Column = styled.div`
   flex-shrink: 0;
-`;
-
-const ContactColumn = styled(Column)`
-  @media ${MEDIA_SIZE.mobile} {
-    width: 100%;
-  }
 `;
 
 const ColumnBody = styled.div`
@@ -124,8 +118,10 @@ const StyledLogo = styled(TahariCapitalLogo)`
   cursor: pointer;
 
   @media ${MEDIA_SIZE.mobile} {
-    width: 300px;
-    height: 70px;
+    width: auto;
+    display: block;
+    height: fit-content;
+    margin: 0 0 0 auto;
   }
 `;
 
@@ -156,7 +152,7 @@ export default function Footer() {
         <LogoColumn>
           <StyledLogo onClick={handleLogoClick} />
         </LogoColumn>
-        <ContactColumn>
+        <Column>
           <Title>Contact</Title>
           <ContactColumnBody>
             <ExternalLink href={`mailto:${email}`} underline>
@@ -167,12 +163,12 @@ export default function Footer() {
             </ExternalLink>
             <Label>{data && <PortableText value={data.address} />}</Label>
           </ContactColumnBody>
-        </ContactColumn>
+        </Column>
         <Column>
           <Title>Sitemap</Title>
           <ColumnBody>
             <InteralLink to="/#portfolio">Portfolio</InteralLink>
-            <InteralLink to="/history">History</InteralLink>
+            {/* <InteralLink to="/history">History</InteralLink> */}
             <InteralLink to="/login">Login</InteralLink>
           </ColumnBody>
         </Column>

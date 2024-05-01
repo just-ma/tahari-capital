@@ -82,6 +82,7 @@ export type LogisticsPageDefinition = DocumentBase & {
 export type LoginBackgroundDefinition = DocumentBase & {
   _type: "loginBackground";
   image: SanityImageSource;
+  mobileImage?: SanityImageSource;
 };
 
 export type ContactDefinition = DocumentBase & {
