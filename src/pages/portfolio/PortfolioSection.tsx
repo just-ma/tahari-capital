@@ -219,7 +219,10 @@ export default function PortfolioSection() {
           onClick={() => handleRowClick(to, subItems?.[0].to)}
         >
           <RowImage
-            src={getSrc(data?.[key])}
+            src={getSrc(
+              (key === "logistics" && isMobile && data?.logisticsMobile) ||
+                data?.[key]
+            )}
             draggable={false}
             delay={index * 0.15 + 0.2}
           />

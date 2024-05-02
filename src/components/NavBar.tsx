@@ -118,7 +118,7 @@ const MobileMenu = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 30px;
 `;
 
 const MENU_ITEMS = [
@@ -149,7 +149,8 @@ export default function NavBar() {
   const isFullHeightPage =
     location.pathname === "/history" || location.pathname === "/login";
 
-  const scrollToTop = () => {
+  const handleLogoClick = () => {
+    setShowMobileMenu(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -177,7 +178,7 @@ export default function NavBar() {
       <Bar>
         <TitleContainer show={!isHome || scrollTop >= window.innerHeight * 0.6}>
           <Item>
-            <StyledLink to="/" onClick={scrollToTop} hide={hide}>
+            <StyledLink to="/" onClick={handleLogoClick} hide={hide}>
               <Logo />
             </StyledLink>
           </Item>

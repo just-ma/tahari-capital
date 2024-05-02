@@ -9,6 +9,3 @@ export const MEDIA_SIZE = {
   mobileLandscape: `screen and (max-width: ${MOBILE_WIDTH}px) and (orientation: landscape)`,
   desktop: `screen and (min-width: ${MOBILE_WIDTH + 1}px)`,
 };
-
-export const INITIAL_VIEWPORT_HEIGHT = window.innerHeight;
-export const INITIAL_VIEWPORT_WIDTH = window.innerWidth;

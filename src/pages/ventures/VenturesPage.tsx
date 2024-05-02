@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import LogoImageSrc from "../../assets/graphics/tahari-ventures-logo.svg";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
@@ -27,14 +27,15 @@ const LogosSection = styled(Section)`
   margin-top: -100px;
 
   @media ${MEDIA_SIZE.mobile} {
-    padding: 0 20px 150px;
-    gap: 10px;
+    padding: 0 15px 150px;
+    gap: 30px;
   }
 `;
 
 const Logo = styled.img<{
   show: boolean;
   delay: number;
+  grow: boolean;
 }>`
   user-select: none;
   transform: scale(0.8);
@@ -47,10 +48,17 @@ const Logo = styled.img<{
 
   @media ${MEDIA_SIZE.mobile} {
     display: block;
-    max-width: 150px;
-    max-height: 100px;
+    max-width: 100px;
+    max-height: 70px;
+    transform: scale(1);
     width: auto;
     height: auto;
+    ${({ grow }) =>
+      grow &&
+      css`
+        margin-left: 5%;
+        margin-right: 5%;
+      `}
   }
 `;
 
@@ -128,6 +136,7 @@ export default function VenturesPage() {
             src={getSrc(logo)}
             show={show}
             delay={show ? index * 0.1 : 0}
+            grow={index % 5 < 2}
           />
         ))}
       </LogosSection>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { debounce, get100ViewportHeight } from "../../utils";
 import { MEDIA_SIZE } from "../../constants";
@@ -15,16 +15,13 @@ const Container = styled.div`
   }
 `;
 
-const Column = styled.div<{ active: boolean; introAnimation: boolean }>`
+const Column = styled.div<{ active: boolean }>`
   position: relative;
   flex-basis: 0;
   flex-grow: ${({ active }) => (active ? 3 : 1)};
   opacity: ${({ active }) => (active ? 1 : 0.2)};
   height: 100%;
-  transition: flex-grow
-      ${({ introAnimation }) =>
-        introAnimation ? "0.15s" : "0.5s cubic-bezier(0.4, 0, 0, 1)"},
-    opacity 0.5s;
+  transition: flex-grow 0.5s cubic-bezier(0.4, 0, 0, 1), opacity 0.5s;
 `;
 
 const ColumnImage = styled.img<{ delay: number }>`
@@ -47,34 +44,11 @@ export default function FashionGallery({
 }: {
   images: SanityImageSource[] | undefined;
 }) {
-  const [introAnimation, setIntroAnimation] = useState(true);
   const [activeIndex, setActiveIndex] = useState(1);
 
   const handleMouseEnter = debounce((index: number) => {
-    if (introAnimation) {
-      return;
-    }
-
     setActiveIndex(index);
   }, 100);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => {
-        if (prev === (images?.length || 5) - 1) {
-          setIntroAnimation(false);
-          clearInterval(interval);
-          return prev;
-        } else {
-          return prev + 1;
-        }
-      });
-    }, 150);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
 
   return (
     <Container>
@@ -83,7 +57,6 @@ export default function FashionGallery({
           key={index}
           active={index === activeIndex}
           onMouseEnter={() => handleMouseEnter(index)}
-          introAnimation={introAnimation}
         >
           <ColumnImage
             src={getSrc(image)}

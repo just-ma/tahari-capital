@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import TahariCapitalLogo from "../assets/graphics/tahari-capital-logo.svg?react";
+import TahariCapitalLogoSrc from "../assets/graphics/tahari-capital-logo.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MEDIA_SIZE } from "../constants";
 import useGetDocument from "../sanity/useGetDocument";
@@ -110,9 +110,8 @@ const LogoColumn = styled.div`
   }
 `;
 
-const StyledLogo = styled(TahariCapitalLogo)`
+const Logo = styled.img`
   width: 200px;
-  height: 50px;
   margin-top: 10px;
   user-select: none;
   cursor: pointer;
@@ -120,7 +119,6 @@ const StyledLogo = styled(TahariCapitalLogo)`
   @media ${MEDIA_SIZE.mobile} {
     width: auto;
     display: block;
-    height: fit-content;
     margin: 0 0 0 auto;
   }
 `;
@@ -134,12 +132,13 @@ export default function Footer() {
   const email = data?.email || "";
   const phone = data?.phone || "";
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleLogoClick = () => {
-    if (location.pathname === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      navigate("/");
-    }
+    navigate("/");
+    scrollToTop();
   };
 
   if (location.pathname === "/history") {
@@ -150,7 +149,7 @@ export default function Footer() {
     <Container>
       <Content>
         <LogoColumn>
-          <StyledLogo onClick={handleLogoClick} />
+          <Logo src={TahariCapitalLogoSrc} onClick={handleLogoClick} />
         </LogoColumn>
         <Column>
           <Title>Contact</Title>
@@ -167,6 +166,9 @@ export default function Footer() {
         <Column>
           <Title>Sitemap</Title>
           <ColumnBody>
+            <InteralLink to="/" onClick={scrollToTop}>
+              Home
+            </InteralLink>
             <InteralLink to="/#portfolio">Portfolio</InteralLink>
             {/* <InteralLink to="/history">History</InteralLink> */}
             <InteralLink to="/login">Login</InteralLink>

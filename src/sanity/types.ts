@@ -12,6 +12,7 @@ export type PortfolioImagesDefinition = DocumentBase & {
   lifestyle: SanityImageSource;
   ventures: SanityImageSource;
   logistics: SanityImageSource;
+  logisticsMobile?: SanityImageSource;
 };
 
 export type FashionPageDefinition = DocumentBase & {
@@ -45,6 +46,7 @@ export type HoldingsListPageDefinition = DocumentBase & {
 export type RealtyPageDefinition = DocumentBase & {
   _type: "realtyPage";
   primaryImage: SanityImageSource;
+  primaryImageMobile?: SanityImageSource;
   secondaryImage: SanityImageSource;
   services: {
     icon: SanityImageSource;

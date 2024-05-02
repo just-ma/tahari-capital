@@ -223,7 +223,9 @@ export default function RealtyPage() {
         )}
       >
         <BackgroundImage
-          src={getSrc(data?.primaryImage)}
+          src={getSrc(
+            (isMobile && data?.primaryImageMobile) || data?.primaryImage
+          )}
           onLoad={() => setImageLoaded(true)}
           show={imageLoaded}
         />
