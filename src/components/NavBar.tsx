@@ -164,6 +164,10 @@ export default function NavBar() {
     );
   }, [scrollTop]);
 
+  useEffect(() => {
+    setShowMobileMenu(false);
+  }, [location.pathname]);
+
   return (
     <Container
       background={

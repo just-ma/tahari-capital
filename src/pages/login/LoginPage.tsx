@@ -11,6 +11,11 @@ const Section = styled.div<{ reverse?: boolean }>`
   position: relative;
   width: 100vw;
   height: ${get100ViewportHeight()};
+
+  @media ${MEDIA_SIZE.mobile} {
+    min-height: ${get100ViewportHeight()};
+    height: fit-content;
+  }
 `;
 
 const BackgroundImage = styled.img<{ show: boolean }>`
@@ -75,10 +80,16 @@ const Panel = styled.div`
 `;
 
 const Logo = styled(TahariLogo)`
+  flex-shrink: 0;
   width: 70%;
   margin: 0 auto;
   height: fit-content;
   margin-bottom: 20px;
+
+  @media ${MEDIA_SIZE.mobile} {
+    margin-top: 250px;
+    margin-bottom: 0;
+  }
 `;
 
 const InputContainer = styled.div`

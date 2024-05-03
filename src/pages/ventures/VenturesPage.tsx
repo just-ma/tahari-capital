@@ -27,7 +27,7 @@ const LogosSection = styled(Section)`
   margin-top: -100px;
 
   @media ${MEDIA_SIZE.mobile} {
-    padding: 0 15px 150px;
+    padding: 0 15px 50px;
     gap: 30px;
   }
 `;

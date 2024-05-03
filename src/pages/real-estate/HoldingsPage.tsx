@@ -77,9 +77,8 @@ const Label = styled.div`
   }
 `;
 
-const Section = styled(Link)`
+const Section = styled(Link)<{ mobileOrder: number }>`
   position: relative;
-  flex: 1 0 0;
   display: flex;
   align-items: flex-end;
   cursor: pointer;
@@ -92,6 +91,11 @@ const Section = styled(Link)`
   @media ${MEDIA_SIZE.desktop} {
     flex: 1 0 50vw;
     height: 50%;
+  }
+
+  @media ${MEDIA_SIZE.mobile} {
+    flex: 1 0 0;
+    order: ${({ mobileOrder }) => mobileOrder};
   }
 `;
 
@@ -109,7 +113,7 @@ export default function HoldingsPage() {
     <>
       <NavBarPlaceholder />
       <Container show={!isLoading && numImagesLoaded === 4}>
-        <Section to="/holdings/commercial">
+        <Section to="/holdings/commercial" mobileOrder={1}>
           <Image
             src={getSrc(data?.commercial)}
             onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
@@ -117,7 +121,7 @@ export default function HoldingsPage() {
           <Gradient />
           <Label>Commercial</Label>
         </Section>
-        <Section to="/holdings/retail">
+        <Section to="/holdings/retail" mobileOrder={2}>
           <Image
             src={getSrc(data?.retail)}
             onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
@@ -125,7 +129,7 @@ export default function HoldingsPage() {
           <Gradient />
           <Label>Retail</Label>
         </Section>
-        <Section to="/holdings/industrial">
+        <Section to="/holdings/industrial" mobileOrder={3}>
           <Image
             src={getSrc(data?.industrial)}
             onLoad={() => setNumImagesLoaded((prev) => prev + 1)}
@@ -133,7 +137,7 @@ export default function HoldingsPage() {
           <Gradient />
           <Label>Industrial</Label>
         </Section>
-        <Section to="/holdings/residential">
+        <Section to="/holdings/residential" mobileOrder={0}>
           <Image
             src={getSrc(data?.residential)}
             onLoad={() => setNumImagesLoaded((prev) => prev + 1)}

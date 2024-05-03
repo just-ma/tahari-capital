@@ -117,9 +117,9 @@ const Logo = styled.img`
   cursor: pointer;
 
   @media ${MEDIA_SIZE.mobile} {
-    width: auto;
+    width: 160px;
     display: block;
-    margin: 0 0 0 auto;
+    margin: 5px 0 0 auto;
   }
 `;
 
