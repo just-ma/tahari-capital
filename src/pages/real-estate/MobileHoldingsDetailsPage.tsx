@@ -4,9 +4,11 @@ import { getSrc } from "../../sanity";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import PagePlaceholder from "../../components/PagePlaceholder";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
+import { get100ViewportHeight } from "../../utils";
 
 const Gallery = styled.div<{ show: boolean }>`
   width: 100vw;
+  min-height: ${get100ViewportHeight(0.5)};
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -62,6 +64,8 @@ const Image = styled.img`
   z-index: -1;
   position: relative;
   display: block;
+  min-height: 250px;
+  object-fit: cover;
 `;
 
 export type HoldingDefinition = {

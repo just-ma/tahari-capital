@@ -99,41 +99,45 @@ export default function HoldingsDetailsPage({ title }: { title: string }) {
   const { scrollTop } = useAppContext();
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const el = document.getElementById(String(scrollToActiveIndex));
-      if (!el) {
-        return;
-      }
+    console.log({ numImagesLoaded });
+    if (!data || data.holdings.length !== numImagesLoaded) {
+      return;
+    }
 
-      clearInterval(intervalId);
-      setActiveIndex(scrollToActiveIndex);
-      window.scrollTo({
-        top: el.offsetTop + (el.clientHeight - windowHeight) / 2,
-        behavior: "smooth",
-      });
-    }, 100);
+    const el = document.getElementById(
+      data.holdings[scrollToActiveIndex]?.name
+    );
+    if (!el) {
+      return;
+    }
 
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [scrollToActiveIndex]);
+    setActiveIndex(scrollToActiveIndex);
+    window.scrollTo({
+      top: el.offsetTop + (el.clientHeight - windowHeight) / 2,
+      behavior: "smooth",
+    });
+  }, [scrollToActiveIndex, data, numImagesLoaded]);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
 
   useEffect(() => {
-    const el = document.getElementById(String(activeIndex));
+    if (!data) {
+      return;
+    }
+
+    const el = document.getElementById(data.holdings[activeIndex]?.name);
     if (!el) {
       return;
     }
 
     scrollMin.current = el.offsetTop;
     scrollMax.current = el.offsetTop + el.clientHeight;
-  }, [activeIndex]);
+  }, [data, activeIndex]);
 
   useEffect(() => {
-    if (!data?.holdings) {
+    if (!data) {
       return;
     }
 
@@ -143,7 +147,7 @@ export default function HoldingsDetailsPage({ title }: { title: string }) {
     } else if (scrollTop + halfWindowHeight < scrollMin.current) {
       setActiveIndex((prev) => Math.max(prev - 1, 0));
     }
-  }, [scrollTop, data?.holdings]);
+  }, [scrollTop, data]);
 
   const { isMobile } = useWindowSize();
 
@@ -170,7 +174,7 @@ export default function HoldingsDetailsPage({ title }: { title: string }) {
         show={!isLoading && numImagesLoaded === data?.holdings.length}
       >
         {data?.holdings.map(({ name, image }, index) => (
-          <ImageContainer key={name} id={String(index)}>
+          <ImageContainer key={name} id={name}>
             <Image
               src={getSrc(image)}
               active={activeIndex === index}
