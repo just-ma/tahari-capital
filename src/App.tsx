@@ -22,7 +22,7 @@ import VenturesPage from "./pages/ventures/VenturesPage";
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename="/tahari-capital">
+      <BrowserRouter>
         <AppProvider>
           <NavBar />
           <Routes>
