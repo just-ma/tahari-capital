@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import NavBar from "./components/NavBar";
 import HomePage from "./pages/home/HomePage";
@@ -43,20 +43,36 @@ export default function App() {
               path="/holdings/industrial"
               element={<IndustrialHoldingsPage />}
             />
+            <Route
+              path="/industrial"
+              element={<Navigate replace to="/holdings/industrial" />}
+            />
 
             {/* Portfolio - Real Estate - Holdings - Retail */}
             <Route path="/holdings/retail" element={<RetailHoldingsPage />} />
+            <Route
+              path="/retail"
+              element={<Navigate replace to="/holdings/retail" />}
+            />
 
             {/* Portfolio - Real Estate - Holdings - Commercial */}
             <Route
               path="/holdings/commercial"
               element={<CommercialHoldingsPage />}
             />
+            <Route
+              path="/commercial"
+              element={<Navigate replace to="/holdings/commercial" />}
+            />
 
             {/* Portfolio - Real Estate - Holdings - Residential */}
             <Route
               path="/holdings/residential"
               element={<ResidentialHoldingsPage />}
+            />
+            <Route
+              path="/residential"
+              element={<Navigate replace to="/holdings/residential" />}
             />
 
             {/* Portfolio - Real Estate - Realty */}

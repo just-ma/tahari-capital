@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import LogoImageSrc from "../../assets/images/tahari-realty-logo.png";
+import LogoImageSrc from "../../assets/graphics/tahari-realty-logo.svg";
 import useAppContext from "../../hooks/useAppContext";
 import { useEffect, useState } from "react";
 import { NAV_BAR_HEIGHT } from "../../components/NavBar";
