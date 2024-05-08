@@ -6,10 +6,14 @@ import MobileHoldingsDetailsPage from "./MobileHoldingsDetailsPage";
 import { useQuery } from "@tanstack/react-query";
 import { HoldingsListPageDefinition, client, getSrc } from "../../sanity";
 import PagePlaceholder from "../../components/PagePlaceholder";
-import { get100ViewportHeight } from "../../utils";
+import { MEDIA_SIZE } from "../../constants";
 
 const Spacer = styled.div`
-  height: ${get100ViewportHeight(0.2)};
+  height: 180px;
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    height: 100px;
+  }
 `;
 
 const ImagesContainer = styled.div<{ show: boolean }>`
@@ -25,15 +29,15 @@ const ImagesContainer = styled.div<{ show: boolean }>`
   transition: opacity 2s;
 `;
 
-const Menu = styled.div`
+const Menu = styled.div<{ show: boolean }>`
   position: fixed;
   top: 20%;
   right: 60%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  opacity: 0;
-  animation: fadeIn 2s 0.5s forwards;
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: opacity 0.5s;
 `;
 
 const Label = styled.div<{ active: boolean }>`
@@ -98,9 +102,10 @@ export default function HoldingsDetailsPage({ title }: { title: string }) {
 
   const { scrollTop } = useAppContext();
 
+  const numHoldings = data?.holdings.length || 0;
+
   useEffect(() => {
-    console.log({ numImagesLoaded });
-    if (!data || data.holdings.length !== numImagesLoaded) {
+    if (!data || numHoldings !== numImagesLoaded) {
       return;
     }
 
@@ -127,6 +132,11 @@ export default function HoldingsDetailsPage({ title }: { title: string }) {
       return;
     }
 
+    if (activeIndex === numHoldings) {
+      scrollMin.current = scrollMax.current;
+      return;
+    }
+
     const el = document.getElementById(data.holdings[activeIndex]?.name);
     if (!el) {
       return;
@@ -143,21 +153,21 @@ export default function HoldingsDetailsPage({ title }: { title: string }) {
 
     const halfWindowHeight = windowHeight / 2;
     if (scrollTop + halfWindowHeight > scrollMax.current) {
-      setActiveIndex((prev) => Math.min(prev + 1, data.holdings.length - 1));
+      setActiveIndex((prev) => Math.min(prev + 1, numHoldings));
     } else if (scrollTop + halfWindowHeight < scrollMin.current) {
       setActiveIndex((prev) => Math.max(prev - 1, 0));
     }
   }, [scrollTop, data]);
 
-  const { isMobile } = useWindowSize();
+  const { isMobilePortrait } = useWindowSize();
 
-  if (isMobile) {
+  if (isMobilePortrait) {
     return <MobileHoldingsDetailsPage holdings={data?.holdings} />;
   }
 
   return (
     <>
-      <Menu>
+      <Menu show={activeIndex !== numHoldings}>
         <Title>{title}</Title>
         {data?.holdings.map(({ name }, index) => (
           <Label
@@ -170,9 +180,7 @@ export default function HoldingsDetailsPage({ title }: { title: string }) {
         ))}
       </Menu>
       <Spacer />
-      <ImagesContainer
-        show={!isLoading && numImagesLoaded === data?.holdings.length}
-      >
+      <ImagesContainer show={!isLoading && numImagesLoaded === numHoldings}>
         {data?.holdings.map(({ name, image }, index) => (
           <ImageContainer key={name} id={name}>
             <Image
@@ -183,9 +191,7 @@ export default function HoldingsDetailsPage({ title }: { title: string }) {
           </ImageContainer>
         ))}
       </ImagesContainer>
-      {(isLoading || numImagesLoaded !== data?.holdings.length) && (
-        <PagePlaceholder />
-      )}
+      {(isLoading || numImagesLoaded !== numHoldings) && <PagePlaceholder />}
       <Spacer />
     </>
   );

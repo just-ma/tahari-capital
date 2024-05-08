@@ -26,9 +26,13 @@ const LogosSection = styled(Section)`
   pointer-events: none;
   margin-top: -100px;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     padding: 0 15px 50px;
     gap: 30px;
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    padding: 0 80px 50px;
   }
 `;
 
@@ -48,8 +52,6 @@ const Logo = styled.img<{
 
   @media ${MEDIA_SIZE.mobile} {
     display: block;
-    max-width: 100px;
-    max-height: 70px;
     transform: scale(1);
     width: auto;
     height: auto;
@@ -59,6 +61,16 @@ const Logo = styled.img<{
         margin-left: 5%;
         margin-right: 5%;
       `}
+  }
+
+  @media ${MEDIA_SIZE.mobilePortrait} {
+    max-width: 100px;
+    max-height: 70px;
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    max-width: 180px;
+    max-height: 110px;
   }
 `;
 
@@ -93,7 +105,7 @@ const LogoImage = styled.img`
     }
   }
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 90%;
   }
 `;

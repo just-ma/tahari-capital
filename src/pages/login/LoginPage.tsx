@@ -12,7 +12,7 @@ const Section = styled.div<{ reverse?: boolean }>`
   width: 100vw;
   height: ${get100ViewportHeight()};
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     min-height: ${get100ViewportHeight()};
     height: fit-content;
   }
@@ -70,12 +70,19 @@ const Panel = styled.div`
     }
   }
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 100vw;
     right: -100vw;
     padding: 14px;
     backdrop-filter: brightness(0.4);
     -webkit-backdrop-filter: brightness(0.4);
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    width: 340px;
+    right: -340px;
+    padding: 14px;
+    gap: 20px;
   }
 `;
 
@@ -86,7 +93,7 @@ const Logo = styled(TahariLogo)`
   height: fit-content;
   margin-bottom: 20px;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     margin-top: 250px;
     margin-bottom: 0;
   }
@@ -95,6 +102,10 @@ const Logo = styled(TahariLogo)`
 const InputContainer = styled.div`
   width: 100%;
   margin-top: 40px;
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    margin-top: 30px;
+  }
 `;
 
 const InputLabel = styled.label`
@@ -133,6 +144,11 @@ const Input = styled.input<{ error: boolean }>`
 const SubmitContainer = styled.div`
   height: 60px;
   margin-bottom: 14%;
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    height: auto;
+    margin-bottom: 0;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -170,7 +186,7 @@ const Error = styled.div<{ show: boolean }>`
 
 export default function LoginPage() {
   const { data } = useGetDocument<LoginBackgroundDefinition>("loginBackground");
-  const { isMobile } = useWindowSize();
+  const { isMobilePortrait, isMobileLandscape } = useWindowSize();
 
   const [submitting, setSubmitting] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -197,13 +213,13 @@ export default function LoginPage() {
     <>
       <Section>
         <BackgroundImage
-          src={getSrc((isMobile && data?.mobileImage) || data?.image)}
+          src={getSrc((isMobilePortrait && data?.mobileImage) || data?.image)}
           onLoad={() => setImageLoaded(true)}
           show={imageLoaded}
         />
         <Shadow />
         <Panel>
-          <Logo />
+          {!isMobileLandscape && <Logo />}
           <div>
             <InputContainer>
               <InputLabel>Username</InputLabel>

@@ -30,13 +30,21 @@ const Content = styled.div`
   align-self: stretch;
   display: flex;
   justify-content: space-between;
-  gap: 150px;
+  gap: 20px 150px;
+  flex-wrap: wrap;
 
   @media ${MEDIA_SIZE.mobile} {
-    flex-wrap: wrap;
-    gap: 50px 20px;
     height: fit-content;
     margin-bottom: 50px;
+  }
+
+  @media ${MEDIA_SIZE.mobilePortrait} {
+    gap: 50px 20px;
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    min-height: 150px;
+    gap: 10%;
   }
 `;
 
@@ -104,22 +112,30 @@ const Label = styled.div`
 
 const LogoColumn = styled.div`
   flex: 2 0 0;
-
-  @media ${MEDIA_SIZE.mobile} {
-    order: 1;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Logo = styled.img`
-  width: 200px;
-  margin-top: 10px;
+  width: 240px;
+  max-width: 100%;
+  min-width: 150px;
+  margin-bottom: 20px;
   user-select: none;
   cursor: pointer;
 
   @media ${MEDIA_SIZE.mobile} {
     width: 155px;
     display: block;
-    margin: 24px 0 0 auto;
+  }
+
+  @media ${MEDIA_SIZE.mobilePortrait} {
+    margin: 0 0 20px auto;
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    margin: 0 0 60px auto;
   }
 `;
 
@@ -148,9 +164,6 @@ export default function Footer() {
   return (
     <Container>
       <Content>
-        <LogoColumn>
-          <Logo src={TahariCapitalLogoSrc} onClick={handleLogoClick} />
-        </LogoColumn>
         <Column>
           <Title>Contact</Title>
           <ContactColumnBody>
@@ -186,6 +199,9 @@ export default function Footer() {
             <InteralLink to="/">Tahari Logistics</InteralLink>
           </ColumnBody>
         </Column>
+        <LogoColumn>
+          <Logo src={TahariCapitalLogoSrc} onClick={handleLogoClick} />
+        </LogoColumn>
       </Content>
       <Copyright>© {CURRENT_YEAR} TAHARI CAPITAL</Copyright>
     </Container>

@@ -9,16 +9,17 @@ import { get100ViewportHeight } from "../../utils";
 
 const Container = styled.div<{ show: boolean }>`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: stretch;
   justify-content: center;
   height: calc(${get100ViewportHeight()} - ${NAV_BAR_HEIGHT}px);
   opacity: ${({ show }) => (show ? 1 : 0)};
   transition: opacity 2s;
 
-  @media ${MEDIA_SIZE.desktop} {
-    flex-direction: row;
-    flex-wrap: wrap;
+  @media ${MEDIA_SIZE.mobilePortrait} {
+    flex-direction: column;
+    flex-wrap: nowrap;
   }
 `;
 
@@ -71,13 +72,18 @@ const Label = styled.div`
   text-transform: uppercase;
 
   @media ${MEDIA_SIZE.mobile} {
-    font-size: 10vw;
     opacity: 1;
+  }
+
+  @media ${MEDIA_SIZE.mobilePortrait} {
+    font-size: 10vw;
     margin: auto;
   }
 `;
 
 const Section = styled(Link)<{ mobileOrder: number }>`
+  flex: 1 0 50vw;
+  height: 50%;
   position: relative;
   display: flex;
   align-items: flex-end;
@@ -88,12 +94,8 @@ const Section = styled(Link)<{ mobileOrder: number }>`
     opacity: 1;
   }
 
-  @media ${MEDIA_SIZE.desktop} {
-    flex: 1 0 50vw;
-    height: 50%;
-  }
-
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
+    height: auto;
     flex: 1 0 0;
     order: ${({ mobileOrder }) => mobileOrder};
   }

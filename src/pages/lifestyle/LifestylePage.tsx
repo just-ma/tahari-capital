@@ -48,7 +48,7 @@ const LogoImage = styled.img`
     }
   }
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 90%;
   }
 `;
@@ -65,7 +65,7 @@ const Shadow = styled.div`
   opacity: 0.6;
   z-index: 1;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 80%;
   }
 `;
@@ -85,7 +85,7 @@ const Row = styled.div`
   gap: 2px;
   width: 100%;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     flex-direction: column;
   }
 `;
@@ -96,7 +96,7 @@ const GalleryImage = styled.img`
   flex: 1 0;
   object-fit: cover;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     height: auto;
     width: 100%;
     min-height: 200px;

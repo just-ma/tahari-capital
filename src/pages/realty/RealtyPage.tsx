@@ -24,7 +24,7 @@ const ServicesSection = styled(Section)`
   height: fit-content;
   align-items: flex-start;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     flex-direction: column;
   }
 `;
@@ -54,12 +54,16 @@ const ServicesBackgroundImage = styled.img`
   display: block;
   top: ${NAV_BAR_HEIGHT}px;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     opacity: 1;
     width: 100vw;
     flex: auto;
     position: relative;
     top: 0;
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    flex: 1 0 40%;
   }
 `;
 
@@ -67,7 +71,7 @@ const HalfSection = styled.div`
   flex: 1 0 50%;
   height: 100%;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     flex: auto;
     height: fit-content;
   }
@@ -90,7 +94,7 @@ const LogoImage = styled.img`
     }
   }
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 90%;
   }
 `;
@@ -107,7 +111,7 @@ const Shadow = styled.div`
   opacity: 0.6;
   z-index: 0;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 70%;
   }
 `;
@@ -118,11 +122,15 @@ const ServicesContainer = styled.div`
   flex-direction: column;
   padding: 200px 100px 0;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 100vw;
     height: fit-content;
     padding: 40px;
     box-sizing: border-box;
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    padding: 150px 0 0 50px;
   }
 `;
 
@@ -193,6 +201,10 @@ const Description = styled.div<{ show: boolean }>`
     line-height: 20px;
     padding: 60px 40px 10px;
   }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    padding: 60px 40px 40px;
+  }
 `;
 
 export default function RealtyPage() {
@@ -203,7 +215,7 @@ export default function RealtyPage() {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const { scrollTop } = useAppContext();
-  const { isMobile } = useWindowSize();
+  const { isMobilePortrait } = useWindowSize();
 
   useEffect(() => {
     setShowServices(scrollTop > window.innerHeight * 0.5);
@@ -224,7 +236,7 @@ export default function RealtyPage() {
       >
         <BackgroundImage
           src={getSrc(
-            (isMobile && data?.primaryImageMobile) || data?.primaryImage
+            (isMobilePortrait && data?.primaryImageMobile) || data?.primaryImage
           )}
           onLoad={() => setImageLoaded(true)}
           show={imageLoaded}
@@ -233,7 +245,7 @@ export default function RealtyPage() {
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
       <ServicesSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
-        {!isMobile && (
+        {!isMobilePortrait && (
           <ServicesBackgroundImage src={getSrc(data?.secondaryImage)} />
         )}
         <HalfSection>
@@ -249,7 +261,7 @@ export default function RealtyPage() {
               </ServiceItem>
             ))}
           </ServicesContainer>
-          {isMobile && (
+          {isMobilePortrait && (
             <ServicesBackgroundImage src={getSrc(data?.secondaryImage)} />
           )}
           <Description show={showDescription}>

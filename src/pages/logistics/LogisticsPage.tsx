@@ -27,13 +27,13 @@ const LogoImage = styled.img`
   width: 50%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, calc(-50% - 40px));
+  transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 2;
   animation: fadeIn 1s forwards;
   opacity: 0;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 90%;
   }
 `;
@@ -62,7 +62,7 @@ const Shadow = styled.div`
   opacity: 0.4;
   z-index: 1;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 70%;
   }
 `;
@@ -71,7 +71,7 @@ const StatsSection = styled(Section)`
   height: fit-content;
   align-items: flex-start;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     flex-direction: column;
   }
 `;
@@ -93,7 +93,7 @@ const StatsBackgroundImage = styled.img`
     }
   }
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 100vw;
     height: auto;
     flex: auto;
@@ -106,7 +106,7 @@ const HalfSection = styled.div`
   flex: 1 0 50%;
   height: 100%;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     flex: auto;
     height: fit-content;
   }
@@ -121,11 +121,15 @@ const MenuContainer = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     margin: 0;
     box-sizing: border-box;
     padding: 30px 40px 60px;
     width: 100%;
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    padding: 50px 40px 0;
   }
 `;
 
@@ -206,7 +210,7 @@ export default function LogisticsPage() {
   const [showDescription, setShowDescription] = useState(false);
   const [init, setInit] = useState(false);
 
-  const { isMobile } = useWindowSize();
+  const { isMobilePortrait } = useWindowSize();
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -218,7 +222,9 @@ export default function LogisticsPage() {
       return;
     }
 
-    setShowStats(scrollTop > window.innerHeight * (isMobile ? 0.4 : 0.5));
+    setShowStats(
+      scrollTop > window.innerHeight * (isMobilePortrait ? 0.4 : 0.5)
+    );
     setShowDescription(scrollTop > window.innerHeight * 1.4);
   }, [scrollTop, init]);
 
@@ -242,7 +248,7 @@ export default function LogisticsPage() {
         <LogoImage src={LogoImageSrc} draggable={false} />
       </Section>
       <StatsSection opacity={Math.min(scrollTop / window.innerHeight, 1)}>
-        {!isMobile && (
+        {!isMobilePortrait && (
           <StatsBackgroundImage
             src={getSrc(data?.statsImage)}
             draggable={false}
@@ -272,7 +278,7 @@ export default function LogisticsPage() {
               </>
             ))}
           </MenuContainer>
-          {isMobile && (
+          {isMobilePortrait && (
             <StatsBackgroundImage
               src={getSrc(data?.statsImage)}
               draggable={false}

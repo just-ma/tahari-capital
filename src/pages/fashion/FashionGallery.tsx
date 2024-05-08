@@ -4,14 +4,20 @@ import { debounce, get100ViewportHeight } from "../../utils";
 import { MEDIA_SIZE } from "../../constants";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { getSrc } from "../../sanity";
+import { NAV_BAR_HEIGHT } from "../../components/NavBar";
 
 const Container = styled.div`
   width: 50vw;
   height: ${get100ViewportHeight()};
   display: flex;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 100%;
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    position: sticky;
+    top: ${NAV_BAR_HEIGHT}px;
   }
 `;
 

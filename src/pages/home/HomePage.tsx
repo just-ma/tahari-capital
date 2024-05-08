@@ -45,7 +45,7 @@ const Logo = styled(LogoSvg)`
     }
   }
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 90%;
   }
 `;

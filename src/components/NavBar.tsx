@@ -54,7 +54,7 @@ const Bar = styled.div`
   box-sizing: border-box;
   height: ${NAV_BAR_HEIGHT}px;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     padding: 0 10px;
   }
 `;
@@ -88,7 +88,7 @@ const itemLabelCss = css<{ hide: boolean }>`
   opacity: ${({ hide }) => (hide ? 0 : 1)};
   transition: opacity 0.5s, color 0.5s;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     font-size: 20px;
   }
 `;
@@ -143,7 +143,7 @@ export default function NavBar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const { scrollTop } = useAppContext();
-  const { isMobile } = useWindowSize();
+  const { isMobilePortrait } = useWindowSize();
 
   const isHome = location.pathname === "/";
   const isFullHeightPage =
@@ -187,7 +187,7 @@ export default function NavBar() {
             </StyledLink>
           </Item>
         </TitleContainer>
-        {isMobile ? (
+        {isMobilePortrait ? (
           <ItemContainer>
             <HamburgerButton
               show={showMobileMenu}
@@ -213,7 +213,7 @@ export default function NavBar() {
           ))
         )}
       </Bar>
-      {isMobile && (
+      {isMobilePortrait && (
         <MobileMenu>
           {MENU_ITEMS.map(({ label, to, onClick }) => (
             <ItemContainer key={label}>

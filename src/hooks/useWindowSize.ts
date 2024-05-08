@@ -22,16 +22,16 @@ export default function useWindowSize() {
     };
   }, []);
 
-  return useMemo(
-    () => ({
+  return useMemo(() => {
+    const isMobile = screenSize.windowWidth <= MOBILE_WIDTH;
+
+    return {
       ...screenSize,
-      isMobile:
-        screenSize.windowWidth <= MOBILE_WIDTH &&
-        screenSize.windowWidth < screenSize.windowHeight,
+      isMobile,
+      isMobilePortrait:
+        isMobile && screenSize.windowWidth < screenSize.windowHeight,
       isMobileLandscape:
-        screenSize.windowWidth <= MOBILE_WIDTH &&
-        screenSize.windowWidth >= screenSize.windowHeight,
-    }),
-    [screenSize]
-  );
+        isMobile && screenSize.windowWidth >= screenSize.windowHeight,
+    };
+  }, [screenSize]);
 }

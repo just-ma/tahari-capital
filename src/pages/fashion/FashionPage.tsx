@@ -28,7 +28,7 @@ const Section = styled.div<{
 const StatsSection = styled(Section)`
   height: fit-content;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     flex-direction: column-reverse;
   }
 `;
@@ -37,8 +37,15 @@ const DescriptionSection = styled(Section)`
   height: ${get100ViewportHeight()};
 
   @media ${MEDIA_SIZE.mobile} {
-    flex-direction: column;
     height: fit-content;
+  }
+
+  @media ${MEDIA_SIZE.mobilePortrait} {
+    flex-direction: column;
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    align-items: flex-start;
   }
 `;
 
@@ -59,7 +66,7 @@ const LogoImage = styled.img`
   width: 50%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, calc(-50% - 40px));
+  transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 1;
   animation: fadeIn 1s forwards;
@@ -71,7 +78,7 @@ const LogoImage = styled.img`
     }
   }
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 90%;
   }
 `;
@@ -81,8 +88,13 @@ const StatsBackgroundImage = styled.img`
   object-fit: cover;
   user-select: none;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     width: 100%;
+    height: auto;
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    width: 40%;
     height: auto;
   }
 `;
@@ -95,11 +107,15 @@ const MainContainer = styled.div`
   align-items: stretch;
   width: fit-content;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     margin: 0;
     box-sizing: border-box;
     padding: 30px 40px 60px;
     width: 100%;
+  }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    margin-left: 80px;
   }
 `;
 
@@ -162,7 +178,7 @@ const DescriptionContainer = styled.div`
   padding: 0 50px;
   box-sizing: border-box;
 
-  @media ${MEDIA_SIZE.mobile} {
+  @media ${MEDIA_SIZE.mobilePortrait} {
     flex: 0 0 0;
     padding: 0;
   }
@@ -181,13 +197,16 @@ const Description = styled.div`
   @media ${MEDIA_SIZE.mobile} {
     font-size: 14px;
     line-height: 20px;
+  }
+
+  @media ${MEDIA_SIZE.mobilePortrait} {
     padding: 60px 40px;
   }
 `;
 
 export default function FashionPage() {
   const { scrollTop } = useAppContext();
-  const { isMobile } = useWindowSize();
+  const { isMobilePortrait } = useWindowSize();
 
   const { data } = useGetDocument<FashionPageDefinition>("fashionPage");
 
@@ -198,8 +217,8 @@ export default function FashionPage() {
   }, []);
 
   useEffect(() => {
-    setShow(scrollTop > window.innerHeight * (isMobile ? 0.4 : 0.6));
-  }, [scrollTop, isMobile]);
+    setShow(scrollTop > window.innerHeight * (isMobilePortrait ? 0.4 : 0.6));
+  }, [scrollTop, isMobilePortrait]);
 
   return (
     <>
