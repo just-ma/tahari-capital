@@ -16,6 +16,10 @@ const Section = styled.div<{ opacity: number }>`
   opacity: ${({ opacity }) => opacity};
   display: flex;
   flex-direction: column;
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    height: 530px;
+  }
 `;
 
 const Row = styled.div<{ active: boolean }>`

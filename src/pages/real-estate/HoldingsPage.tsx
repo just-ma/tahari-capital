@@ -79,6 +79,10 @@ const Label = styled.div`
     font-size: 10vw;
     margin: auto;
   }
+
+  @media ${MEDIA_SIZE.mobileLandscape} {
+    margin: 0 0 20px 20px;
+  }
 `;
 
 const Section = styled(Link)<{ mobileOrder: number }>`
