@@ -193,7 +193,7 @@ export default function Footer() {
             <ExternalLink href="https://www.elietahari.com/">
               Elie Tahari
             </ExternalLink>
-            <ExternalLink href="https://www.taharirealty.com/">
+            <ExternalLink href="https://taharirealty.com/">
               Tahari Realty
             </ExternalLink>
             <InteralLink to="/">Tahari Logistics</InteralLink>

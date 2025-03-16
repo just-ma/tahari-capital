@@ -16,6 +16,7 @@ import ResidentialHoldingsPage from "./pages/real-estate/ResidentialHoldingsPage
 import LoginPage from "./pages/login/LoginPage";
 import RealtyPage from "./pages/realty/RealtyPage";
 import VenturesPage from "./pages/ventures/VenturesPage";
+import JeremeyTahariPage from "./pages/about/JeremeyTahariPage";
 // import HistoryPage from "./pages/history/HistoryPage";
 // import LifestylePage from "./pages/lifestyle/LifestylePage";
 
@@ -92,6 +93,9 @@ export default function App() {
 
             {/* Login */}
             <Route path="/login" element={<LoginPage />} />
+
+            {/* Jeremey Tahari */}
+            <Route path="/jeremey-tahari" element={<JeremeyTahariPage />} />
           </Routes>
           <Footer />
         </AppProvider>
