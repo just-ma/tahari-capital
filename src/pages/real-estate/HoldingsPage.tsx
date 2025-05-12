@@ -6,6 +6,7 @@ import { MEDIA_SIZE } from "../../constants";
 import useGetDocument from "../../sanity/useGetDocument";
 import { HoldingsPageDefinition, getSrc } from "../../sanity";
 import { get100ViewportHeight } from "../../utils";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div<{ show: boolean }>`
   display: flex;
@@ -117,6 +118,9 @@ export default function HoldingsPage() {
 
   return (
     <>
+      <Helmet>
+        <title>TAHARI REAL ESTATE</title>
+      </Helmet>
       <NavBarPlaceholder />
       <Container show={!isLoading && numImagesLoaded === 4}>
         <Section to="/holdings/commercial" mobileOrder={1}>

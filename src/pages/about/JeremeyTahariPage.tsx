@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { get100ViewportHeight } from "../../utils";
 import { MEDIA_SIZE } from "../../constants";
+import { Helmet } from "react-helmet";
 
 const Page = styled.div`
   max-width: 650px;
@@ -46,10 +47,18 @@ export default function JeremeyTahariPage() {
   }, []);
 
   return (
-    <Page>
-      <Title>Jeremey Tahari</Title>
-      <Description>
-        {`Jeremey Tahari is the managing partner of Tahari Capital. In early 2020, he took on the challenge of restructuring his family’s enterprises, including his father’s eponymous fashion label Elie Tahari, into a multi-industry private-equity firm. Under his leadership, this emergent investment firm, Tahari Capital, explores diverse market opportunities, and is focused on necessary core asset classes for their long-term stability.
+    <>
+      <Helmet>
+        <title>JEREMY TAHARI</title>
+        <meta
+          name="description"
+          content="Jeremey Tahari is the managing partner of Tahari Capital. In early 2020, he took on the challenge of restructuring his family’s enterprises, including his father’s eponymous fashion label Elie Tahari, into a multi-industry private-equity firm. Under his leadership, this emergent investment firm, Tahari Capital, explores diverse market opportunities, and is focused on necessary core asset classes for their long-term stability."
+        />
+      </Helmet>
+      <Page>
+        <Title>Jeremey Tahari</Title>
+        <Description>
+          {`Jeremey Tahari is the managing partner of Tahari Capital. In early 2020, he took on the challenge of restructuring his family’s enterprises, including his father’s eponymous fashion label Elie Tahari, into a multi-industry private-equity firm. Under his leadership, this emergent investment firm, Tahari Capital, explores diverse market opportunities, and is focused on necessary core asset classes for their long-term stability.
 
 Tahari is known for his ambitious undertakings, clear strategic thinking, driven management style, and relentless attention to detail, born of his roots in the fashion world where every stitch counts.
 
@@ -60,7 +69,8 @@ Separately, Jeremey founded and manages the firm’s $300M real estate portfolio
 In addition, Jeremey manages the day-to-day operations of Tahari Logistics, a third-party logistics firm that manages more than 50 international luxury brands, and fulfills over 10 million units annually.
 
 Tahari was born and raised in New York City, later moving to the United Kingdom to finish his high school education and A levels at Clifton College, and then returning to his hometown to attend New York University, completing a degree in Ethical Real Estate Development.`}
-      </Description>
-    </Page>
+        </Description>
+      </Page>
+    </>
   );
 }

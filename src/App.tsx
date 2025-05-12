@@ -17,6 +17,7 @@ import LoginPage from "./pages/login/LoginPage";
 import RealtyPage from "./pages/realty/RealtyPage";
 import VenturesPage from "./pages/ventures/VenturesPage";
 import JeremeyTahariPage from "./pages/about/JeremeyTahariPage";
+import { Helmet } from "react-helmet";
 // import HistoryPage from "./pages/history/HistoryPage";
 // import LifestylePage from "./pages/lifestyle/LifestylePage";
 
@@ -26,6 +27,13 @@ export default function App() {
       <BrowserRouter>
         <AppProvider>
           <NavBar />
+          <Helmet>
+            <title>TAHARI CAPITAL</title>
+            <meta
+              name="description"
+              content="Currently managing a $300M+ portfolio of retail, residential, commercial, and industrial space, Tahari Capital is recognized for its unique attention to detail, clearly derived from its roots in fashion— where every stitch counts."
+            />
+          </Helmet>
           <Routes>
             {/* Home */}
             <Route path="/" element={<HomePage />} />

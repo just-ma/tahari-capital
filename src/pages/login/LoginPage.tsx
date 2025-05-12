@@ -6,6 +6,7 @@ import useGetDocument from "../../sanity/useGetDocument";
 import { LoginBackgroundDefinition, getSrc } from "../../sanity";
 import { get100ViewportHeight } from "../../utils";
 import useWindowSize from "../../hooks/useWindowSize";
+import { Helmet } from "react-helmet";
 
 const Section = styled.div<{ reverse?: boolean }>`
   position: relative;
@@ -211,6 +212,9 @@ export default function LoginPage() {
 
   return (
     <>
+      <Helmet>
+        <title>INVESTOR LOGIN</title>
+      </Helmet>
       <Section>
         <BackgroundImage
           src={getSrc((isMobilePortrait && data?.mobileImage) || data?.image)}

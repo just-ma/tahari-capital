@@ -9,6 +9,7 @@ import useGetDocument from "../../sanity/useGetDocument";
 import { RealtyPageDefinition, getSrc } from "../../sanity";
 import { PortableText } from "@portabletext/react";
 import { get100ViewportHeight } from "../../utils";
+import { Helmet } from "react-helmet";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
@@ -228,6 +229,13 @@ export default function RealtyPage() {
 
   return (
     <>
+      <Helmet>
+        <title>TAHARI REALTY</title>
+        <meta
+          name="description"
+          content="Founded in 2021 by Jeremey Tahari, Tahari Realty is responsible for all activities and services related to the operation of the Tahari Capital portfolio of commercial properties and development projects."
+        />
+      </Helmet>
       <Section
         opacity={Math.max(
           (window.innerHeight - scrollTop) / window.innerHeight,

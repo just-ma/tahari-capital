@@ -10,6 +10,7 @@ import useGetDocument from "../../sanity/useGetDocument";
 import { LogisticsPageDefinition, getSrc } from "../../sanity";
 import { PortableText } from "@portabletext/react";
 import { get100ViewportHeight } from "../../utils";
+import { Helmet } from "react-helmet";
 
 const Section = styled.div<{ opacity: number; reverse?: boolean }>`
   position: relative;
@@ -230,6 +231,13 @@ export default function LogisticsPage() {
 
   return (
     <>
+      <Helmet>
+        <title>TAHARI LOGISTCS</title>
+        <meta
+          name="description"
+          content="Since 2003, Tahari Logistics has conducted full service third party logistics operations by shipping and fulfilling over fifty brands domestically and abroad. The firm gains a competitive advantage through its complete responsibility of the affiliated Tahari brand, as that standard of care is equally disseminated to all clients. The state of the art WMS and RFID coupled with the full steam tunnel and pressing capabilities sets apart Tahari Logistics to service nearly 10M units annually across all consumer goods products."
+        />
+      </Helmet>
       <Section
         opacity={Math.max(
           (window.innerHeight - scrollTop) / window.innerHeight,

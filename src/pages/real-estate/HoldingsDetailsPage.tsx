@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { HoldingsListPageDefinition, client, getSrc } from "../../sanity";
 import PagePlaceholder from "../../components/PagePlaceholder";
 import { MEDIA_SIZE } from "../../constants";
+import { Helmet } from "react-helmet";
 
 const Spacer = styled.div`
   height: 180px;
@@ -167,6 +168,9 @@ export default function HoldingsDetailsPage({ title }: { title: string }) {
 
   return (
     <>
+      <Helmet>
+        <title>{`TAHARI REAL ESTATE - ${title.toUpperCase()}`}</title>
+      </Helmet>
       <Menu show={activeIndex !== numHoldings}>
         <Title>{title}</Title>
         {data?.holdings.map(({ name }, index) => (

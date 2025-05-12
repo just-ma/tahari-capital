@@ -6,6 +6,7 @@ import { MEDIA_SIZE } from "../../constants";
 import useGetDocument from "../../sanity/useGetDocument";
 import { VenturesPageDefinition, getSrc } from "../../sanity";
 import { get100ViewportHeight } from "../../utils";
+import { Helmet } from "react-helmet";
 
 const Section = styled.div<{ opacity: number }>`
   position: relative;
@@ -128,6 +129,9 @@ export default function VenturesPage() {
 
   return (
     <>
+      <Helmet>
+        <title>TAHARI VENTURES</title>
+      </Helmet>
       <Section
         opacity={Math.max(
           (window.innerHeight - scrollTop) / window.innerHeight,

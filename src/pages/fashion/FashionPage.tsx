@@ -10,6 +10,7 @@ import { FashionPageDefinition, getSrc } from "../../sanity";
 import { PortableText } from "@portabletext/react";
 import { get100ViewportHeight } from "../../utils";
 import useWindowSize from "../../hooks/useWindowSize";
+import { Helmet } from "react-helmet";
 
 const Section = styled.div<{
   opacity: number;
@@ -222,6 +223,13 @@ export default function FashionPage() {
 
   return (
     <>
+      <Helmet>
+        <title>ELIE TAHARI</title>
+        <meta
+          name="description"
+          content="Elie Tahari is a global leader in fashion design and distribution of luxury lifestyle products. Our reputation and distinctive image of timeless design have been developed across a wide range of products, brands, distribution channels and international markets in four categories: apparel, footwear and accessories, home, and fragrance."
+        />
+      </Helmet>
       <Section
         opacity={Math.max(
           (window.innerHeight - scrollTop) / window.innerHeight,
