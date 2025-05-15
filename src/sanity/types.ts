@@ -93,3 +93,9 @@ export type ContactDefinition = DocumentBase & {
   phone: string;
   address: PortableTextBlock;
 };
+
+export type AboutJeremeyDefinition = DocumentBase & {
+  _type: "aboutJeremey";
+  title: string;
+  description: PortableTextBlock;
+};
