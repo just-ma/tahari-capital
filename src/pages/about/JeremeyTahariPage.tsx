@@ -45,6 +45,10 @@ const Description = styled.div`
   @media ${MEDIA_SIZE.mobile} {
     font-size: 14px;
     line-height: 20px;
+
+    > p {
+      margin: 20px 0;
+    }
   }
 `;
 
