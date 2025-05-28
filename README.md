@@ -41,7 +41,7 @@ npm run deploy
 This command will:
 - Build the application for production
 - Deploy to the `gh-pages` branch
-- Automatically publish to GitHub Pages
+- Automatically publish to [https://www.taharicapital.com/](https://www.taharicapital.com/)
 
 ## Content Management
 
