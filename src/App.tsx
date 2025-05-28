@@ -9,15 +9,12 @@ import FashionPage from "./pages/fashion/FashionPage";
 import Footer from "./components/Footer";
 import LogisticsPage from "./pages/logistics/LogisticsPage";
 import HoldingsPage from "./pages/real-estate/HoldingsPage";
-import IndustrialHoldingsPage from "./pages/real-estate/IndustrialHoldingsPage";
-import RetailHoldingsPage from "./pages/real-estate/RetailHoldingsPage";
-import CommercialHoldingsPage from "./pages/real-estate/CommercialHoldingsPage";
-import ResidentialHoldingsPage from "./pages/real-estate/ResidentialHoldingsPage";
 import LoginPage from "./pages/login/LoginPage";
 import RealtyPage from "./pages/realty/RealtyPage";
 import VenturesPage from "./pages/ventures/VenturesPage";
 import JeremeyTahariPage from "./pages/about/JeremeyTahariPage";
 import { Helmet } from "react-helmet";
+import HoldingsDetailsPage from "./pages/real-estate/HoldingsDetailsPage";
 // import HistoryPage from "./pages/history/HistoryPage";
 // import LifestylePage from "./pages/lifestyle/LifestylePage";
 
@@ -50,7 +47,7 @@ export default function App() {
             {/* Portfolio - Real Estate - Holdings - Industrial */}
             <Route
               path="/holdings/industrial"
-              element={<IndustrialHoldingsPage />}
+              element={<HoldingsDetailsPage title="Industrial" />}
             />
             <Route
               path="/industrial"
@@ -58,7 +55,10 @@ export default function App() {
             />
 
             {/* Portfolio - Real Estate - Holdings - Retail */}
-            <Route path="/holdings/retail" element={<RetailHoldingsPage />} />
+            <Route
+              path="/holdings/retail"
+              element={<HoldingsDetailsPage title="Retail" />}
+            />
             <Route
               path="/retail"
               element={<Navigate replace to="/holdings/retail" />}
@@ -67,7 +67,7 @@ export default function App() {
             {/* Portfolio - Real Estate - Holdings - Commercial */}
             <Route
               path="/holdings/commercial"
-              element={<CommercialHoldingsPage />}
+              element={<HoldingsDetailsPage title="Commercial" />}
             />
             <Route
               path="/commercial"
@@ -77,7 +77,7 @@ export default function App() {
             {/* Portfolio - Real Estate - Holdings - Residential */}
             <Route
               path="/holdings/residential"
-              element={<ResidentialHoldingsPage />}
+              element={<HoldingsDetailsPage title="Residential" />}
             />
             <Route
               path="/residential"
@@ -87,7 +87,7 @@ export default function App() {
             {/* Portfolio - Real Estate - Realty */}
             <Route path="/realty" element={<RealtyPage />} />
 
-            {/* Portfolio - Lifestyle */}
+            {/* TODO:Portfolio - Lifestyle */}
             {/* <Route path="/lifestyle" element={<LifestylePage />} /> */}
 
             {/* Portfolio - Ventures */}
@@ -96,7 +96,7 @@ export default function App() {
             {/* Portfolio - Logistics */}
             <Route path="/logistics" element={<LogisticsPage />} />
 
-            {/* History */}
+            {/* TODO: History */}
             {/* <Route path="/history" element={<HistoryPage />} /> */}
 
             {/* Login */}
