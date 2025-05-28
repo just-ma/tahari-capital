@@ -1,30 +1,54 @@
-# React + TypeScript + Vite
+# Tahari Capital
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tech Stack
 
-Currently, two official plugins are available:
+- **Frontend**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **CMS**: Sanity.io
+- **Deployment**: GitHub Pages
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
 
-## Expanding the ESLint configuration
+### Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+1. Clone the repository:
+```bash
+git clone git@github.com:just-ma/tahari-capital.git
+cd tahari-capital
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Install dependencies:
+```bash
+npm install
+```
+
+### Development
+
+Start the development server:
+```bash
+npm run dev
+```
+
+The application will be available at [http://localhost:5173/](http://localhost:5173/)
+
+## Deployment
+
+Deploy to GitHub Pages:
+```bash
+npm run deploy
+```
+
+This command will:
+- Build the application for production
+- Deploy to the `gh-pages` branch
+- Automatically publish to GitHub Pages
+
+## Content Management
+
+This application uses Sanity CMS for content management. Only a few assests are hosted locally including fonts, videos, and logos. Everything else should be coming from Sanity.
+
+### Sanity Configuration
+
+The Sanity client is configured to use:
+- Read-only access for public content
+- CDN for optimized content delivery
